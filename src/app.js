@@ -24,7 +24,6 @@ window.addEventListener('load', () => {
     const pdfTitle = document.getElementById('pdf-title');
     const pdfModalClose = document.getElementById('pdf-modal-close');
     const preloader = document.getElementById('preloader');
-    // **NEW:** Custom scrollbar elements
     const scrollbarLiquid = document.getElementById('scrollbar-liquid');
     const scrollbarPercentage = document.getElementById('scrollbar-percentage');
 
@@ -39,12 +38,9 @@ window.addEventListener('load', () => {
     // ===================================
     
     if (!prefersReducedMotion) {
-        // Initialize the particle background
         initThreeJS();
-        // Initialize custom cursor
         initCustomCursor();
     } else {
-        // Make animated elements visible immediately for reduced motion
         document.querySelectorAll('[data-animate]').forEach(el => el.style.opacity = 1);
     }
 
@@ -52,21 +48,16 @@ window.addEventListener('load', () => {
     // ANIMATIONS & EFFECTS
     // ===================================
     
-    /**
-     * Animates the hero text into view using GSAP.
-     */
     function animateHeroText() {
         if (typeof gsap === 'undefined' || prefersReducedMotion) return;
-        gsap.set('[data-animate]', { y: 30, opacity: 0 }); // Initial state
+        gsap.set('[data-animate]', { y: 30, opacity: 0 }); 
         const tl = gsap.timeline();
-        // Staggered animation sequence
         tl.to('[data-animate="hero-title"]', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, "+=0.3")
           .to('[data-animate="hero-subtitle"]', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, "-=0.4")
           .to('[data-animate="hero-p"]', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, "-=0.6")
           .to('[data-animate="scroll-indicator"]', { opacity: 1, duration: 1, ease: 'power1.inOut' });
     }
 
-    // Parallax mouse interaction for hero text
     let heroTextParallaxHandler = null;
     function enableHeroTextParallax() {
         if (prefersReducedMotion || heroTextParallaxHandler) return;
@@ -89,8 +80,7 @@ window.addEventListener('load', () => {
             const cy = rect.top + rect.height / 2;
             const dx = (e.clientX - cx) / rect.width;
             const dy = (e.clientY - cy) / rect.height;
-            // Move opposite to cursor, creating depth
-            tx = -dx * 40; // Adjust multiplier for desired effect
+            tx = -dx * 40; 
             ty = -dy * 30;
         }
 
@@ -108,9 +98,6 @@ window.addEventListener('load', () => {
         if (textWrapper) textWrapper.style.transform = '';
     }
 
-    /**
-     * Initializes the custom cursor and its interactions.
-     */
     function initCustomCursor() {
         const cursor = document.createElement('div');
         cursor.className = 'cursor';
@@ -150,7 +137,6 @@ window.addEventListener('load', () => {
         document.body.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
     }
 
-    // --- Scroll-based animation for the sphere ---
     let scrollTimeline = null;
     function initScrollAnimations(sphere, camera) {
         if (prefersReducedMotion || !sphere || !camera || typeof gsap === 'undefined') return;
@@ -166,6 +152,7 @@ window.addEventListener('load', () => {
             }
         });
         
+        // **NEW:** Make scroll animation responsive.
         const xPosition = window.innerWidth > 768 ? 18 : 9;
         scrollTimeline.to(sphere.position, {
             x: xPosition, 
@@ -189,7 +176,6 @@ window.addEventListener('load', () => {
         }
     }
 
-    // **NEW:** Function to handle custom scrollbar updates
     function handleScroll() {
         if (!scrollbarLiquid || !scrollbarPercentage) return;
 
@@ -197,7 +183,6 @@ window.addEventListener('load', () => {
         const scrollHeight = document.documentElement.scrollHeight;
         const clientHeight = document.documentElement.clientHeight;
         
-        // Prevent division by zero if content is not scrollable
         if (scrollHeight === clientHeight) {
             scrollbarLiquid.style.height = '0%';
             scrollbarPercentage.textContent = '0%';
@@ -213,7 +198,7 @@ window.addEventListener('load', () => {
 
 
     // ===================================
-    // RENDER FUNCTIONS (for dynamic content)
+    // RENDER FUNCTIONS
     // ===================================
     const createVisualHTML = (visual) => {
         if (!visual) return '';
@@ -304,7 +289,6 @@ window.addEventListener('load', () => {
     // ROUTER & CONTENT LOADING
     // ===================================
     const loadContent = (path) => {
-        // Cleanup animations from the previous page before loading new content
         cleanupHeroImage();
         disableHeroTextParallax();
         killScrollAnimations();
@@ -401,7 +385,6 @@ window.addEventListener('load', () => {
         });
     };
 
-    // Main router link handler
     document.querySelectorAll('.router-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -431,9 +414,7 @@ window.addEventListener('load', () => {
 
     document.getElementById('year').textContent = new Date().getFullYear();
     
-    // **NEW:** Add scroll listener for the custom scrollbar
     window.addEventListener('scroll', handleScroll);
 
-    // Initial content load
     loadContent(window.location.hash || '#home');
 });

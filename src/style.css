@@ -236,7 +236,6 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* **FIX:** Removed overflow: hidden to allow percentage to show. */
 }
 
 #scrollbar-liquid {
@@ -256,4 +255,16 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     font-weight: 600;
     color: var(--color-primary);
     font-family: 'Montserrat', sans-serif;
+}
+
+/* **NEW:** Media query for mobile devices */
+@media (max-width: 768px) {
+    #custom-scrollbar {
+        width: 8px; /* Make scrollbar thinner on smaller screens */
+        left: 10px; /* Move it closer to the edge */
+    }
+
+    #scrollbar-percentage {
+        display: none; /* Hide percentage text on mobile for a cleaner look */
+    }
 }

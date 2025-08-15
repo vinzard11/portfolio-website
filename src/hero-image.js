@@ -36,13 +36,15 @@ export function initHeroImage(container) {
     container.appendChild(renderer.domElement);
 
     // --- Jelly Sphere Model ---
-    const geometry = new THREE.IcosahedronGeometry(5, 64);
+    // **NEW:** Make sphere size responsive.
+    const isMobile = window.innerWidth <= 768;
+    const sphereSize = isMobile ? 3.5 : 5;
+    const geometry = new THREE.IcosahedronGeometry(sphereSize, 64);
 
     // The ShaderMaterial is where all the magic happens.
     const material = new THREE.ShaderMaterial({
         uniforms: {
             uTime: { value: 0 },
-            // **FIX:** Changed to a 3D vector to handle mouse position in the sphere's local space.
             uMouse3D: { value: new THREE.Vector3() },
             uHover: { value: 0.0 },
             uColor1: { value: new THREE.Color("#F2AB38") },
@@ -51,7 +53,6 @@ export function initHeroImage(container) {
             uColor4: { value: new THREE.Color("#E655AC") },
         },
         vertexShader: `
-            // **FIX:** Use the 3D mouse uniform.
             uniform vec3 uMouse3D;
             uniform float uTime;
             uniform float uHover;
@@ -116,7 +117,6 @@ export function initHeroImage(container) {
                 vViewDirection = normalize(cameraPosition - worldPosition.xyz);
 
                 // --- Mercury Distortion Effect ---
-                // **FIX:** The mouse position is now correctly calculated in the animate loop.
                 vec3 mousePos3D = uMouse3D;
                 float mouseDistance = distance(position, mousePos3D);
                 float stretchFactor = 1.0 - smoothstep(0.0, 6.0, mouseDistance);
@@ -238,13 +238,11 @@ export function initHeroImage(container) {
     scene.add(sphere);
     
     // --- Interactivity ---
-    // **FIX:** Re-initialize raycaster for coordinate calculations.
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
     const clock = new THREE.Clock();
 
     function onMouseMove(event) {
-        // Just update the 2D mouse coordinates. Conversion happens in the animate loop.
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     }
@@ -256,29 +254,21 @@ export function initHeroImage(container) {
         const elapsedTime = clock.getElapsedTime();
         material.uniforms.uTime.value = elapsedTime;
 
-        // Keep the hover effect active at all times for a constant jelly-like feel.
         material.uniforms.uHover.value += (1.0 - material.uniforms.uHover.value) * 0.05;
 
-        // **FIX:** This block correctly maps the 2D mouse position to the 3D local
-        // space of the sphere, ensuring the interaction works wherever the sphere is.
-        // 1. Create a ray from the camera through the mouse's screen position.
         raycaster.setFromCamera(mouse, camera);
 
-        // 2. Define a virtual plane that sits at the sphere's current world position.
         const plane = new THREE.Plane();
         const sphereWorldPos = new THREE.Vector3();
-        sphere.getWorldPosition(sphereWorldPos); // Get sphere's live world position
+        sphere.getWorldPosition(sphereWorldPos); 
         plane.setFromNormalAndCoplanarPoint(
-            camera.getWorldDirection(plane.normal), // Plane always faces the camera
-            sphereWorldPos // Plane is always at the sphere's center
+            camera.getWorldDirection(plane.normal), 
+            sphereWorldPos 
         );
         
-        // 3. Find the 3D point where the mouse ray intersects this plane.
         const intersectPoint = new THREE.Vector3();
         raycaster.ray.intersectPlane(plane, intersectPoint);
 
-        // 4. Convert this world-space intersection point to the sphere's local space
-        //    and pass it to the shader.
         if (intersectPoint) {
             const localMousePos = sphere.worldToLocal(intersectPoint);
             material.uniforms.uMouse3D.value.copy(localMousePos);
@@ -313,7 +303,6 @@ export function initHeroImage(container) {
 
     animate();
     
-    // Return sphere and camera for external control (GSAP)
     return { sphere, camera };
 }
 
