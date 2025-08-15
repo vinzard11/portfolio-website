@@ -1,8 +1,7 @@
 /**
  * @file hero-image.js
  * @description Renders a fluid, interactive sphere inspired by itsoffbrand.com.
- * Features a mercury-like mouse distortion, iridescent procedural coloring, and a
- * localized glitch effect on hover, all achieved with a custom GLSL shader.
+ * Features a mercury-like mouse distortion on desktop and simple rotation on mobile.
  */
 
 // Ensure THREE is loaded.
@@ -23,6 +22,7 @@ export function initHeroImage(container) {
 
     const width = container.clientWidth;
     const height = container.clientHeight;
+    const isMobile = window.innerWidth <= 768;
 
     // --- Core Scene Setup ---
     const scene = new THREE.Scene();
@@ -36,12 +36,9 @@ export function initHeroImage(container) {
     container.appendChild(renderer.domElement);
 
     // --- Jelly Sphere Model ---
-    // **NEW:** Make sphere size responsive.
-    const isMobile = window.innerWidth <= 768;
     const sphereSize = isMobile ? 3.5 : 5;
     const geometry = new THREE.IcosahedronGeometry(sphereSize, 64);
 
-    // The ShaderMaterial is where all the magic happens.
     const material = new THREE.ShaderMaterial({
         uniforms: {
             uTime: { value: 0 },
@@ -208,17 +205,14 @@ export function initHeroImage(container) {
                 float finalMix = (snoise(seamlessCoords3 * 1.2 + uTime * 0.1) + 1.0) * 0.5;
                 vec3 baseColor = mix(colorA, colorB, finalMix);
 
-                // "Film on top" effect using Fresnel (rim lighting).
                 float fresnel = pow(1.0 - dot(vNormal, vViewDirection), 3.0);
                 vec3 finalColor = baseColor + fresnel * 0.5; 
 
-                // Color distortion on hover
                 vec3 mousePos3D = vec3(uMouse.x * 11.0, uMouse.y * 11.0, 1.0);
                 float mouseDistance = distance(vPosition, mousePos3D);
                 float colorDistortion = smoothstep(6.0, 0.0, mouseDistance) * uHover;
                 finalColor = mix(finalColor, vec3(1.0), colorDistortion * 0.3); 
 
-                // --- Localized Glitch Effect ---
                 if (uHover > 0.01) {
                     if (mouseDistance < 2.0) { 
                         float glitchStrength = smoothstep(2.0, 0.0, mouseDistance);
@@ -242,11 +236,15 @@ export function initHeroImage(container) {
     const mouse = new THREE.Vector2();
     const clock = new THREE.Clock();
 
-    function onMouseMove(event) {
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    let onMouseMove;
+    // FIXED: Only add mouse move listener and jelly effect on non-mobile devices
+    if (!isMobile) {
+        onMouseMove = (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        };
+        window.addEventListener('mousemove', onMouseMove);
     }
-    window.addEventListener('mousemove', onMouseMove);
 
     // --- Animation Loop ---
     function animate() {
@@ -254,24 +252,31 @@ export function initHeroImage(container) {
         const elapsedTime = clock.getElapsedTime();
         material.uniforms.uTime.value = elapsedTime;
 
-        material.uniforms.uHover.value += (1.0 - material.uniforms.uHover.value) * 0.05;
+        // FIXED: Apply different animations for desktop vs. mobile
+        if (!isMobile) {
+            // Desktop: Jelly-like mouse interaction
+            material.uniforms.uHover.value += (1.0 - material.uniforms.uHover.value) * 0.05;
+            raycaster.setFromCamera(mouse, camera);
+            
+            const plane = new THREE.Plane();
+            const sphereWorldPos = new THREE.Vector3();
+            sphere.getWorldPosition(sphereWorldPos); 
+            plane.setFromNormalAndCoplanarPoint(
+                camera.getWorldDirection(plane.normal), 
+                sphereWorldPos 
+            );
+            
+            const intersectPoint = new THREE.Vector3();
+            raycaster.ray.intersectPlane(plane, intersectPoint);
 
-        raycaster.setFromCamera(mouse, camera);
-
-        const plane = new THREE.Plane();
-        const sphereWorldPos = new THREE.Vector3();
-        sphere.getWorldPosition(sphereWorldPos); 
-        plane.setFromNormalAndCoplanarPoint(
-            camera.getWorldDirection(plane.normal), 
-            sphereWorldPos 
-        );
-        
-        const intersectPoint = new THREE.Vector3();
-        raycaster.ray.intersectPlane(plane, intersectPoint);
-
-        if (intersectPoint) {
-            const localMousePos = sphere.worldToLocal(intersectPoint);
-            material.uniforms.uMouse3D.value.copy(localMousePos);
+            if (intersectPoint) {
+                const localMousePos = sphere.worldToLocal(intersectPoint);
+                material.uniforms.uMouse3D.value.copy(localMousePos);
+            }
+        } else {
+            // Mobile: Simple, slow rotation
+            sphere.rotation.y += 0.001;
+            sphere.rotation.x += 0.0005;
         }
 
         renderer.render(scene, camera);
@@ -292,7 +297,9 @@ export function initHeroImage(container) {
         rafId: null,
         cleanup: () => {
             cancelAnimationFrame(state.rafId);
-            window.removeEventListener('mousemove', onMouseMove);
+            if (!isMobile) {
+                window.removeEventListener('mousemove', onMouseMove);
+            }
             window.removeEventListener('resize', onResize);
             container.removeChild(renderer.domElement);
             geometry.dispose();
