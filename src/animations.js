@@ -71,7 +71,8 @@ export function initScrollAnimations(sphere, camera) {
         }
     });
     
-    const xPosition = window.innerWidth > 768 ? 18 : 9;
+    // FIXED: Reduced the xPosition for mobile to keep the sphere more centered.
+    const xPosition = window.innerWidth > 768 ? 18 : 4;
     scrollTimeline.to(sphere.position, {
         x: xPosition, 
         y: -5,
@@ -115,7 +116,6 @@ function splitTitleForAnimation(title) {
         const words = title.textContent.trim().split(' ');
         title.innerHTML = words.map(word => {
             const letters = word.split('').map(letter => `<span class='letter' style='display: inline-block;'>${letter}</span>`).join('');
-            // Wrap each word in a span to prevent awkward line breaks
             return `<span class="word" style="display: inline-block;">${letters}</span>`;
         }).join(' ');
     }
@@ -125,7 +125,8 @@ function splitTitleForAnimation(title) {
 export function initInteractiveCards() {
     // --- Home Page Feature Card Animations (Anime.js) ---
     const featureCards = document.querySelectorAll('.home-feature-card-a, .home-feature-card-b, .home-feature-card-c');
-    if (featureCards.length > 0 && typeof anime !== 'undefined') {
+    // FIXED: Check if it's a mobile device. If so, don't run these animations.
+    if (featureCards.length > 0 && typeof anime !== 'undefined' && window.innerWidth > 768) {
         featureCards.forEach(card => {
             const title = card.querySelector('.card-title');
             if (!title) return;

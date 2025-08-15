@@ -348,11 +348,10 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     padding: 4rem 3rem;
     position: relative;
     overflow: hidden;
-    /* New glassy background */
     background: radial-gradient(rgba(42, 123, 155, 0.7) 0%, rgba(87, 199, 133, 0.7) 50%, rgba(237, 221, 83, 0.7) 100%);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .about-me-section .grid {
@@ -360,13 +359,12 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     z-index: 2;
 }
 
-/* New font colors for better contrast */
 .about-me-section h2 {
-    color: rgba(255, 255, 255, 1);
+    color: rgba(255, 255, 255, 0.95);
 }
 
 .about-me-section p {
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(255, 255, 255, 0.85);
 }
 
 
@@ -378,6 +376,28 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
 
     #scrollbar-percentage {
         display: none;
+    }
+
+    /* FIXED: Make home page card details always visible on mobile */
+    .home-feature-card-a, .home-feature-card-b, .home-feature-card-c {
+        justify-content: flex-start;
+        text-align: left;
+        padding: 1.5rem;
+    }
+
+    .home-feature-card-a:hover, .home-feature-card-b:hover, .home-feature-card-c:hover {
+        transform: none;
+    }
+
+    .card-title {
+        transform: none !important;
+        margin-bottom: 0.75rem;
+    }
+
+    .card-details {
+        max-height: 200px;
+        opacity: 1;
+        transition: none;
     }
 }
 
