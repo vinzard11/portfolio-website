@@ -13,6 +13,15 @@
     --color-border: rgba(0, 0, 0, 0.08);
 }
 
+/* **FIX:** Apply scrollbar hiding to the html element for better browser compatibility. */
+html {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+html::-webkit-scrollbar {
+    display: none; /* Webkit browsers */
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: var(--color-bg-start);
@@ -20,11 +29,75 @@ body {
         linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-end) 100%),
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%239ae6b4' fill-opacity='0.1'%3E%3Cpath d='M0 40c5.523 0 10-4.477 10-10S5.523 20 0 20s-10 4.477-10 10S-5.523 40 0 40zM80 40c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10zM40 40c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10zM20 20c5.523 0 10-4.477 10-10S25.523 0 20 0s-10 4.477-10 10S14.477 20 20 20zM60 20c5.523 0 10-4.477 10-10S65.523 0 60 0s-10 4.477-10 10S54.477 20 60 20z'/%3E%3C/path%3E%3C/svg%3E");
     color: var(--color-text-dark);
+    /* Hide the default cursor */
+    cursor: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
 }
+
+/* ========================================
+    NEW HERO STYLES
+    ======================================== */
+#hero-image-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; 
+    pointer-events: none; 
+}
+
+#hero-image-container canvas {
+    pointer-events: auto;
+}
+
+#hero-text-wrapper {
+    position: relative;
+    z-index: 2; 
+    pointer-events: none; 
+}
+
+main {
+    position: relative;
+    z-index: 10;
+}
+
+
+/* ========================================
+    CURSOR STYLES (mix-blend-mode)
+    ======================================== */
+.cursor {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    background-color: white; 
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    mix-blend-mode: difference; 
+    transition: transform 0.2s ease-out, width 0.2s ease-out, height 0.2s ease-out;
+}
+.cursor.grow {
+    width: 50px;
+    height: 50px;
+}
+.cursor.clicked {
+    transform: translate(-50%, -50%) scale(0.9);
+}
+.cursor.hidden {
+    opacity: 0;
+}
+@media (hover: none) {
+    .cursor { display: none; }
+    body { cursor: auto; }
+}
+
 
 /* ========================================
     NAVIGATION STYLES
@@ -57,6 +130,10 @@ h1, h2, h3, h4, h5, h6 {
 /* ========================================
     INTERACTIVE ELEMENT STYLES
     ======================================== */
+a, button, .router-link, .view-pdf-btn, .toggle-summary {
+    cursor: none;
+}
+
 .gradient-border-card {
     background-color: var(--color-card-bg);
     border: 1px solid var(--color-border);
@@ -141,4 +218,42 @@ h1, h2, h3, h4, h5, h6 {
 }
 .pdf-modal-close {
     background: none; border: none; font-size: 1.5rem; cursor: pointer;
+}
+
+/* ========================================
+    CUSTOM SCROLLBAR STYLES
+    ======================================== */
+#custom-scrollbar {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 300px;
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* **FIX:** Removed overflow: hidden to allow percentage to show. */
+}
+
+#scrollbar-liquid {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0%; /* Starts at 0, updated by JS */
+    background: linear-gradient(to top, var(--color-accent), var(--color-primary));
+    border-radius: 10px;
+    transition: height 0.05s linear; /* Smooth fill */
+}
+
+#scrollbar-percentage {
+    position: absolute;
+    bottom: -35px; /* Positioned just below the bar */
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-primary);
+    font-family: 'Montserrat', sans-serif;
 }

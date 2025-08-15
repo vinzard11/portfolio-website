@@ -6,8 +6,13 @@
 
 // Import data from the data.js file
 import { workData, projectData } from './data.js';
+// Import the new 3D Brand Model Animation
+import { initHeroImage, cleanupHeroImage } from './hero-image.js';
+// Import the particle background initializer
+import { initThreeJS } from './3d-background.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+// Wait for the entire page to load to prevent script errors.
+window.addEventListener('load', () => {
     // ===================================
     // DOM ELEMENTS
     // ===================================
@@ -18,36 +23,208 @@ document.addEventListener('DOMContentLoaded', () => {
     const pdfIframe = document.getElementById('pdf-iframe');
     const pdfTitle = document.getElementById('pdf-title');
     const pdfModalClose = document.getElementById('pdf-modal-close');
+    const preloader = document.getElementById('preloader');
+    // **NEW:** Custom scrollbar elements
+    const scrollbarLiquid = document.getElementById('scrollbar-liquid');
+    const scrollbarPercentage = document.getElementById('scrollbar-percentage');
+
+    // Handle preloader fade-out
+    preloader.classList.add('loaded');
+
+    // Check for user's motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // ===================================
-    // RENDER FUNCTIONS
+    // INITIALIZATION
     // ===================================
+    
+    if (!prefersReducedMotion) {
+        // Initialize the particle background
+        initThreeJS();
+        // Initialize custom cursor
+        initCustomCursor();
+    } else {
+        // Make animated elements visible immediately for reduced motion
+        document.querySelectorAll('[data-animate]').forEach(el => el.style.opacity = 1);
+    }
+
+    // ===================================
+    // ANIMATIONS & EFFECTS
+    // ===================================
+    
+    /**
+     * Animates the hero text into view using GSAP.
+     */
+    function animateHeroText() {
+        if (typeof gsap === 'undefined' || prefersReducedMotion) return;
+        gsap.set('[data-animate]', { y: 30, opacity: 0 }); // Initial state
+        const tl = gsap.timeline();
+        // Staggered animation sequence
+        tl.to('[data-animate="hero-title"]', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, "+=0.3")
+          .to('[data-animate="hero-subtitle"]', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, "-=0.4")
+          .to('[data-animate="hero-p"]', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, "-=0.6")
+          .to('[data-animate="scroll-indicator"]', { opacity: 1, duration: 1, ease: 'power1.inOut' });
+    }
+
+    // Parallax mouse interaction for hero text
+    let heroTextParallaxHandler = null;
+    function enableHeroTextParallax() {
+        if (prefersReducedMotion || heroTextParallaxHandler) return;
+        const textWrapper = document.getElementById('hero-text-wrapper');
+        if (!textWrapper) return;
+
+        let tx = 0, ty = 0, vx = 0, vy = 0;
+        const speed = 0.08;
+
+        function frame() {
+            vx += (tx - vx) * speed;
+            vy += (ty - vy) * speed;
+            textWrapper.style.transform = `translate3d(${vx}px, ${vy}px, 0)`;
+            heroTextParallaxHandler.raf = requestAnimationFrame(frame);
+        }
+
+        function onMove(e) {
+            const rect = textWrapper.parentElement.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = (e.clientX - cx) / rect.width;
+            const dy = (e.clientY - cy) / rect.height;
+            // Move opposite to cursor, creating depth
+            tx = -dx * 40; // Adjust multiplier for desired effect
+            ty = -dy * 30;
+        }
+
+        heroTextParallaxHandler = { onMove, raf: null };
+        window.addEventListener('mousemove', onMove);
+        frame();
+    }
+
+    function disableHeroTextParallax() {
+        if (!heroTextParallaxHandler) return;
+        window.removeEventListener('mousemove', heroTextParallaxHandler.onMove);
+        cancelAnimationFrame(heroTextParallaxHandler.raf);
+        heroTextParallaxHandler = null;
+        const textWrapper = document.getElementById('hero-text-wrapper');
+        if (textWrapper) textWrapper.style.transform = '';
+    }
 
     /**
-     * Creates HTML for different types of data visuals.
-     * @param {object} visual - The visual data object.
-     * @returns {string} The HTML string for the visual.
+     * Initializes the custom cursor and its interactions.
      */
+    function initCustomCursor() {
+        const cursor = document.createElement('div');
+        cursor.className = 'cursor';
+        document.body.appendChild(cursor);
+
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+        const speed = 0.1;
+
+        function animate() {
+            cursorX += (mouseX - cursorX) * speed;
+            cursorY += (mouseY - cursorY) * speed;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('a, button, .router-link, .view-pdf-btn, .toggle-summary')) {
+                cursor.classList.add('grow');
+            }
+        });
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest('a, button, .router-link, .view-pdf-btn, .toggle-summary')) {
+                cursor.classList.remove('grow');
+            }
+        });
+
+        document.addEventListener('mousedown', () => cursor.classList.add('clicked'));
+        document.addEventListener('mouseup', () => cursor.classList.remove('clicked'));
+        document.body.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
+        document.body.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
+    }
+
+    // --- Scroll-based animation for the sphere ---
+    let scrollTimeline = null;
+    function initScrollAnimations(sphere, camera) {
+        if (prefersReducedMotion || !sphere || !camera || typeof gsap === 'undefined') return;
+        
+        gsap.registerPlugin(ScrollTrigger);
+
+        scrollTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#main-content-wrapper",
+                start: "top bottom", 
+                end: "top top", 
+                scrub: 0.5, 
+            }
+        });
+        
+        const xPosition = window.innerWidth > 768 ? 18 : 9;
+        scrollTimeline.to(sphere.position, {
+            x: xPosition, 
+            y: -5,
+            ease: "power1.inOut"
+        }, 0);
+
+        scrollTimeline.to(sphere.scale, {
+            x: 1.2,
+            y: 1.2,
+            z: 1.2,
+            ease: "power1.inOut"
+        }, 0);
+    }
+
+
+    function killScrollAnimations() {
+        if (scrollTimeline) {
+            scrollTimeline.kill();
+            scrollTimeline = null;
+        }
+    }
+
+    // **NEW:** Function to handle custom scrollbar updates
+    function handleScroll() {
+        if (!scrollbarLiquid || !scrollbarPercentage) return;
+
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
+        
+        // Prevent division by zero if content is not scrollable
+        if (scrollHeight === clientHeight) {
+            scrollbarLiquid.style.height = '0%';
+            scrollbarPercentage.textContent = '0%';
+            return;
+        }
+
+        const scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
+        const clampedPercent = Math.min(100, scrollPercent);
+
+        scrollbarLiquid.style.height = `${clampedPercent}%`;
+        scrollbarPercentage.textContent = `${Math.round(clampedPercent)}%`;
+    }
+
+
+    // ===================================
+    // RENDER FUNCTIONS (for dynamic content)
+    // ===================================
     const createVisualHTML = (visual) => {
         if (!visual) return '';
         switch (visual.type) {
-            case 'stat':
-                return `<div class="text-center"><p class="text-4xl font-bold text-primary">${visual.value}</p><p class="text-xs text-text-light uppercase tracking-wider">${visual.label}</p></div>`;
-            case 'circle':
-                return `<div class="relative w-24 h-24"><svg class="w-full h-full" viewBox="0 0 36 36"><path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="3"></path><path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="url(#circleGradient)" stroke-width="3" stroke-dasharray="${visual.value}, 100" stroke-linecap="round"></path><defs><linearGradient id="circleGradient" gradientTransform="rotate(90)"><stop offset="0%" stop-color="${'var(--color-accent)'}" /><stop offset="100%" stop-color="${'var(--color-primary)'}" /></linearGradient></defs></svg><div class="absolute inset-0 flex flex-col items-center justify-center"><span class="text-xl font-bold text-text-dark">${visual.value}%</span><span class="text-xs text-text-light">${visual.label}</span></div></div>`;
-            case 'icon':
-                return `<div class="text-primary"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>`;
-            default:
-                return '';
+            case 'stat': return `<div class="text-center"><p class="text-4xl font-bold text-primary">${visual.value}</p><p class="text-xs text-text-light uppercase tracking-wider">${visual.label}</p></div>`;
+            case 'circle': return `<div class="relative w-24 h-24"><svg class="w-full h-full" viewBox="0 0 36 36"><path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="3"></path><path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="url(#circleGradient)" stroke-width="3" stroke-dasharray="${visual.value}, 100" stroke-linecap="round"></path><defs><linearGradient id="circleGradient" gradientTransform="rotate(90)"><stop offset="0%" stop-color="${'var(--color-accent)'}" /><stop offset="100%" stop-color="${'var(--color-primary)'}" /></linearGradient></defs></svg><div class="absolute inset-0 flex flex-col items-center justify-center"><span class="text-xl font-bold text-text-dark">${visual.value}%</span><span class="text-xs text-text-light">${visual.label}</span></div></div>`;
+            case 'icon': return `<div class="text-primary"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>`;
+            default: return '';
         }
     };
-    
-    /**
-     * Creates the HTML for a single work experience item.
-     * @param {object} exp - The experience object.
-     * @param {number} index - The index for alternating layout.
-     * @returns {string} The HTML string for the work item.
-     */
+
     const createWorkItemHTML = (exp, index) => {
         const isReversed = index % 2 !== 0;
         const alignmentClass = isReversed ? 'md:flex-row-reverse' : '';
@@ -99,12 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>`;
     };
     
-    /**
-     * Creates the HTML for a single project card.
-     * @param {object} proj - The project object.
-     * @param {number} index - The index for animation delay.
-     * @returns {string} The HTML string for the project card.
-     */
     const createProjectCardHTML = (proj, index) => {
         const docButtons = proj.documents.map(doc => 
             `<button class="btn text-sm mt-2 mr-2 view-pdf-btn" data-pdf-src="${doc.url}" data-pdf-title="${doc.name}">${doc.name}</button>`
@@ -132,40 +303,55 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===================================
     // ROUTER & CONTENT LOADING
     // ===================================
-
-    /**
-     * Loads the content for the given path into the app root.
-     * @param {string} path - The path to load (e.g., '#home').
-     */
     const loadContent = (path) => {
+        // Cleanup animations from the previous page before loading new content
+        cleanupHeroImage();
+        disableHeroTextParallax();
+        killScrollAnimations();
+
         const pageId = 'page-' + (path.substring(1) || 'home');
         const template = document.getElementById(pageId);
         
-        if (template) {
-            appRoot.innerHTML = '';
-            const content = template.content.cloneNode(true);
-            appRoot.appendChild(content);
+        appRoot.style.transition = 'opacity 0.3s ease-in-out';
+        appRoot.style.opacity = 0;
 
-            if (pageId === 'page-workex') {
-                const container = document.getElementById('workex-timeline');
-                container.innerHTML = `<div class="absolute left-1/2 -translate-x-1/2 top-0 w-1 bg-primary/20 h-full hidden md:block"></div>` + workData.map(createWorkItemHTML).join('');
-            }
-            if (pageId === 'page-projects') {
-                document.getElementById('projects-grid').innerHTML = projectData.map(createProjectCardHTML).join('');
-            }
+        setTimeout(() => {
+            if (template) {
+                appRoot.innerHTML = '';
+                const content = template.content.cloneNode(true);
+                appRoot.appendChild(content);
 
-            updateActiveLink(path);
-            window.scrollTo(0, 0);
-            initializePageListeners();
-        } else {
-            loadContent('#home'); // Default to home page if path is invalid
-        }
+                if (pageId === 'page-workex') {
+                    const container = document.getElementById('workex-timeline');
+                    if(container) container.innerHTML = `<div class="absolute left-1/2 -translate-x-1/2 top-0 w-1 bg-primary/20 h-full hidden md:block"></div>` + workData.map(createWorkItemHTML).join('');
+                }
+                if (pageId === 'page-projects') {
+                    const container = document.getElementById('projects-grid');
+                    if(container) container.innerHTML = projectData.map(createProjectCardHTML).join('');
+                }
+
+                if (pageId === 'page-home' && !prefersReducedMotion) {
+                    const heroImageContainer = document.getElementById('hero-image-container');
+                    if (heroImageContainer) {
+                        const { sphere, camera } = initHeroImage(heroImageContainer);
+                        initScrollAnimations(sphere, camera);
+                    }
+                    enableHeroTextParallax();
+                    animateHeroText();
+                } else {
+                    document.querySelectorAll('[data-animate]').forEach(el => el.style.opacity = 1);
+                }
+
+                updateActiveLink(path);
+                window.scrollTo(0, 0);
+                initializePageListeners();
+            } else {
+                loadContent('#home');
+            }
+            appRoot.style.opacity = 1;
+        }, 300);
     };
     
-    /**
-     * Updates the active state of the navigation links.
-     * @param {string} path - The current active path.
-     */
     const updateActiveLink = (path) => {
         document.querySelectorAll('header .nav-link').forEach(link => {
             link.classList.toggle('active', link.getAttribute('href') === path);
@@ -173,22 +359,20 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ===================================
-    // EVENT LISTENERS & INITIALIZATION
+    // EVENT LISTENERS
     // ===================================
-
-    /**
-     * Initializes all event listeners for the currently loaded page content.
-     */
     const initializePageListeners = () => {
-        // Scroll fade-in animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('animate-in');
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
+        if (!prefersReducedMotion) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('animate-in');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
+        } else {
+            document.querySelectorAll('.scroll-fade').forEach(el => el.classList.add('animate-in'));
+        }
 
-        // Expandable sections
         document.querySelectorAll('.expandable-item').forEach(item => {
             const button = item.querySelector('.toggle-summary');
             if(button) {
@@ -201,7 +385,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
-        // PDF viewer buttons
         document.querySelectorAll('.view-pdf-btn').forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -212,36 +395,45 @@ document.addEventListener('DOMContentLoaded', () => {
                     pdfTitle.textContent = title;
                     pdfIframe.src = src;
                     pdfModal.classList.add('visible');
+                    document.body.style.overflow = 'hidden';
                 }
             });
         });
     };
 
-    // Router link clicks
-    document.querySelectorAll('.router-link').forEach(link => link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const path = e.currentTarget.hash;
-        if (window.location.hash !== path) {
-            history.pushState(null, '', path);
-            loadContent(path);
-        }
-    }));
+    // Main router link handler
+    document.querySelectorAll('.router-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const path = e.currentTarget.hash;
+            if (window.location.hash !== path) {
+                history.pushState(null, '', path);
+                loadContent(path);
+            }
+            if(!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    });
     
-    // Browser back/forward navigation
     window.addEventListener('popstate', () => loadContent(window.location.hash || '#home'));
-
-    // Mobile menu toggle
     mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 
-    // PDF modal close events
-    pdfModalClose.addEventListener('click', () => pdfModal.classList.remove('visible'));
+    const closeModal = () => {
+        pdfModal.classList.remove('visible');
+        document.body.style.overflow = '';
+        pdfIframe.src = '';
+    };
+    pdfModalClose.addEventListener('click', closeModal);
     pdfModal.addEventListener('click', (e) => {
-        if (e.target === pdfModal) pdfModal.classList.remove('visible');
+        if (e.target === pdfModal) closeModal();
     });
 
-    // Set current year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // **NEW:** Add scroll listener for the custom scrollbar
+    window.addEventListener('scroll', handleScroll);
 
-    // Initial load
+    // Initial content load
     loadContent(window.location.hash || '#home');
 });
