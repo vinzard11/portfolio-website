@@ -8,6 +8,17 @@ import { initHeroImage, cleanupHeroImage } from './hero-image.js';
 let scrollTimeline = null;
 let heroTextParallaxHandler = null;
 
+// Helper function to split titles into words and letters for animation
+function splitTitleForAnimation(title) {
+    if (!title.querySelector('span.letter')) {
+        const words = title.textContent.trim().split(' ');
+        title.innerHTML = words.map(word => {
+            const letters = word.split('').map(letter => `<span class='letter' style='display: inline-block;'>${letter}</span>`).join('');
+            return `<span class="word" style="display: inline-block;">${letters}</span>`;
+        }).join(' ');
+    }
+}
+
 export function animateHeroText() {
     if (typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.set('[data-animate]', { y: 30, opacity: 0 }); 
@@ -71,7 +82,6 @@ export function initScrollAnimations(sphere, camera) {
         }
     });
     
-    // FIXED: Reduced the xPosition for mobile to keep the sphere more centered.
     const xPosition = window.innerWidth > 768 ? 18 : 4;
     scrollTimeline.to(sphere.position, {
         x: xPosition, 
@@ -108,24 +118,14 @@ export function cleanupPageAnimations() {
     cleanupHeroImage();
     disableHeroTextParallax();
     killScrollAnimations();
-}
-
-// Helper function to split titles into words and letters for animation
-function splitTitleForAnimation(title) {
-    if (!title.querySelector('span.letter')) {
-        const words = title.textContent.trim().split(' ');
-        title.innerHTML = words.map(word => {
-            const letters = word.split('').map(letter => `<span class='letter' style='display: inline-block;'>${letter}</span>`).join('');
-            return `<span class="word" style="display: inline-block;">${letters}</span>`;
-        }).join(' ');
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     }
 }
-
 
 export function initInteractiveCards() {
     // --- Home Page Feature Card Animations (Anime.js) ---
     const featureCards = document.querySelectorAll('.home-feature-card-a, .home-feature-card-b, .home-feature-card-c');
-    // FIXED: Check if it's a mobile device. If so, don't run these animations.
     if (featureCards.length > 0 && typeof anime !== 'undefined' && window.innerWidth > 768) {
         featureCards.forEach(card => {
             const title = card.querySelector('.card-title');
@@ -275,6 +275,56 @@ export function initInteractiveCards() {
                 duration: 300,
                 easing: 'easeOutQuad'
             });
+        });
+    }
+}
+
+// UPDATED: Animation function now targets both BC and ZS page elements
+export function initWorkexDetailAnimations() {
+    if (typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animate the main content blocks for both pages
+    const detailElements = gsap.utils.toArray([
+        '.workex-brand-screen',
+        '.key-point-card',      // BC cards
+        '.key-point-card-zs',   // ZS cards
+        '.workex-motto-container'
+    ]);
+
+    if (detailElements.length > 0) {
+        gsap.set(detailElements, { autoAlpha: 0, y: 100, scale: 0.9 });
+
+        ScrollTrigger.batch(detailElements, {
+            start: 'top 85%',
+            onEnter: batch => gsap.to(batch, {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                duration: 1.2,
+                ease: 'power4.out',
+                stagger: 0.15
+            }),
+        });
+    }
+
+    // Animate the title letters for a fun effect
+    const title = document.querySelector('.workex-detail-title');
+    if (title) {
+        splitTitleForAnimation(title); // Reuse the helper function
+        gsap.from(title.querySelectorAll('.letter'), {
+            scrollTrigger: {
+                trigger: title,
+                start: 'top 80%',
+                toggleActions: 'play none none none',
+            },
+            y: 50,
+            opacity: 0,
+            rotationZ: 15,
+            duration: 0.8,
+            ease: 'back.out(1.7)',
+            stagger: 0.03,
         });
     }
 }

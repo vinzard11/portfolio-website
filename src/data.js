@@ -4,61 +4,111 @@
  * This includes work experience and project information.
  */
 
-// IMPORTANT: Update the URLs for your project documents.
-// They should point to the files inside the `public/assets/` folder.
-
 export const workData = [
     {
         company: "Boston College",
         role: "Sr. Data Analyst, Graduate Assistant",
         date: "Nov 2024 – Present",
         summary: "Managed the grant intake lifecycle and pioneered BI dashboards to provide critical KPIs to senior leadership.",
-        details: "As a key member of the university's awards intake team, I manage the end-to-end lifecycle for new research grants. I translate complex sponsor requirements into structured data for Oracle PeopleSoft, enabling the timely launch of new research. I took the initiative to bridge a communication gap with senior leadership by developing automated reporting tools in Excel and pioneering a suite of Power BI dashboards from scratch. These tools provide the Vice-Provost with critical, bi-weekly KPIs on financial and operational performance, directly influencing strategic decision-making.",
-        visual: { type: 'stat', label: 'Dashboards Built', value: '15+' }
+        tags: ['Data Analysis', 'BI Dashboards'],
+        subpage: {
+            background: "Boston College receives hundreds of millions in research grants annually. Our team is the crucial first step, ensuring every dollar is meticulously tracked and managed from the outset, which is vital for the university's research integrity and financial health.",
+            projectType: "Data Management & Business Intelligence",
+            tools: ["Power BI", "Oracle PeopleSoft", "Advanced Excel"],
+            location: "Boston, MA",
+            years: "2024-Present",
+            motto: "Ever to Excel",
+            keyPoints: [
+                {
+                    title: "Core Responsibility: Grant Lifecycle Management",
+                    description: "As a key member of the university's awards intake team, I manage the end-to-end lifecycle for new research grants. I translate complex sponsor requirements into structured data for Oracle PeopleSoft, enabling the timely launch of new research.",
+                    skill: "Grant & Data Administration"
+                },
+                {
+                    title: "Initiative: Bridging the Data Gap",
+                    description: "I took the initiative to bridge a communication gap with senior leadership by developing automated reporting tools in Excel and pioneering a suite of Power BI dashboards from scratch.",
+                    skill: "Business Intelligence & Automation"
+                },
+                {
+                    title: "Impact: Influencing Strategic Decisions",
+                    description: "These tools provide the Vice-Provost with critical, bi-weekly KPIs on financial and operational performance, directly influencing strategic decision-making.",
+                    skill: "Executive-Level Reporting"
+                }
+            ]
+        }
     },
     {
         company: "ZS Associates",
         role: "Business Technology Associate",
         date: "Jan 2022 – Jun 2024",
         summary: "Architected cloud data solutions, led data integrity for major product launches, and automated critical analysis, driving significant revenue and efficiency gains.",
-        projects: [
-            { 
-                title: "Geo-Analytics Tool", 
-                details: "This tool was created to immediately recognize the need for a specialty drug based on the geo-location of an internet search for the specific disease that this drug treats or the drug itself. We used masked data from Google and Bing. My role was to help architect and build the back-end processing on AWS (EC2, S3), using Hadoop and Hive. This tool ultimately helped increase RFP win rates for similar projects by 30% and added $500K in annual client revenue.",
-                visual: { type: 'stat', label: 'New Revenue', value: '$500K' } 
-            },
-            { 
-                title: "Specialty Pharmacy Data Management", 
-                details: "I was responsible for ensuring the accurate tracking of patient-level data for specialty drugs. After identifying flawed logic jeopardizing data representation, I took ownership and fought for a complete revamp of the existing unoptimized code. I built a proof-of-concept with less data to achieve results that were miles faster. Using SQL, I aggregated data on patient info and shipment details, and employed Python and Shell Scripting for automation, including QC tasks and emails. The meticulously organized datasets provided clients with an enhanced understanding of patient needs, drug distribution patterns, and pharmacy inventory levels, leading to a 50% reduction in manual intervention time.",
-                visual: { type: 'stat', label: 'Manual Work Cut', value: '50%' } 
-            },
-            { 
-                title: "Data Quality (DQ) Lead", 
-                details: "As the lead for the DQ team, I was responsible for new product launches, which involved ensuring all inbound data (dispensary data, inventory, patient statuses) was properly reviewed and ingested. I was responsible for 3 such product launches in 3 months. I future-proofed the ingestion pipeline by initiating the creation of a metadata file which made adding new drugs to the pipeline a mere addition of a filename, significantly reducing data source onboarding time.",
-                visual: { type: 'icon', value: 'shield-check' } 
-            },
-            { 
-                title: "KAM Analysis Automation", 
-                details: "This analysis for Key Account Managers was usually performed by hand in Excel. The task used to stretch longer than the allocated effort. I did it manually once and then pushed the initiative to automate it. I worked tirelessly to build a Python pipeline that retrieved all necessary details from ~15 tables and generated a color-coded Excel report, disabling the need for training and reducing future effort by over 90%.",
-                visual: { type: 'stat', label: 'Effort Reduced', value: '90%+' } 
-            }
-        ]
+        tags: ['Cloud Architecture', 'Data Integrity', 'Automation'],
+        subpage: {
+            background: "ZS is a global professional services firm that helps companies develop and deliver products that drive customer value and company results. Our team was one of the core teams for one of ZS's biggest clients, helping their sales and business development pipelines through technology and automation.",
+            projectType: "Cloud Data Solutions & Automation for Business Development",
+            tools: ["AWS/GCP", "Hadoop", "Hive", "SQL", "SAS", "Python", "Shell Scripting", "Project/Product Management", "Sales/Business Development", "Tableau/Power BI/Looker", "Market Research & Analysis", "GTM"],
+            location: "India",
+            years: "2022-2024",
+            motto: "Treat people right, Get it right, Do the right thing",
+            keyPoints: [
+                {
+                    title: "Specialty Pharmacy Data Optimization",
+                    challenge: "I identified that flawed logic and highly unoptimized code in our core pipeline were jeopardizing data integrity and consuming excessive cluster resources, leading to slow performance and potential inaccuracies.",
+                    solution: "I took full ownership of the problem and championed a complete architectural revamp. To gain buy-in, I developed a Proof of Concept (POC) on a subset of data that proved it could achieve results that were miles faster and more efficient.",
+                    impact: "My initiative reduced manual intervention time by 50%, created a 'one-click' data handoff for the operations team, and delivered cleaner, more reliable data that directly influenced the client's vendor payment decisions.",
+                    skills: "SQL, Python, Shell Scripting, Advanced Excel/Powerpoint, Data Pipeline Optimization, Process Automation, QC Automation."
+                },
+                {
+                    title: "Geo-Alerts Sales Lead Tool",
+                    challenge: "The project was created to develop a first-of-its-kind tool that converted raw, geo-located internet search data into real-time, qualified sales leads for a specialty drug.",
+                    solution: "As a key member of the development team, I helped architect and build the entire back-end processing pipeline on AWS, which was responsible for transforming masked third-party data into actionable business intelligence.",
+                    impact: "This innovative tool was a massive success, generating $500K in new annual client revenue and directly contributing to a 30% increase in RFP win rates for similar projects.",
+                    skills: "AWS (Backend Processing), Geo-analytics, Data Architecture, Third-Party Data Integration, Sales Intelligence."
+                },
+                {
+                    title: "Key Account Manager (KAM) Analytics Automation",
+                    challenge: "A critical CRM analysis for the client's most important healthcare accounts was being performed manually in Excel. This process was not only slow and inefficient but also prone to human error.",
+                    solution: "After performing the task manually just once, I recognized the opportunity for automation. I dedicated my own time—working nights and weekends—to single-handedly build an automated pipeline in just two weeks.",
+                    impact: "The new process completely eliminated the need for manual analysis, removed the dependency on training personnel for the task, and delivered instant, color-coded insights on key client relationships with a single click.",
+                    skills: "Process Automation, Pipeline Development, Microsoft Excel (Advanced Reporting), CRM Data Analysis, Rapid Prototyping."
+                },
+                {
+                    title: "Data Quality (DQ) Team Leadership",
+                    challenge: "As the DQ Lead, I successfully guided my team through 3 major new drug data launches in under 3 months. To improve our scalability, I initiated and implemented a metadata-driven file system that turned the complex process of adding new products into a simple configuration change.",
+                    solution: "I formally addressed a painful, inefficient quarterly delivery process that consistently caused team burnout. I developed a comprehensive 6-month strategic plan to re-architect the core pipeline, presenting it to leadership with a full risk analysis and a proposal for a non-disruptive POC to prove its value in saving both time and money.",
+                    impact: "", 
+                    skills: "Team Leadership, Strategic Planning, Risk Assessment & Mitigation, SQL, Data Quality Management, Process Scalability, Stakeholder Management."
+                }
+            ]
+        }
     },
     {
         company: "Mother Son Sumi Infotech",
         role: "Machine Learning Intern",
         date: "Jun 2021 – Aug 2021",
         summary: "Led a team to build a novel location recommender system from scratch using TensorFlow, achieving 77.8% accuracy.",
-        details: "I was asked to lead a team of sophomores and juniors to create a unique project in the automotive industry using Machine Learning and Analytics. We decided on building a location recommender system based off user's preference from scratch. We eventually ended up with a whole lot of unclean data. It took us almost 1.5 months to clean it up and we parallelly modelled some dummy people data based off the location data to help us suggest a person where they would like to be at that time. The model was built on TensorFlow with multiple NN layers and our first iterations had an accuracy of around 77.8%.",
-        visual: { type: 'circle', label: 'Accuracy', value: 78 }
+        tags: ['ML', 'TensorFlow'],
+        subpage: {
+            background: "I was asked to lead a team of sophomores and juniors to create a unique project in the automotive industry using Machine Learning and Analytics. We decided on building a location recommender system based off user's preference from scratch. We eventually ended up with a whole lot of unclean data. It took us almost 1.5 months to clean it up and we parallelly modelled some dummy people data based off the location data to help us suggest a person where they would like to be at that time. The model was built on TensorFlow with multiple NN layers and our first iterations had an accuracy of around 77.8%.",
+            projectType: "AI/ML",
+            tools: ["TensorFlow", "Python", "Data Science"],
+            location: "Remote",
+            years: "2021"
+        }
     },
     {
         company: "TikklyAgro Solutions",
         role: "Data Science Intern",
         date: "Sep 2020 – Jan 2021",
         summary: "Built and trained a ResNet-50 model to automate quality grading of produce from images, achieving 97.5% accuracy on real-world data.",
-        details: "I had to build a model for their grading system so they could deliver the best fruits and vegetables at the right time. We used a pre-trained ResNet-50 model. Once we got the actual data from the firm and tuned the weights, the model achieved 97.5% accuracy for unseen data along with its ripeness stage.",
-        visual: { type: 'circle', label: 'Accuracy', value: 98 }
+        tags: ['Data Science', 'ML'],
+        subpage: {
+            background: "I had to build a model for their grading system so they could deliver the best fruits and vegetables at the right time. We used a pre-trained ResNet-50 model. Once we got the actual data from the firm and tuned the weights, the model achieved 97.5% accuracy for unseen data along with its ripeness stage.",
+            projectType: "AI/ML",
+            tools: ["Python", "Computer Vision", "Data Science"],
+            location: "Remote",
+            years: "2020-2021"
+        }
     }
 ];
 

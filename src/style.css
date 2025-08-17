@@ -37,6 +37,7 @@ body {
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%239ae6b4' fill-opacity='0.1'%3E%3Cpath d='M0 40c5.523 0 10-4.477 10-10S5.523 20 0 20s-10 4.477-10 10S-5.523 40 0 40zM80 40c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10zM40 40c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10zM20 20c5.523 0 10-4.477 10-10S25.523 0 20 0s-10 4.477-10 10S14.477 20 20 20zM60 20c5.523 0 10-4.477 10-10S65.523 0 60 0s-10 4.477-10 10S54.477 20 60 20z'/%3E%3C/path%3E%3C/svg%3E");
     color: var(--color-text-dark);
     cursor: none;
+    transition: background-color 0.3s ease-in-out;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -378,7 +379,6 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
         display: none;
     }
 
-    /* FIXED: Make home page card details always visible on mobile */
     .home-feature-card-a, .home-feature-card-b, .home-feature-card-c {
         justify-content: flex-start;
         text-align: left;
@@ -406,4 +406,326 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     .about-me-section {
         padding: 6rem 5rem;
     }
+}
+
+/* ========================================
+    PAGE TRANSITION STYLES
+    ======================================== */
+#page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9998;
+    transform: scale(0); 
+}
+
+/* ========================================
+    WORK EXPERIENCE PAGE STYLES
+    ======================================== */
+body.workex-page {
+    background: #4AC29A;
+    background: -webkit-linear-gradient(to right, #BDFFF3, #4AC29A);
+    background: linear-gradient(to right, #BDFFF3, #4AC29A);
+}
+
+body.workex-detail-page {
+    background: conic-gradient(from 285deg, rgba(218, 197, 179, 1.000) 0.000deg, rgba(172, 182, 164, 1.000) 90.000deg, rgba(121, 157, 141, 1.000) 180.000deg, rgba(86, 127, 112, 1.000) 270.000deg, rgba(81, 95, 79, 1.000) 360.000deg);
+}
+
+.workex-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    line-height: 1.2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.sparkle-container {
+    display: inline-block;
+    margin: 0 0.25em;
+    color: #FFC700;
+    animation: sparkle-animation 1.5s infinite;
+}
+
+.sparkle-svg {
+    width: 1em;
+    height: 1em;
+    transform-origin: center;
+}
+
+@keyframes sparkle-animation {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.3) rotate(15deg); opacity: 0.7; }
+}
+
+.workex-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    border-bottom: 2px solid rgba(0, 18, 25, 0.1);
+    border-top: 2px solid rgba(0, 18, 25, 0.1);
+    text-decoration: none;
+    color: var(--color-text-dark);
+    transition: background-color 0.3s ease;
+}
+
+.workex-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.workex-item-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.workex-item-company {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    color: var(--color-text-light);
+    margin-top: 0.25rem;
+}
+
+.workex-item-tags {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+.workex-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-text-dark);
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ========================================
+    WORK EXPERIENCE DETAIL PAGE STYLES
+    ======================================== */
+.workex-detail-container {
+    color: var(--color-text-dark); /* Changed for new background */
+}
+
+.workex-detail-main {
+    padding-top: 1rem;
+}
+
+.workex-detail-company {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.workex-detail-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    line-height: 1.1;
+    margin: 0.5rem 0 2rem;
+}
+
+.workex-detail-background {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text-dark);
+}
+
+.workex-detail-sidebar {
+    padding-top: 1rem;
+}
+
+.sidebar-item {
+    margin-bottom: 2.5rem;
+}
+
+.sidebar-item-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-item-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.125rem;
+    color: var(--color-text-dark);
+}
+
+.workex-detail-nav {
+    margin-top: 4rem;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+    padding-top: 2rem;
+}
+
+.workex-detail-nav a {
+    font-weight: 600;
+    color: var(--color-text-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.workex-detail-nav a:hover {
+    color: var(--color-primary);
+}
+
+.workex-brand-screen {
+    margin: 4rem 0 0;
+    border-radius: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    width: 100%;
+    background-color: rgba(138, 16, 11, 0.65); /* Stained glass effect */
+}
+
+.brand-screen-icon {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+
+/* --- BC Key Points --- */
+.workex-key-points {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 5;
+    margin: 0;
+    width: 100%;
+}
+
+.key-point-card {
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: rgba(255, 255, 255, 0.95);
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.key-point-card.pattern-1 { width: 50%; border-radius: 0; border-top: none; border-bottom: none; text-align: center; }
+.key-point-card.pattern-2 { width: 50%; border-radius: 0; border-top: none; border-right: none; }
+.key-point-card.pattern-3 { width: 50%; border-radius: 0; border-top: none; }
+.pattern-1 { background-color: rgba(149, 55, 38, 0.65); } /* Stained glass effect */
+.pattern-2 { background-color: rgba(163, 103, 71, 0.65); } /* Stained glass effect */
+.pattern-3 { background-color: rgba(178, 157, 108, 0.65); } /* Stained glass effect */
+
+.key-point-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; }
+.key-point-description { font-size: 1.1rem; line-height: 1.7; color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem; flex-grow: 1; }
+.key-point-skill { font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* --- ZS Associates Key Points --- */
+.workex-key-points-zs {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.key-point-card-zs {
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--color-text-dark);
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+}
+
+.key-point-title-zs { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 1.5rem; }
+.key-point-content-zs { flex-grow: 1; font-size: 1rem; line-height: 1.6; }
+.key-point-content-zs p { margin-bottom: 1rem; }
+.key-point-skill-zs { font-size: 0.9rem; color: var(--color-text-dark); opacity: 0.8; }
+
+/* ZS Specific Colors */
+.zs-brand-screen { background-color: rgba(26, 22, 40, 0.65); } /* Stained glass effect */
+.zs-pattern-1 { background-color: rgba(152, 164, 174, 0.65); } /* Stained glass effect */
+.zs-pattern-2 { background-color: rgba(236, 114, 0, 0.65); }   /* Stained glass effect */
+.zs-pattern-3 { background-color: rgba(136, 139, 141, 0.65); } /* Stained glass effect */
+.zs-pattern-4 { background-color: rgba(193, 198, 200, 0.65); } /* Stained glass effect */
+
+/* --- Motto Container --- */
+.workex-motto-container {
+    border-radius: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 70vh;
+    width: 100%;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+.workex-motto-container p { font-size: 2.5rem; font-weight: bold; font-style: italic; font-family: 'Playfair Display', serif; }
+
+/* BC Motto */
+.bc-motto-container {
+    background-color: rgba(230, 195, 101, 0.65); /* Stained glass effect */
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* ZS Motto */
+.zs-motto-container {
+    background-color: rgba(244, 243, 243, 0.65); /* Stained glass effect */
+    color: #EC7200;
+}
+
+/* --- Shadow and Glow Effects for Detail Pages --- */
+.workex-brand-screen,
+.key-point-card,
+.key-point-card-zs,
+.workex-motto-container {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.workex-brand-screen:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(138, 16, 11, 0.5); }
+.pattern-1:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(149, 55, 38, 0.5); }
+.pattern-2:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(163, 103, 71, 0.5); }
+.pattern-3:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(178, 157, 108, 0.5); }
+.bc-motto-container:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(230, 195, 101, 0.5); }
+
+.zs-brand-screen:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(26, 22, 40, 0.5); }
+.zs-pattern-1:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(152, 164, 174, 0.5); }
+.zs-pattern-2:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(236, 114, 0, 0.5); }
+.zs-pattern-3:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(136, 139, 141, 0.5); }
+.zs-pattern-4:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(193, 198, 200, 0.5); }
+.zs-motto-container:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(236, 114, 0, 0.5); }
+
+
+@media (min-width: 768px) {
+    .workex-main-title { font-size: 4rem; }
+    .workex-item-title { font-size: 2rem; }
+    .workex-item-company { font-size: 1.5rem; }
+    .workex-detail-title { font-size: 4.5rem; }
 }

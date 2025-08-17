@@ -58,6 +58,8 @@
 </head>
 <body class="antialiased">
 
+    <div id="page-transition-overlay"></div>
+
     <div id="preloader">
         <div class="loader-text">V.A</div>
     </div>
@@ -76,6 +78,7 @@
                 <a href="#workex" class="nav-link router-link">Work Experience</a>
                 <a href="#projects" class="nav-link router-link">Projects</a>
                 <a href="#resume" class="nav-link router-link">Résumé</a>
+                <button id="toggle-3d" class="ml-4 inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-slate-100 hover:bg-slate-200">3D</button>
             </div>
             <button id="mobile-menu-button" class="md:hidden text-slate-800">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -149,7 +152,6 @@
                     </a>
                 </section>
 
-                <!-- UPDATED ABOUT ME SECTION WITH GRADIENT BACKGROUND -->
                 <section class="about-me-section mt-24 md:mt-32 max-w-6xl mx-auto scroll-fade">
                     <div class="grid md:grid-cols-5 gap-8 md:gap-12 items-center">
                         <div class="md:col-span-2">
@@ -166,13 +168,59 @@
         </div>
     </template>
 
-    <!-- Other page templates with full content -->
     <template id="page-workex">
-        <div class="container mx-auto px-6 py-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-center mb-16 text-text-dark scroll-fade">Work Experience</h1>
-            <div class="relative max-w-4xl mx-auto" id="workex-timeline"></div>
+        <div class="container mx-auto px-6 py-16 md:py-24">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="workex-main-title scroll-fade">
+                    I'm electrified
+                    <span class="sparkle-container">
+                        <svg class="sparkle-svg" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 0L26.3137 19.6863L46 22L28.3137 24.3137L24 44L19.6863 24.3137L0 22L19.6863 19.6863L24 0Z" fill="currentColor"/>
+                        </svg>
+                    </span>
+                    to showcase my work.
+                </h1>
+            </div>
+            <div id="workex-list" class="max-w-5xl mx-auto mt-16 md:mt-24">
+                <!-- Work experience items will be injected here by router.js -->
+            </div>
         </div>
     </template>
+
+    <!-- NEW: Template for the Work Experience Detail Page -->
+    <template id="page-workex-detail">
+        <div class="workex-detail-container container mx-auto px-6 py-16 md:py-24">
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="md:col-span-2 workex-detail-main">
+                    <p class="workex-detail-company">{{company}}</p>
+                    <h1 class="workex-detail-title">{{role}}</h1>
+                    <p class="workex-detail-background">{{background}}</p>
+                </div>
+                <div class="workex-detail-sidebar">
+                    <div class="sidebar-item">
+                        <h3 class="sidebar-item-title">Project Type</h3>
+                        <p class="sidebar-item-text">{{projectType}}</p>
+                    </div>
+                    <div class="sidebar-item">
+                        <h3 class="sidebar-item-title">Tools</h3>
+                        <p class="sidebar-item-text">{{tools}}</p>
+                    </div>
+                    <div class="sidebar-item">
+                        <h3 class="sidebar-item-title">Location</h3>
+                        <p class="sidebar-item-text">{{location}}</p>
+                    </div>
+                    <div class="sidebar-item">
+                        <h3 class="sidebar-item-title">Year</h3>
+                        <p class="sidebar-item-text">{{years}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="workex-detail-nav">
+                <a href="#workex" class="router-link">← Back to all work</a>
+            </div>
+        </div>
+    </template>
+
     <template id="page-projects">
         <div class="container mx-auto px-6 py-16">
             <div class="text-center max-w-3xl mx-auto">
