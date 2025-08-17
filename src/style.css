@@ -744,7 +744,18 @@ body.workex-detail-page {
 
     /* Work Experience Detail Pages */
     .workex-detail-title {
-        font-size: 2.5rem;
+        font-size: 2.25rem; /* Reduced font size */
+    }
+
+    .key-point-title,
+    .key-point-title-zs {
+        font-size: 1.5rem; /* Reduced font size */
+    }
+
+    .workex-detail-background,
+    .key-point-description,
+    .key-point-content-zs p {
+        font-size: 1rem; /* Reduced font size */
     }
     
     .workex-brand-screen,
@@ -752,7 +763,7 @@ body.workex-detail-page {
     .key-point-card-zs,
     .workex-motto-container {
         width: 100%;
-        min-height: auto;
-        padding: 2rem;
+        min-height: auto; /* Let content define height */
+        padding: 2rem 1.5rem; /* Adjusted padding */
     }
 }

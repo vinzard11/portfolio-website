@@ -49,7 +49,7 @@ export const workData = [
             tools: ["AWS/GCP", "Hadoop", "Hive", "SQL", "SAS", "Python", "Shell Scripting", "Project/Product Management", "Sales/Business Development", "Tableau/Power BI/Looker", "Market Research & Analysis", "GTM"],
             location: "India",
             years: "2022-2024",
-            motto: "Treat people right, Get it right, Do the right thing",
+            motto: "Impact where it matters",
             keyPoints: [
                 {
                     title: "Specialty Pharmacy Data Optimization",
