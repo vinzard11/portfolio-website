@@ -746,16 +746,13 @@ body.workex-detail-page {
     .workex-detail-title {
         font-size: 2.5rem;
     }
-
+    
+    .workex-brand-screen,
     .key-point-card,
-    .key-point-card-zs {
+    .key-point-card-zs,
+    .workex-motto-container {
         width: 100%;
         min-height: auto;
         padding: 2rem;
-    }
-    
-    .workex-motto-container {
-        min-height: auto;
-        padding: 4rem 2rem;
     }
 }
