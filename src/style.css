@@ -749,13 +749,13 @@ body.workex-detail-page {
 
     .key-point-title,
     .key-point-title-zs {
-        font-size: 1.5rem; /* Reduced font size */
+        font-size: 1.25rem; /* Reduced font size */
     }
 
     .workex-detail-background,
     .key-point-description,
     .key-point-content-zs p {
-        font-size: 1rem; /* Reduced font size */
+        font-size: 0.9rem; /* Reduced font size */
     }
     
     .workex-brand-screen,
@@ -765,5 +765,14 @@ body.workex-detail-page {
         width: 100%;
         min-height: auto; /* Let content define height */
         padding: 2rem 1.5rem; /* Adjusted padding */
+    }
+    /* ADDED THIS RULE FOR SPECIFICITY FIX */
+    .workex-key-points .key-point-card {
+        width: 100%;
+    }
+    
+    .key-point-skill,
+    .key-point-skill-zs {
+        font-size: 0.85rem;
     }
 }
