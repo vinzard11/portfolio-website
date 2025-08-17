@@ -722,10 +722,40 @@ body.workex-detail-page {
 .zs-pattern-4:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(193, 198, 200, 0.5); }
 .zs-motto-container:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(236, 114, 0, 0.5); }
 
+/* ========================================
+    MOBILE OPTIMIZATIONS
+    ======================================== */
+@media (max-width: 768px) {
+    /* Work Experience List Page */
+    .workex-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
 
-@media (min-width: 768px) {
-    .workex-main-title { font-size: 4rem; }
-    .workex-item-title { font-size: 2rem; }
-    .workex-item-company { font-size: 1.5rem; }
-    .workex-detail-title { font-size: 4.5rem; }
+    .workex-item-tags {
+        flex-wrap: wrap;
+        margin-left: 0;
+    }
+
+    .workex-main-title {
+        font-size: 2.5rem;
+    }
+
+    /* Work Experience Detail Pages */
+    .workex-detail-title {
+        font-size: 2.5rem;
+    }
+
+    .key-point-card,
+    .key-point-card-zs {
+        width: 100%;
+        min-height: auto;
+        padding: 2rem;
+    }
+    
+    .workex-motto-container {
+        min-height: auto;
+        padding: 4rem 2rem;
+    }
 }
