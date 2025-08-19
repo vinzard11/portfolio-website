@@ -32,27 +32,9 @@
             font-size: 2rem;
             color: var(--color-primary);
         }
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
         header, main, footer {
             position: relative;
             z-index: 10;
-        }
-        #hero-canvas-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1; 
-            pointer-events: none; 
-            overflow: hidden;
         }
     </style>
 </head>
@@ -68,8 +50,6 @@
         <div id="scrollbar-liquid"></div>
         <span id="scrollbar-percentage">0%</span>
     </div>
-
-    <canvas id="bg-canvas"></canvas>
 
     <header class="bg-white/50 backdrop-blur-lg sticky top-0 z-50 border-b border-slate-200/80">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -112,8 +92,17 @@
     <template id="page-home">
         <div>
             <section class="h-screen relative flex flex-col justify-center items-center text-center px-6 overflow-hidden">
-                <div id="hero-image-container"></div>
-                
+                <div class="abstract-svg-1" aria-hidden="true">
+                    <svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M300 600C465.685 600 600 465.685 600 300C600 134.315 465.685 0 300 0C134.315 0 0 134.315 0 300C0 465.685 134.315 600 300 600Z" fill="url(#paint0_radial_1_2)"/>
+                        <defs>
+                            <radialGradient id="paint0_radial_1_2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(300 300) rotate(90) scale(300)">
+                                <stop stop-color="#F8F5F2" stop-opacity="0"/>
+                                <stop offset="1" stop-color="#0A9396" stop-opacity="0.1"/>
+                            </radialGradient>
+                        </defs>
+                    </svg>
+                </div>
                 <div id="hero-text-wrapper" class="relative z-10">
                     <h1 class="text-4xl md:text-6xl font-bold mb-4 text-text-dark" data-animate="hero-title" style="font-family: 'Playfair Display', serif;">Vinith Ayapilla</h1>
                     <p class="text-xl md:text-2xl text-primary font-semibold mb-8" data-animate="hero-subtitle" style="font-family: 'Montserrat', sans-serif;">MBA Candidate driving business growth with data, strategy, and product innovation.</p>
@@ -129,21 +118,21 @@
 
             <div id="main-content-wrapper" class="container mx-auto px-6 py-16 md:py-24">
                  <section class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <a href="#workex" class="home-feature-card-a card-1 text-left router-link scroll-fade">
+                    <a href="#workex" class="home-feature-card-a text-left router-link scroll-fade">
                         <h3 class="card-title text-2xl font-bold">My Work Experience</h3>
                         <div class="card-details">
                             <p>A detailed look at my professional roles and the impactful work I've done.</p>
                             <span class="font-semibold">View My Experience &rarr;</span>
                         </div>
                     </a>
-                    <a href="#projects" class="home-feature-card-b card-2 text-left router-link scroll-fade delay-1">
+                    <a href="#projects" class="home-feature-card-b text-left router-link scroll-fade delay-1">
                         <h3 class="card-title text-2xl font-bold">Academic & Personal Projects</h3>
                         <div class="card-details">
                             <p>A collection of my MBA, undergraduate, and personal projects.</p>
                             <span class="font-semibold">Explore Projects &rarr;</span>
                         </div>
                     </a>
-                    <a href="#resume" class="home-feature-card-c card-3 text-left router-link scroll-fade delay-2">
+                    <a href="#resume" class="home-feature-card-c text-left router-link scroll-fade delay-2">
                         <h3 class="card-title text-2xl font-bold">My Résumé</h3>
                         <div class="card-details">
                             <p>An interactive version of my professional résumé.</p>
@@ -152,10 +141,17 @@
                     </a>
                 </section>
 
+                <!-- ADDED: Section for the parallax images -->
+                <section class="parallax-image-grid max-w-6xl mx-auto mt-24 md:mt-40">
+                    <div class="parallax-wrapper-1">
+                        <img src="./public/images/ComfyUI_00014_.png" class="parallax-image" alt="Abstract background with digital glitch and bokeh lights">
+                    </div>
+                </section>
+
                 <section class="about-me-section mt-24 md:mt-32 max-w-6xl mx-auto scroll-fade">
                     <div class="grid md:grid-cols-5 gap-8 md:gap-12 items-center">
                         <div class="md:col-span-2">
-                            <img src="./public/images/Pro_img.jpg" alt="Vin Ayapilla" class="rounded-lg shadow-2xl shadow-primary/20 w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x600/005f73/FFFFFF?text=VA';">
+                            <img src="./public/images/Pro_img.jpg" alt="Vin Ayapilla" class="rounded-lg shadow-2xl shadow-primary/20 w-full scroll-reveal" onerror="this.onerror=null;this.src='https://placehold.co/600x600/005f73/FFFFFF?text=VA';">
                         </div>
                         <div class="md:col-span-3 text-white text-lg space-y-4">
                             <h2 class="text-4xl md:text-5xl font-bold mb-8" style="font-family: 'Playfair Display', serif;">About Me</h2>
@@ -187,7 +183,6 @@
         </div>
     </template>
 
-    <!-- NEW: Template for the Work Experience Detail Page -->
     <template id="page-workex-detail">
         <div class="workex-detail-container container mx-auto px-6 py-16 md:py-24">
             <div class="grid md:grid-cols-3 gap-12">

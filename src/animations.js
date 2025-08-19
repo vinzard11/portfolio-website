@@ -3,7 +3,7 @@
  * @description Manages all animations for the portfolio website.
  */
 
-import { initHeroImage, cleanupHeroImage } from './hero-image.js';
+// REMOVED: import { initHeroImage, cleanupHeroImage } from './hero-image.js';
 
 let scrollTimeline = null;
 let heroTextParallaxHandler = null;
@@ -68,33 +68,13 @@ export function disableHeroTextParallax() {
     if (textWrapper) textWrapper.style.transform = '';
 }
 
-export function initScrollAnimations(sphere, camera) {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !sphere || !camera || typeof gsap === 'undefined') return;
+export function initScrollAnimations() {
+    // REMOVED: sphere and camera parameters, as the 3D object is gone.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof gsap === 'undefined') return;
     
     gsap.registerPlugin(ScrollTrigger);
-
-    scrollTimeline = gsap.timeline({
-        scrollTrigger: {
-            trigger: "#main-content-wrapper",
-            start: "top bottom", 
-            end: "top top", 
-            scrub: 0.5, 
-        }
-    });
-    
-    const xPosition = window.innerWidth > 768 ? 18 : 4;
-    scrollTimeline.to(sphere.position, {
-        x: xPosition, 
-        y: -5,
-        ease: "power1.inOut"
-    }, 0);
-
-    scrollTimeline.to(sphere.scale, {
-        x: 1.2,
-        y: 1.2,
-        z: 1.2,
-        ease: "power1.inOut"
-    }, 0);
+    // Note: The scrollTimeline logic was tied to the sphere and is no longer needed.
+    // If you want other scroll animations, they can be added here.
 }
 
 export function killScrollAnimations() {
@@ -105,17 +85,13 @@ export function killScrollAnimations() {
 }
 
 export function initializeHomePageAnimations() {
-    const heroImageContainer = document.getElementById('hero-image-container');
-    if (heroImageContainer) {
-        const { sphere, camera } = initHeroImage(heroImageContainer);
-        initScrollAnimations(sphere, camera);
-    }
+    // REMOVED: All logic related to initHeroImage.
     enableHeroTextParallax();
     animateHeroText();
 }
 
 export function cleanupPageAnimations() {
-    cleanupHeroImage();
+    // REMOVED: cleanupHeroImage() call.
     disableHeroTextParallax();
     killScrollAnimations();
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -279,7 +255,6 @@ export function initInteractiveCards() {
     }
 }
 
-// UPDATED: Animation function now targets both BC and ZS page elements
 export function initWorkexDetailAnimations() {
     if (typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 

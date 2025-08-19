@@ -31,10 +31,7 @@ html::-webkit-scrollbar {
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: var(--color-bg-start);
-    background-image: 
-        linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-end) 100%),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%239ae6b4' fill-opacity='0.1'%3E%3Cpath d='M0 40c5.523 0 10-4.477 10-10S5.523 20 0 20s-10 4.477-10 10S-5.523 40 0 40zM80 40c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10zM40 40c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10zM20 20c5.523 0 10-4.477 10-10S25.523 0 20 0s-10 4.477-10 10S14.477 20 20 20zM60 20c5.523 0 10-4.477 10-10S65.523 0 60 0s-10 4.477-10 10S54.477 20 60 20z'/%3E%3C/path%3E%3C/svg%3E");
+    background-color: #F8F5F2; 
     color: var(--color-text-dark);
     cursor: none;
     transition: background-color 0.3s ease-in-out;
@@ -44,34 +41,10 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
 }
 
-/* ========================================
-    NEW HERO STYLES
-    ======================================== */
-#hero-image-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1; 
-    pointer-events: none; 
-}
-
-#hero-image-container canvas {
-    pointer-events: auto;
-}
-
-#hero-text-wrapper {
-    position: relative;
-    z-index: 2; 
-    pointer-events: none; 
-}
-
 main {
     position: relative;
     z-index: 10;
 }
-
 
 /* ========================================
     CURSOR STYLES (mix-blend-mode)
@@ -156,11 +129,11 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
 }
 
 /* ========================================
-    **NEW:** HOME PAGE FEATURE CARD STYLES
+    HOME PAGE FEATURE CARD STYLES
     ======================================== */
 .home-feature-card-a, .home-feature-card-b, .home-feature-card-c {
     border-radius: 0.75rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
     position: relative;
     overflow: hidden;
     min-height: 260px;
@@ -168,52 +141,33 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: center;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-.home-feature-card-a::before, .home-feature-card-b::before, .home-feature-card-c::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
-    transform: scale(0.5);
-    opacity: 0;
-    transition: transform 0.6s ease, opacity 0.6s ease;
-}
-
-.home-feature-card-a:hover::before, .home-feature-card-b:hover::before, .home-feature-card-c:hover::before {
-    transform: scale(1.2);
-    opacity: 1;
-}
-
-.home-feature-card-a:hover, .home-feature-card-b:hover, .home-feature-card-c:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 30px -10px rgba(0, 95, 115, 0.2);
+    align-items: flex-start;
+    text-align: left;
+    border: 2px solid var(--color-text-dark);
+    background-color: transparent;
+    color: var(--color-text-dark);
 }
 
 .home-feature-card-a h3, .home-feature-card-a p, .home-feature-card-a span,
 .home-feature-card-b h3, .home-feature-card-b p, .home-feature-card-b span,
 .home-feature-card-c h3, .home-feature-card-c p, .home-feature-card-c span {
-    color: rgba(255, 255, 255, 0.95); 
+    color: var(--color-text-dark);
     position: relative;
     z-index: 1;
+    transition: color 0.3s ease;
 }
 
-.card-1 {
-    background: linear-gradient(120deg, var(--gradient-1-start), var(--gradient-1-end));
+.home-feature-card-a:hover, .home-feature-card-b:hover, .home-feature-card-c:hover {
+    background-color: var(--color-text-dark);
+    color: #F8F5F2;
+    transform: translateY(-8px);
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.2);
 }
-.card-2 {
-    background: linear-gradient(120deg, var(--gradient-2-start), var(--gradient-2-end));
-}
-.card-3 {
-    background: linear-gradient(120deg, var(--gradient-3-start), var(--gradient-3-end));
+
+.home-feature-card-a:hover h3, .home-feature-card-a:hover p, .home-feature-card-a:hover span,
+.home-feature-card-b:hover h3, .home-feature-card-b:hover p, .home-feature-card-b:hover span,
+.home-feature-card-c:hover h3, .home-feature-card-c:hover p, .home-feature-card-c:hover span {
+    color: #F8F5F2;
 }
 
 .card-title {
@@ -284,6 +238,17 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
 .delay-2 { transition-delay: 300ms; }
 .delay-3 { transition-delay: 450ms; }
 
+.scroll-reveal {
+    clip-path: inset(100% 0% 0% 0%);
+    transition: clip-path 1.2s cubic-bezier(0.19, 1, 0.22, 1), transform 1.2s cubic-bezier(0.19, 1, 0.22, 
+1);
+    transform: translateY(50px);
+}
+.scroll-reveal.animate-in {
+    clip-path: inset(0% 0% 0% 0%);
+    transform: translateY(0);
+}
+
 .pdf-modal {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-color: rgba(0,0,0,0.8); display: flex;
@@ -342,15 +307,55 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
 }
 
 /* ========================================
+    PARALLAX IMAGE STYLES
+    ======================================== */
+.parallax-image-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    align-items: center;
+}
+.parallax-image-grid > div {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+.parallax-image {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    transform: scale(1.2); /* Start slightly zoomed in for parallax */
+}
+
+.parallax-wrapper-1 { grid-column: 2 / span 10; grid-row: 0; margin-top: 10px; height: 420px; z-index: 2;}
+
+/* ========================================
+    ABSTRACT SVG STYLES
+    ======================================== */
+.abstract-svg-1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 0.5;
+}
+
+/* ========================================
     ABOUT ME SECTION STYLES
     ======================================== */
 .about-me-section {
     border-radius: 0.75rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
     padding: 4rem 3rem;
     position: relative;
     overflow: hidden;
-    background: radial-gradient(rgba(42, 123, 155, 0.7) 0%, rgba(87, 199, 133, 0.7) 50%, rgba(237, 221, 83, 0.7) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    background: radial-gradient(circle, rgba(255, 223, 158, 0.5) 0%, rgba(255, 241, 224, 1) 100%);
+    border: 2px solid rgba(0, 0, 0, 1);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
@@ -361,11 +366,11 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
 }
 
 .about-me-section h2 {
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(0, 0, 0, 0.95);
 }
 
 .about-me-section p {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(0, 0, 0, 0.85);
 }
 
 
@@ -399,6 +404,17 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
         opacity: 1;
         transition: none;
     }
+
+    .parallax-image-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .parallax-wrapper-1, .parallax-wrapper-2, .parallax-wrapper-3 {
+        width: 100%;
+        height: 300px;
+        margin-top: 0 !important;
+    }
 }
 
 /* Responsive adjustments for the about me section */
@@ -431,7 +447,9 @@ body.workex-page {
 }
 
 body.workex-detail-page {
-    background: conic-gradient(from 285deg, rgba(218, 197, 179, 1.000) 0.000deg, rgba(172, 182, 164, 1.000) 90.000deg, rgba(121, 157, 141, 1.000) 180.000deg, rgba(86, 127, 112, 1.000) 270.000deg, rgba(81, 95, 79, 1.000) 360.000deg);
+    background: conic-gradient(from 285deg, rgba(218, 197, 179, 1.000) 0.000deg, rgba(172, 182, 164, 
+1.000) 90.000deg, rgba(121, 157, 141, 1.000) 180.000deg, rgba(86, 127, 112, 1.000) 270.000deg, rgba(81, 95, 
+79, 1.000) 360.000deg);
 }
 
 .workex-main-title {
@@ -630,16 +648,20 @@ body.workex-detail-page {
     justify-content: center;
 }
 
-.key-point-card.pattern-1 { width: 50%; border-radius: 0; border-top: none; border-bottom: none; text-align: center; }
+.key-point-card.pattern-1 { width: 50%; border-radius: 0; border-top: none; border-bottom: none; text-align: 
+center; }
 .key-point-card.pattern-2 { width: 50%; border-radius: 0; border-top: none; border-right: none; }
 .key-point-card.pattern-3 { width: 50%; border-radius: 0; border-top: none; }
 .pattern-1 { background-color: rgba(149, 55, 38, 0.65); } /* Stained glass effect */
 .pattern-2 { background-color: rgba(163, 103, 71, 0.65); } /* Stained glass effect */
 .pattern-3 { background-color: rgba(178, 157, 108, 0.65); } /* Stained glass effect */
 
-.key-point-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; }
-.key-point-description { font-size: 1.1rem; line-height: 1.7; color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem; flex-grow: 1; }
-.key-point-skill { font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.key-point-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; 
+margin-bottom: 1.5rem; }
+.key-point-description { font-size: 1.1rem; line-height: 1.7; color: rgba(255, 255, 255, 0.9); 
+margin-bottom: 2rem; flex-grow: 1; }
+.key-point-skill { font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; 
+}
 
 /* --- ZS Associates Key Points --- */
 .workex-key-points-zs {
@@ -661,7 +683,8 @@ body.workex-detail-page {
     width: 50%;
 }
 
-.key-point-title-zs { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 1.5rem; }
+.key-point-title-zs { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; 
+margin-bottom: 1.5rem; }
 .key-point-content-zs { flex-grow: 1; font-size: 1rem; line-height: 1.6; }
 .key-point-content-zs p { margin-bottom: 1rem; }
 .key-point-skill-zs { font-size: 0.9rem; color: var(--color-text-dark); opacity: 0.8; }
@@ -686,7 +709,8 @@ body.workex-detail-page {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
-.workex-motto-container p { font-size: 2.5rem; font-weight: bold; font-style: italic; font-family: 'Playfair Display', serif; }
+.workex-motto-container p { font-size: 2.5rem; font-weight: bold; font-style: italic; font-family: 
+'Playfair Display', serif; }
 
 /* BC Motto */
 .bc-motto-container {
@@ -713,14 +737,16 @@ body.workex-detail-page {
 .pattern-1:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(149, 55, 38, 0.5); }
 .pattern-2:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(163, 103, 71, 0.5); }
 .pattern-3:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(178, 157, 108, 0.5); }
-.bc-motto-container:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(230, 195, 101, 0.5); }
+.bc-motto-container:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(230, 195, 101, 0.5); 
+}
 
 .zs-brand-screen:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(26, 22, 40, 0.5); }
 .zs-pattern-1:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(152, 164, 174, 0.5); }
 .zs-pattern-2:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(236, 114, 0, 0.5); }
 .zs-pattern-3:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(136, 139, 141, 0.5); }
 .zs-pattern-4:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(193, 198, 200, 0.5); }
-.zs-motto-container:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(236, 114, 0, 0.5); }
+.zs-motto-container:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(236, 114, 0, 0.5); 
+}
 
 /* ========================================
     MOBILE OPTIMIZATIONS

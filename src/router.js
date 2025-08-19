@@ -11,6 +11,8 @@ import { createWorkexSimplePageHTML } from './workex-simple-template.js';
 
 const appRoot = document.getElementById('app-root');
 
+// REMOVED: backgroundInterval and related functions (start/stopRotatingBackground)
+
 async function playPageTransition(targetPageId, direction) {
     return; // Skipping transitions for now
 }
@@ -77,12 +79,13 @@ function initializePageListeners() {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('animate-in');
             });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
+        }, { threshold: 0.2 }); 
+
+        document.querySelectorAll('.scroll-fade, .scroll-reveal').forEach(el => observer.observe(el));
         
         initInteractiveCards();
     } else {
-        document.querySelectorAll('.scroll-fade').forEach(el => el.classList.add('animate-in'));
+        document.querySelectorAll('.scroll-fade, .scroll-reveal').forEach(el => el.classList.add('animate-in'));
     }
     
     document.querySelectorAll('.view-pdf-btn').forEach(button => {
@@ -103,7 +106,6 @@ function initializePageListeners() {
         });
     });
 
-    // Re-added the event listener for expandable project cards
     document.querySelectorAll('.expandable-item').forEach(item => {
         const toggle = item.querySelector('.toggle-summary');
         if (toggle) {
@@ -139,18 +141,15 @@ export async function loadContent(path) {
 
     await playPageTransition(pageId, 'out');
 
-    const bgCanvas = document.getElementById('bg-canvas');
-    document.body.classList.remove('workex-page', 'workex-detail-page'); 
+    document.body.className = 'antialiased'; // Reset body classes
 
     if (hash.startsWith('workex')) {
-        if (bgCanvas) bgCanvas.style.display = 'none';
         document.body.classList.add('workex-page');
         if(isWorkexDetailPage) {
             document.body.classList.add('workex-detail-page');
         }
-    } else {
-        if (bgCanvas) bgCanvas.style.display = 'block';
     }
+    // No special class needed for home, the default body style is now the creamy white.
     
     appRoot.innerHTML = ''; 
 
@@ -163,7 +162,6 @@ export async function loadContent(path) {
         } else if (companySlug === 'zs-associates') {
             appRoot.innerHTML = createZsDetailPageHTML(workItem);
         } else {
-            // Use the new simple template for other work experiences
             appRoot.innerHTML = createWorkexSimplePageHTML(workItem);
         }
         

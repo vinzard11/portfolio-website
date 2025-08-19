@@ -4,7 +4,7 @@
  * Initializes modules and sets up event listeners.
  */
 
-import { initThreeJS } from './3d-background.js';
+// REMOVED: import { initThreeJS } from './3d-background.js';
 import { loadContent } from './router.js';
 import { initCustomCursor, handleScroll } from './utils.js';
 
@@ -24,7 +24,7 @@ window.addEventListener('load', () => {
     preloader.classList.add('loaded');
     
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        initThreeJS();
+        // REMOVED: initThreeJS();
         initCustomCursor();
     }
 
