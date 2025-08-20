@@ -307,27 +307,59 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
 }
 
 /* ========================================
-    PARALLAX IMAGE STYLES
+    FLIPPING IMAGE & SCROLL ZOOM STYLES
     ======================================== */
-.parallax-image-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 1.5rem;
-    align-items: center;
-}
-.parallax-image-grid > div {
-    overflow: hidden;
-    border-radius: 0.75rem;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
-.parallax-image {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    transform: scale(1.2); /* Start slightly zoomed in for parallax */
+.parallax-image-container {
+    /* The max-w-6xl and mx-auto classes in the HTML handle the sizing and centering */
 }
 
-.parallax-wrapper-1 { grid-column: 2 / span 10; grid-row: 0; margin-top: 10px; height: 420px; z-index: 2;}
+#flipping-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 550px;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    /* GSAP will handle the transform for zooming */
+}
+
+.flipping-image-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    animation: imageFlipFade 3s infinite;
+}
+
+.flipping-image-slide:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.flipping-image-slide:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.flipping-image-slide:nth-child(3) {
+    animation-delay: 2s;
+}
+
+
+.flipping-image-slide .parallax-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@keyframes imageFlipFade {
+    0% { opacity: 0; transform: scale(1); }
+    8.33% { opacity: 1; } 
+    33.33% { opacity: 1; transform: scale(1.05); } 
+    41.66% { opacity: 0; transform: scale(1.05); } 
+    100% { opacity: 0; }
+}
+
 
 /* ========================================
     ABSTRACT SVG STYLES
@@ -384,6 +416,11 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
         display: none;
     }
 
+    .abstract-svg-1 svg {
+        width: 450px;
+        height: 450px;
+    }
+
     .home-feature-card-a, .home-feature-card-b, .home-feature-card-c {
         justify-content: flex-start;
         text-align: left;
@@ -405,15 +442,8 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
         transition: none;
     }
 
-    .parallax-image-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
-    .parallax-wrapper-1, .parallax-wrapper-2, .parallax-wrapper-3 {
-        width: 100%;
+    #flipping-image-wrapper {
         height: 300px;
-        margin-top: 0 !important;
     }
 }
 
@@ -482,20 +512,51 @@ body.workex-detail-page {
     50% { transform: scale(1.3) rotate(15deg); opacity: 0.7; }
 }
 
+/* MODIFIED: Styles for the layered video effect */
+.workex-content-wrapper {
+    position: relative;
+}
+
+.workex-video-container {
+    position: sticky;
+    top: 20vh; /* Adjust this value to control where the video sticks */
+    height: 60vh;
+    z-index: 1;
+    margin-bottom: 2rem;
+}
+
+#workex-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+#workex-list {
+    position: relative;
+    z-index: 2; /* Ensures the list is on top of the video */
+}
+
 .workex-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 0;
+    padding: 2rem;
     border-bottom: 2px solid rgba(0, 18, 25, 0.1);
     border-top: 2px solid rgba(0, 18, 25, 0.1);
     text-decoration: none;
     color: var(--color-text-dark);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.4s ease;
+    /*background-color: rgba(189, 255, 243, 0.8);  Semi-transparent background for items covering the video */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 0.5rem;
+    margin-bottom: -2px; /* Overlap borders */
 }
 
 .workex-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .workex-item-title {
@@ -533,7 +594,7 @@ body.workex-detail-page {
     WORK EXPERIENCE DETAIL PAGE STYLES
     ======================================== */
 .workex-detail-container {
-    color: var(--color-text-dark); /* Changed for new background */
+    color: var(--color-text-dark);
 }
 
 .workex-detail-main {
@@ -616,7 +677,7 @@ body.workex-detail-page {
     align-items: center;
     min-height: 70vh;
     width: 100%;
-    background-color: rgba(138, 16, 11, 0.65); /* Stained glass effect */
+    background-color: rgba(138, 16, 11, 0.65);
 }
 
 .brand-screen-icon {
@@ -652,9 +713,9 @@ body.workex-detail-page {
 center; }
 .key-point-card.pattern-2 { width: 50%; border-radius: 0; border-top: none; border-right: none; }
 .key-point-card.pattern-3 { width: 50%; border-radius: 0; border-top: none; }
-.pattern-1 { background-color: rgba(149, 55, 38, 0.65); } /* Stained glass effect */
-.pattern-2 { background-color: rgba(163, 103, 71, 0.65); } /* Stained glass effect */
-.pattern-3 { background-color: rgba(178, 157, 108, 0.65); } /* Stained glass effect */
+.pattern-1 { background-color: rgba(149, 55, 38, 0.65); }
+.pattern-2 { background-color: rgba(163, 103, 71, 0.65); }
+.pattern-3 { background-color: rgba(178, 157, 108, 0.65); }
 
 .key-point-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; 
 margin-bottom: 1.5rem; }
@@ -690,11 +751,11 @@ margin-bottom: 1.5rem; }
 .key-point-skill-zs { font-size: 0.9rem; color: var(--color-text-dark); opacity: 0.8; }
 
 /* ZS Specific Colors */
-.zs-brand-screen { background-color: rgba(26, 22, 40, 0.65); } /* Stained glass effect */
-.zs-pattern-1 { background-color: rgba(152, 164, 174, 0.65); } /* Stained glass effect */
-.zs-pattern-2 { background-color: rgba(236, 114, 0, 0.65); }   /* Stained glass effect */
-.zs-pattern-3 { background-color: rgba(136, 139, 141, 0.65); } /* Stained glass effect */
-.zs-pattern-4 { background-color: rgba(193, 198, 200, 0.65); } /* Stained glass effect */
+.zs-brand-screen { background-color: rgba(26, 22, 40, 0.65); }
+.zs-pattern-1 { background-color: rgba(152, 164, 174, 0.65); }
+.zs-pattern-2 { background-color: rgba(236, 114, 0, 0.65); }
+.zs-pattern-3 { background-color: rgba(136, 139, 141, 0.65); }
+.zs-pattern-4 { background-color: rgba(193, 198, 200, 0.65); }
 
 /* --- Motto Container --- */
 .workex-motto-container {
@@ -714,13 +775,13 @@ margin-bottom: 1.5rem; }
 
 /* BC Motto */
 .bc-motto-container {
-    background-color: rgba(230, 195, 101, 0.65); /* Stained glass effect */
+    background-color: rgba(230, 195, 101, 0.65);
     color: rgba(255, 255, 255, 0.95);
 }
 
 /* ZS Motto */
 .zs-motto-container {
-    background-color: rgba(244, 243, 243, 0.65); /* Stained glass effect */
+    background-color: rgba(244, 243, 243, 0.65);
     color: #EC7200;
 }
 
@@ -770,18 +831,18 @@ margin-bottom: 1.5rem; }
 
     /* Work Experience Detail Pages */
     .workex-detail-title {
-        font-size: 2.25rem; /* Reduced font size */
+        font-size: 2.25rem;
     }
 
     .key-point-title,
     .key-point-title-zs {
-        font-size: 1.25rem; /* Reduced font size */
+        font-size: 1.25rem;
     }
 
     .workex-detail-background,
     .key-point-description,
     .key-point-content-zs p {
-        font-size: 0.9rem; /* Reduced font size */
+        font-size: 0.9rem;
     }
     
     .workex-brand-screen,
@@ -789,10 +850,10 @@ margin-bottom: 1.5rem; }
     .key-point-card-zs,
     .workex-motto-container {
         width: 100%;
-        min-height: auto; /* Let content define height */
-        padding: 2rem 1.5rem; /* Adjusted padding */
+        min-height: auto;
+        padding: 2rem 1.5rem;
     }
-    /* ADDED THIS RULE FOR SPECIFICITY FIX */
+
     .workex-key-points .key-point-card {
         width: 100%;
     }

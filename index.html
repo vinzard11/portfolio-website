@@ -58,7 +58,6 @@
                 <a href="#workex" class="nav-link router-link">Work Experience</a>
                 <a href="#projects" class="nav-link router-link">Projects</a>
                 <a href="#resume" class="nav-link router-link">Résumé</a>
-                <button id="toggle-3d" class="ml-4 inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-slate-100 hover:bg-slate-200">3D</button>
             </div>
             <button id="mobile-menu-button" class="md:hidden text-slate-800">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -141,10 +140,17 @@
                     </a>
                 </section>
 
-                <!-- ADDED: Section for the parallax images -->
-                <section class="parallax-image-grid max-w-6xl mx-auto mt-24 md:mt-40">
-                    <div class="parallax-wrapper-1">
-                        <img src="./public/images/ComfyUI_00014_.png" class="parallax-image" alt="Abstract background with digital glitch and bokeh lights">
+                <section class="parallax-image-container max-w-6xl mx-auto mt-24 md:mt-40">
+                    <div id="flipping-image-wrapper">
+                        <div class="flipping-image-slide">
+                            <img src="./public/images/ComfyUI_00014_.png" alt="Abstract background with digital glitch and bokeh lights" class="parallax-image">
+                        </div>
+                        <div class="flipping-image-slide">
+                            <img src="./public/images/IMG_1.jpg" alt="Abstract colorful geometric shapes" class="parallax-image" onerror="this.onerror=null;this.src='https://placehold.co/1200x550/005f73/FFFFFF?text=Image+Not+Found';">
+                        </div>
+                        <div class="flipping-image-slide">
+                            <img src="./public/images/IMG_2.jpg" alt="Abstract colorful geometric shapes" class="parallax-image" onerror="this.onerror=null;this.src='https://placehold.co/1200x550/005f73/FFFFFF?text=Image+Not+Found';">
+                        </div>
                     </div>
                 </section>
 
@@ -177,8 +183,14 @@
                     to showcase my work.
                 </h1>
             </div>
-            <div id="workex-list" class="max-w-5xl mx-auto mt-16 md:mt-24">
-                <!-- Work experience items will be injected here by router.js -->
+            <!-- MODIFIED: Added a relative wrapper for the list and video -->
+            <div class="workex-content-wrapper max-w-5xl mx-auto mt-16 md:mt-24">
+                <div class="workex-video-container">
+                    <video id="workex-video" src="./public/videos/VID_1.mp4" autoplay loop muted playsinline onerror="this.style.display='none'"></video>
+                </div>
+                <div id="workex-list">
+                    <!-- Work experience items will be injected here by router.js -->
+                </div>
             </div>
         </div>
     </template>

@@ -3,8 +3,6 @@
  * @description Manages all animations for the portfolio website.
  */
 
-// REMOVED: import { initHeroImage, cleanupHeroImage } from './hero-image.js';
-
 let scrollTimeline = null;
 let heroTextParallaxHandler = null;
 
@@ -18,6 +16,46 @@ function splitTitleForAnimation(title) {
         }).join(' ');
     }
 }
+
+// Function to handle the scroll-to-zoom effect on the homepage image gallery
+function initImageScrollZoom() {
+    if (typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    
+    const target = document.getElementById('flipping-image-wrapper');
+    if (!target) return;
+
+    gsap.to(target, {
+        scrollTrigger: {
+            trigger: target,
+            start: "top center+=100",
+            end: "bottom top",
+            scrub: 1.2,
+        },
+        scale: 1.25,
+        ease: "power1.inOut"
+    });
+}
+
+export function initWorkexPageAnimations() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const video = document.getElementById('workex-video');
+    // MODIFIED: The trigger is now the list wrapper, not the video itself
+    const listWrapper = document.querySelector('.workex-content-wrapper');
+    
+    if (video && listWrapper && typeof gsap !== 'undefined') {
+        gsap.to(video, {
+            scrollTrigger: {
+                trigger: listWrapper,
+                start: "center center", // Start when the center of the wrapper hits the center of the screen
+                end: "bottom top",      // End when the bottom of the wrapper hits the top of the screen
+                scrub: 1.5,
+            },
+            scale: 1.2,
+        });
+    }
+}
+
 
 export function animateHeroText() {
     if (typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -69,12 +107,9 @@ export function disableHeroTextParallax() {
 }
 
 export function initScrollAnimations() {
-    // REMOVED: sphere and camera parameters, as the 3D object is gone.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof gsap === 'undefined') return;
     
     gsap.registerPlugin(ScrollTrigger);
-    // Note: The scrollTimeline logic was tied to the sphere and is no longer needed.
-    // If you want other scroll animations, they can be added here.
 }
 
 export function killScrollAnimations() {
@@ -85,13 +120,12 @@ export function killScrollAnimations() {
 }
 
 export function initializeHomePageAnimations() {
-    // REMOVED: All logic related to initHeroImage.
     enableHeroTextParallax();
     animateHeroText();
+    initImageScrollZoom();
 }
 
 export function cleanupPageAnimations() {
-    // REMOVED: cleanupHeroImage() call.
     disableHeroTextParallax();
     killScrollAnimations();
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -260,11 +294,10 @@ export function initWorkexDetailAnimations() {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Animate the main content blocks for both pages
     const detailElements = gsap.utils.toArray([
         '.workex-brand-screen',
-        '.key-point-card',      // BC cards
-        '.key-point-card-zs',   // ZS cards
+        '.key-point-card',
+        '.key-point-card-zs',
         '.workex-motto-container'
     ]);
 
@@ -284,10 +317,9 @@ export function initWorkexDetailAnimations() {
         });
     }
 
-    // Animate the title letters for a fun effect
     const title = document.querySelector('.workex-detail-title');
     if (title) {
-        splitTitleForAnimation(title); // Reuse the helper function
+        splitTitleForAnimation(title);
         gsap.from(title.querySelectorAll('.letter'), {
             scrollTrigger: {
                 trigger: title,

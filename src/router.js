@@ -4,28 +4,34 @@
  */
 
 import { workData, projectData } from './data.js';
-import { initializeHomePageAnimations, cleanupPageAnimations, initInteractiveCards, initWorkexDetailAnimations } from './animations.js';
+import { 
+    initializeHomePageAnimations, 
+    cleanupPageAnimations, 
+    initInteractiveCards, 
+    initWorkexDetailAnimations,
+    initWorkexPageAnimations 
+} from './animations.js';
 import { createWorkexDetailPageHTML } from './workex-detail-template.js';
 import { createZsDetailPageHTML } from './zs-detail-template.js'; 
 import { createWorkexSimplePageHTML } from './workex-simple-template.js';
 
 const appRoot = document.getElementById('app-root');
 
-// REMOVED: backgroundInterval and related functions (start/stopRotatingBackground)
-
 async function playPageTransition(targetPageId, direction) {
     return; // Skipping transitions for now
 }
 
-const createModernWorkItemHTML = (exp) => {
-    // Only create an item if it has a subpage defined
+// MODIFIED: Added isTransparent parameter
+const createModernWorkItemHTML = (exp, isTransparent) => {
     if (!exp.subpage) return '';
 
     const tagsHTML = exp.tags.map(tag => `<span class="workex-tag">${tag}</span>`).join('');
     const companySlug = exp.company.toLowerCase().replace(/\s+/g, '-');
+    // Conditionally add the transparent class
+    const itemClass = `workex-item router-link scroll-fade ${isTransparent ? 'workex-item' : ''}`;
     
     return `
-        <a href="#workex/${companySlug}" class="workex-item router-link scroll-fade">
+        <a href="#workex/${companySlug}" class="${itemClass}">
             <div class="workex-item-info">
                 <h2 class="workex-item-title">${exp.role}</h2>
                 <p class="workex-item-company">${exp.company}</p>
@@ -149,7 +155,6 @@ export async function loadContent(path) {
             document.body.classList.add('workex-detail-page');
         }
     }
-    // No special class needed for home, the default body style is now the creamy white.
     
     appRoot.innerHTML = ''; 
 
@@ -175,8 +180,13 @@ export async function loadContent(path) {
             if (pageId === 'page-workex') {
                 const container = document.getElementById('workex-list');
                 if(container) {
-                    container.innerHTML = workData.map(createModernWorkItemHTML).join('');
+                    // MODIFIED: Logic to pass the isTransparent flag
+                    container.innerHTML = workData.map((exp, index, arr) => {
+                        const isTransparent = index >= arr.length - 2;
+                        return createModernWorkItemHTML(exp, isTransparent);
+                    }).join('');
                 }
+                initWorkexPageAnimations();
             }
             if (pageId === 'page-projects') {
                 const container = document.getElementById('projects-grid');
