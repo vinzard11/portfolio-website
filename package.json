@@ -4,7 +4,7 @@
   "description": "Optimized portfolio website",
   "main": "index.html",
   "scripts": {
-    "build": "tailwindcss -i ./src/style.css -o ./dist/output.css --minify && copyfiles -u 1 \"index.html\" \"public/**/*\" \"src/**/*\" dist/"
+    "build": "tailwindcss -i ./src/style.css -o ./dist/output.css --minify && copyfiles \"index.html\" \"public/**/*\" \"src/**/*\" dist/"
   },
   "keywords": [],
   "author": "",
