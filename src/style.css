@@ -11,14 +11,6 @@
     --color-text-light: #4a5568;
     --color-card-bg: rgba(255, 255, 255, 0.7);
     --color-border: rgba(0, 0, 0, 0.08);
-
-    /* Gradients with RGBA for translucency */
-    --gradient-1-start: rgba(125, 38, 208, 0.75);
-    --gradient-1-end: rgba(74, 0, 224, 0.75);
-    --gradient-2-start: rgba(3, 149, 154, 0.75);
-    --gradient-2-end: rgba(0, 205, 172, 0.75);
-    --gradient-3-start: rgba(232, 46, 30, 0.75);
-    --gradient-3-end: rgba(242, 173, 33, 0.75);
 }
 
 html {
@@ -47,7 +39,7 @@ main {
 }
 
 /* ========================================
-    CURSOR STYLES (mix-blend-mode)
+    CURSOR STYLES
     ======================================== */
 .cursor {
     position: fixed;
@@ -63,16 +55,9 @@ main {
     mix-blend-mode: difference; 
     transition: transform 0.2s ease-out, width 0.2s ease-out, height 0.2s ease-out;
 }
-.cursor.grow {
-    width: 50px;
-    height: 50px;
-}
-.cursor.clicked {
-    transform: translate(-50%, -50%) scale(0.9);
-}
-.cursor.hidden {
-    opacity: 0;
-}
+.cursor.grow { width: 50px; height: 50px; }
+.cursor.clicked { transform: translate(-50%, -50%) scale(0.9); }
+.cursor.hidden { opacity: 0; }
 @media (hover: none) {
     .cursor { display: none; }
     body { cursor: auto; }
@@ -87,7 +72,6 @@ main {
     transition: color 0.3s ease;
     color: var(--color-text-light);
     font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
 }
 .nav-link::after {
     content: '';
@@ -100,33 +84,13 @@ main {
     background-color: var(--color-primary);
     transition: width 0.3s ease;
 }
-.nav-link.active, .nav-link:hover {
-    color: var(--color-primary);
-}
-.nav-link.active::after, .nav-link:hover::after {
-    width: 100%;
-}
+.nav-link.active, .nav-link:hover { color: var(--color-primary); }
+.nav-link.active::after, .nav-link:hover::after { width: 100%; }
 
 /* ========================================
     INTERACTIVE ELEMENT STYLES
     ======================================== */
-a, button, .router-link, .view-pdf-btn, .toggle-summary {
-    cursor: none;
-}
-
-.gradient-border-card {
-    background-color: var(--color-card-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 0.75rem;
-    transition: box-shadow 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-}
-.gradient-border-card:hover {
-    box-shadow: 0 20px 30px -10px rgba(0, 95, 115, 0.2);
-}
+a, button, .router-link, .view-pdf-btn, .toggle-summary { cursor: none; }
 
 /* ========================================
     HOME PAGE FEATURE CARD STYLES
@@ -170,16 +134,12 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     color: #F8F5F2;
 }
 
-.card-title {
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
+.card-title { transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
 .card-details {
     max-height: 0;
     opacity: 0;
     transition: max-height 0.4s ease, opacity 0.3s ease 0.1s;
 }
-
 .home-feature-card-a:hover .card-details,
 .home-feature-card-b:hover .card-details,
 .home-feature-card-c:hover .card-details {
@@ -194,9 +154,8 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     background: linear-gradient(120deg, var(--color-accent), var(--color-primary));
     color: white;
     font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 15px rgba(10, 147, 150, 0.3);
     border: 2px solid transparent;
 }
@@ -204,39 +163,15 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     transform: translateY(-2px);
     box-shadow: 0 7px 20px rgba(10, 147, 150, 0.4);
 }
-
 .btn-outline {
     background: transparent;
     border: 2px solid var(--color-primary);
     color: var(--color-primary);
     box-shadow: none;
 }
-
 .btn-outline:hover {
     background: var(--color-primary);
     color: white;
-    box-shadow: none;
-}
-
-/* Styles for expandable sections */
-.details-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out;
-}
-.details-content.open {
-    max-height: 2000px; 
-    margin-top: 1.5rem;
-}
-.toggle-icon {
-    transition: transform 0.3s ease;
-}
-.open > .toggle-summary .toggle-icon, .open > .toggle-icon {
-    transform: rotate(135deg);
-}
-
-#projects-grid {
-    align-items: start;
 }
 
 /* ========================================
@@ -245,22 +180,12 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
 .scroll-fade {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.3s ease-out;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 .scroll-fade.animate-in { opacity: 1; transform: translateY(0); }
 .delay-1 { transition-delay: 150ms; }
 .delay-2 { transition-delay: 300ms; }
 .delay-3 { transition-delay: 450ms; }
-
-.scroll-reveal {
-    clip-path: inset(100% 0% 0% 0%);
-    transition: clip-path 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-    transform: translateY(50px);
-}
-.scroll-reveal.animate-in {
-    clip-path: inset(0% 0% 0% 0%);
-    transform: translateY(0);
-}
 
 .pdf-modal {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -278,12 +203,10 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     display: flex; justify-content: space-between; align-items: center;
     padding: 1rem; border-bottom: 1px solid #e5e7eb; color: #000;
 }
-.pdf-modal-close {
-    background: none; border: none; font-size: 1.5rem; cursor: pointer;
-}
+.pdf-modal-close { background: none; border: none; font-size: 1.5rem; }
 
 /* ========================================
-    CUSTOM SCROLLBAR STYLES
+    CUSTOM SCROLLBAR
     ======================================== */
 #custom-scrollbar {
     position: fixed;
@@ -299,33 +222,26 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     flex-direction: column;
     align-items: center;
 }
-
 #scrollbar-liquid {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 0%; /* Starts at 0, updated by JS */
+    height: 0%;
     background: linear-gradient(to top, var(--color-accent), var(--color-primary));
     border-radius: 10px;
-    transition: height 0.05s linear; /* Smooth fill */
+    transition: height 0.05s linear;
 }
-
 #scrollbar-percentage {
     position: absolute;
-    bottom: -35px; /* Positioned just below the bar */
+    bottom: -35px;
     font-size: 12px;
     font-weight: 600;
     color: var(--color-primary);
-    font-family: 'Montserrat', sans-serif;
 }
 
 /* ========================================
-    FLIPPING IMAGE & SCROLL ZOOM STYLES
+    HOME PAGE SECTIONS
     ======================================== */
-.parallax-image-container {
-    /* The max-w-6xl and mx-auto classes in the HTML handle the sizing and centering */
-}
-
 #flipping-image-wrapper {
     position: relative;
     width: 100%;
@@ -333,38 +249,20 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     border-radius: 0.75rem;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    /* GSAP will handle the transform for zooming */
+    will-change: transform;
 }
-
 .flipping-image-slide {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     opacity: 0;
     animation: imageFlipFade 3s infinite;
 }
-
-.flipping-image-slide:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.flipping-image-slide:nth-child(2) {
-    animation-delay: 1s;
-}
-
-.flipping-image-slide:nth-child(3) {
-    animation-delay: 2s;
-}
-
-
+.flipping-image-slide:nth-child(1) { animation-delay: 0s; }
+.flipping-image-slide:nth-child(2) { animation-delay: 1s; }
+.flipping-image-slide:nth-child(3) { animation-delay: 2s; }
 .flipping-image-slide .parallax-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100%; height: 100%; object-fit: cover;
 }
-
 @keyframes imageFlipFade {
     0% { opacity: 0; transform: scale(1); }
     8.33% { opacity: 1; } 
@@ -373,10 +271,6 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     100% { opacity: 0; }
 }
 
-
-/* ========================================
-    ABSTRACT SVG STYLES
-    ======================================== */
 .abstract-svg-1 {
     position: absolute;
     top: 50%;
@@ -386,169 +280,52 @@ a, button, .router-link, .view-pdf-btn, .toggle-summary {
     opacity: 0.5;
 }
 
-/* ========================================
-    ABOUT ME SECTION STYLES
-    ======================================== */
 .about-me-section {
     border-radius: 0.75rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
     padding: 4rem 3rem;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
     background: radial-gradient(circle, rgba(255, 223, 158, 0.5) 0%, rgba(255, 241, 224, 1) 100%);
     border: 2px solid rgba(0, 0, 0, 1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
 }
-
-.about-me-section .grid {
-    position: relative;
-    z-index: 2;
-}
-
-.about-me-section h2 {
-    color: rgba(0, 0, 0, 0.95);
-}
-
-.about-me-section p {
-    color: rgba(0, 0, 0, 0.85);
-}
-
-
-@media (max-width: 768px) {
-    #custom-scrollbar {
-        width: 8px;
-        left: 10px;
-    }
-
-    #scrollbar-percentage {
-        display: none;
-    }
-
-    .abstract-svg-1 svg {
-        width: 450px;
-        height: 450px;
-    }
-
-    .home-feature-card-a, .home-feature-card-b, .home-feature-card-c {
-        justify-content: flex-start;
-        text-align: left;
-        padding: 1.5rem;
-    }
-
-    .home-feature-card-a:hover, .home-feature-card-b:hover, .home-feature-card-c:hover {
-        transform: none;
-    }
-
-    .card-title {
-        transform: none !important;
-        margin-bottom: 0.75rem;
-    }
-
-    .card-details {
-        max-height: 200px;
-        opacity: 1;
-        transition: none;
-    }
-
-    #flipping-image-wrapper {
-        height: 300px;
-    }
-}
-
-/* Responsive adjustments for the about me section */
-@media (min-width: 1024px) {
-    .about-me-section {
-        padding: 6rem 5rem;
-    }
-}
+.about-me-section h2 { color: rgba(0, 0, 0, 0.95); }
+.about-me-section p { color: rgba(0, 0, 0, 0.85); }
 
 /* ========================================
-    PAGE TRANSITION STYLES
-    ======================================== */
-#page-transition-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 9998;
-    transform: scale(0); 
-}
-
-/* ========================================
-    WORK EXPERIENCE PAGE STYLES
+    WORK EXPERIENCE PAGE
     ======================================== */
 body.workex-page {
-    background: #4AC29A;
-    background: -webkit-linear-gradient(to right, #BDFFF3, #4AC29A);
     background: linear-gradient(to right, #BDFFF3, #4AC29A);
 }
-
-body.workex-detail-page {
-    background: #043927;
-}
-
 .workex-main-title {
-    font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
     font-weight: 700;
     color: var(--color-text-dark);
     line-height: 1.2;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
 }
-
 .sparkle-container {
     display: inline-block;
     margin: 0 0.25em;
     color: #FFC700;
     animation: sparkle-animation 1.5s infinite;
 }
-
-.sparkle-svg {
-    width: 1em;
-    height: 1em;
-    transform-origin: center;
-}
-
 @keyframes sparkle-animation {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
-    50% { transform: scale(1.3) rotate(15deg); opacity: 0.7; }
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.3) rotate(15deg); }
 }
-
-/* MODIFIED: Styles for the layered video effect */
-.workex-content-wrapper {
-    position: relative;
-}
-
+.workex-content-wrapper { position: relative; }
 .workex-video-container {
     position: sticky;
-    top: 20vh; /* Adjust this value to control where the video sticks */
+    top: 20vh;
     height: 60vh;
     z-index: 1;
-    margin-bottom: 2rem;
 }
-
 #workex-video {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     border-radius: 0.75rem;
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    will-change: transform;
 }
-
-#workex-list {
-    position: relative;
-    z-index: 2; /* Ensures the list is on top of the video */
-}
-
+#workex-list { position: relative; z-index: 2; }
 .workex-item {
     display: flex;
     justify-content: space-between;
@@ -556,40 +333,17 @@ body.workex-detail-page {
     padding: 2rem;
     border-bottom: 2px solid rgba(0, 18, 25, 0.1);
     border-top: 2px solid rgba(0, 18, 25, 0.1);
-    text-decoration: none;
     color: var(--color-text-dark);
     transition: background-color 0.4s ease;
-    /*background-color: rgba(189, 255, 243, 0.8);  Semi-transparent background for items covering the video */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 0.5rem;
-    margin-bottom: -2px; /* Overlap borders */
+    margin-bottom: -2px;
 }
-
-.workex-item:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-}
-
-.workex-item-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 600;
-}
-
-.workex-item-company {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.25rem;
-    color: var(--color-text-light);
-    margin-top: 0.25rem;
-}
-
-.workex-item-tags {
-    display: flex;
-    gap: 0.75rem;
-    flex-shrink: 0;
-    margin-left: 1rem;
-}
-
+.workex-item:hover { background-color: rgba(255, 255, 255, 0.5); }
+.workex-item-title { font-size: 1.25rem; font-weight: 600; }
+.workex-item-company { font-size: 1.25rem; color: var(--color-text-light); margin-top: 0.25rem; }
+.workex-item-tags { display: flex; gap: 0.75rem; }
 .workex-tag {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -597,21 +351,13 @@ body.workex-detail-page {
     border-radius: 9999px;
     font-size: 0.85rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
 }
 
 /* ========================================
-    PROJECTS PAGE STYLES
+    PROJECTS PAGE
     ======================================== */
-body.projects-page {
-    background-color: #E0F084;
-}
-
-.project-list-container {
-    position: relative;
-}
-
+body.projects-page { background-color: #E0F084; }
+.project-list-container { position: relative; }
 .project-item {
     padding: 2rem 0;
     border-bottom: 1px solid rgba(0,0,0,0.2);
@@ -619,682 +365,171 @@ body.projects-page {
     z-index: 2;
     transition: opacity 0.4s ease;
 }
-
 .project-item a {
-    text-decoration: none;
     color: #000;
     font-size: 1.75rem;
     font-weight: bold;
-    font-family: 'Playfair Display', serif;
-    transition: color 0.3s ease;
 }
-
-.project-list-container.is-hovered .project-item:not(.is-hovered) {
-    opacity: 0.3;
-}
-
+.project-list-container.is-hovered .project-item:not(.is-hovered) { opacity: 0.3; }
 .project-item.is-hovered a {
     color: white;
     mix-blend-mode: difference;
-    text-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
-
 .project-hover-images-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
+    top: 0; left: 0; width: 100%; height: 100vh;
     pointer-events: none;
     z-index: 1;
 }
-
 .project-hover-image {
     position: absolute;
     top: 50%;
-    width: 500px;
-    height: 300px;
+    width: 500px; height: 300px;
     object-fit: cover;
     border-radius: 0.75rem;
     opacity: 0;
     transform: translateY(-50%) scale(0.9);
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
-
-.project-hover-image.visible {
-    opacity: 1;
-    transform: translateY(-50%) scale(1);
-}
-
-.project-hover-image.position-left {
-    left: 5%;
-}
-
-.project-hover-image.position-right {
-    right: 5%;
-}
-
+.project-hover-image.visible { opacity: 1; transform: translateY(-50%) scale(1); }
+.project-hover-image.position-left { left: 5%; }
+.project-hover-image.position-right { right: 5%; }
 
 /* ========================================
-    WORK EXPERIENCE DETAIL PAGE STYLES (OLD)
+    WORKEX & PROJECT DETAIL PAGE (V2)
     ======================================== */
-.workex-detail-container {
-    color: var(--color-text-dark);
-}
+body.workex-detail-page, body.project-detail-page { background: #043927; }
+body.projects-page.project-detail-page { background-color: #596617; }
 
-.workex-detail-main {
-    padding-top: 1rem;
-}
-
-.workex-detail-company {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.workex-detail-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 1);
-    line-height: 1.1;
-    margin: 0.5rem 0 2rem;
-}
-
-.workex-detail-background {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.125rem;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.workex-detail-sidebar {
-    padding-top: 1rem;
-}
-
-.sidebar-item {
-    margin-bottom: 2.5rem;
-}
-
-.sidebar-item-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.5rem;
-}
-
-.sidebar-item-text {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.workex-detail-nav {
-    margin-top: 4rem;
-    border-top: 2px solid rgba(255, 255, 255, 0.6);;
-    padding-top: 2rem;
-}
-
-.workex-detail-nav a {
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-.workex-detail-nav a:hover {
-    color: var(--color-primary);
-}
-
-.workex-brand-screen {
-    margin: 4rem 0 0;
-    border-radius: 0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 70vh;
-    width: 100%;
-    background-color: rgba(138, 16, 11, 0.65);
-}
-
-.brand-screen-icon {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-}
-
-/* --- BC Key Points --- */
-.workex-key-points {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: relative;
-    z-index: 5;
-    margin: 0;
-    width: 100%;
-}
-
-.key-point-card {
-    padding: 2.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: rgba(255, 255, 255, 0.95);
-    min-height: 70vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.key-point-card.pattern-1 { width: 50%; border-radius: 0; border-top: none; border-bottom: none; text-align: 
-center; }
-.key-point-card.pattern-2 { width: 50%; border-radius: 0; border-top: none; border-right: none; }
-.key-point-card.pattern-3 { width: 50%; border-radius: 0; border-top: none; }
-.pattern-1 { background-color: rgba(149, 55, 38, 0.65); }
-.pattern-2 { background-color: rgba(163, 103, 71, 0.65); }
-.pattern-3 { background-color: rgba(178, 157, 108, 0.65); }
-
-.key-point-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; 
-margin-bottom: 1.5rem; }
-.key-point-description { font-size: 1.1rem; line-height: 1.7; color: rgba(255, 255, 255, 0.9); 
-margin-bottom: 2rem; flex-grow: 1; }
-.key-point-skill { font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; 
-}
-
-/* --- ZS Associates Key Points --- */
-.workex-key-points-zs {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
-.key-point-card-zs {
-    padding: 2.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: var(--color-text-dark);
-    min-height: 70vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 50%;
-}
-
-.key-point-title-zs { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; 
-margin-bottom: 1.5rem; }
-.key-point-content-zs { flex-grow: 1; font-size: 1rem; line-height: 1.6; }
-.key-point-content-zs p { margin-bottom: 1rem; }
-.key-point-skill-zs { font-size: 0.9rem; color: var(--color-text-dark); opacity: 0.8; }
-
-/* ZS Specific Colors */
-.zs-brand-screen { background-color: rgba(26, 22, 40, 0.65); }
-.zs-pattern-1 { background-color: rgba(152, 164, 174, 0.65); }
-.zs-pattern-2 { background-color: rgba(236, 114, 0, 0.65); }
-.zs-pattern-3 { background-color: rgba(136, 139, 141, 0.65); }
-.zs-pattern-4 { background-color: rgba(193, 198, 200, 0.65); }
-
-/* --- Motto Container --- */
-.workex-motto-container {
-    border-radius: 0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 70vh;
-    width: 100%;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-}
-.workex-motto-container p { font-size: 2.5rem; font-weight: bold; font-style: italic; font-family: 
-'Playfair Display', serif; }
-
-/* BC Motto */
-.bc-motto-container {
-    background-color: rgba(230, 195, 101, 0.65);
-    color: rgba(255, 255, 255, 0.95);
-}
-
-/* ZS Motto */
-.zs-motto-container {
-    background-color: rgba(244, 243, 243, 0.65);
-    color: #EC7200;
-}
-
-/* --- Shadow and Glow Effects for Detail Pages --- */
-.workex-brand-screen,
-.key-point-card,
-.key-point-card-zs,
-.workex-motto-container {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-.workex-brand-screen:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(138, 16, 11, 0.5); }
-.pattern-1:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(149, 55, 38, 0.5); }
-.pattern-2:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(163, 103, 71, 0.5); }
-.pattern-3:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(178, 157, 108, 0.5); }
-.bc-motto-container:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(230, 195, 101, 0.5); 
-}
-
-.zs-brand-screen:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(26, 22, 40, 0.5); }
-.zs-pattern-1:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(152, 164, 174, 0.5); }
-.zs-pattern-2:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(236, 114, 0, 0.5); }
-.zs-pattern-3:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(136, 139, 141, 0.5); }
-.zs-pattern-4:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(193, 198, 200, 0.5); }
-.zs-motto-container:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(236, 114, 0, 0.5); 
-}
-
-/* ========================================
-    MOBILE OPTIMIZATIONS
-    ======================================== */
-@media (max-width: 768px) {
-    /* Work Experience List Page */
-    .workex-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
-    .workex-item-tags {
-        flex-wrap: wrap;
-        margin-left: 0;
-    }
-
-    .workex-main-title {
-        font-size: 2.5rem;
-    }
-    
-    /* Projects Page */
-    .project-hover-images-container {
-        display: none;
-    }
-
-    .project-item a {
-        font-size: 1.5rem;
-    }
-
-    .project-item.is-hovered a {
-        color: #000;
-        mix-blend-mode: normal;
-        text-shadow: none;
-    }
-
-    /* Work Experience Detail Pages */
-    .workex-detail-v2-container {
-        padding: 2rem 1rem;
-    }
-
-    .workex-v-media-container {
-        width: 100%;
-        height: auto;
-    }
-
-    .workex-v-role {
-        font-size: 1.75rem;
-    }
-
-    .workex-v-content-title {
-        font-size: 1.125rem;
-    }
-
-    .workex-v-nav {
-        display: none;
-    }
-
-    .workex-detail-title {
-        font-size: 2.25rem;
-    }
-
-    .key-point-title,
-    .key-point-title-zs {
-        font-size: 1.25rem;
-    }
-
-    .workex-detail-background,
-    .key-point-description,
-    .key-point-content-zs p {
-        font-size: 0.9rem;
-    }
-    
-    .workex-brand-screen,
-    .key-point-card,
-    .key-point-card-zs,
-    .workex-motto-container {
-        width: 100%;
-        min-height: auto;
-        padding: 2rem 1.5rem;
-    }
-
-    .workex-key-points .key-point-card {
-        width: 100%;
-    }
-    
-    .key-point-skill,
-    .key-point-skill-zs {
-        font-size: 0.85rem;
-    }
-}
-
-/* ========================================
-    NEW WORKEX & PROJECT DETAIL PAGE (V2) STYLES
-    ======================================== */
 .workex-detail-v2-container {
     color: #fff;
-    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 4rem 2rem;
 }
-
 .workex-v-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
     padding-bottom: 2rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     margin-bottom: 3rem;
 }
-
-.workex-v-header-main {
-    flex-basis: 60%;
-}
-
+.workex-v-header-main { flex-basis: 60%; }
 .workex-v-company {
-    font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
     color: rgba(255, 255, 255, 0.7);
 }
-
-.workex-v-role {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
-    font-weight: 700;
-    line-height: 1.1;
-    margin-top: 0.5rem;
-}
-
+.workex-v-role { font-size: 3.5rem; font-weight: 700; line-height: 1.1; margin-top: 0.5rem; }
 .workex-v-header-meta {
     flex-basis: 35%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
 }
-
 .workex-v-header-meta .meta-item span {
-    font-family: 'Montserrat', sans-serif;
     font-size: 0.875rem;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
     display: block;
     margin-bottom: 0.25rem;
 }
-
-.workex-v-header-meta .meta-item p {
-    font-size: 1.125rem;
-}
-
+.workex-v-header-meta .meta-item p { font-size: 1.125rem; }
 .workex-v-media-container {
     height: 50vh;
     width: 50%;
-    margin-left: auto; /* Centers horizontally */
-    margin-right: auto; /* Centers horizontally */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 5rem;
-    z-index: 1;
+    margin: 0 auto 5rem;
 }
-
-#bc-workex-video,
-#bc-workex-logo,
-#zs-workex-video,
-#zs-workex-logo,
-#bfin-workex-video,
-#bfin-workex-logo {
-    width: 100%;
-    height: 100%;
+#bc-workex-video, #bc-workex-logo, #zs-workex-video, #zs-workex-logo, #bfin-workex-logo {
+    width: 100%; height: 100%;
     object-fit: cover;
     border-radius: 1.5rem;
-    position: relative;
-    top: 0;
-    left: 0;
 }
-
-#bc-workex-logo.hidden,
-#zs-workex-logo.hidden,
-#bfin-workex-logo.hidden {
-    display: none;
-}
-
-.workex-v-body {
-    display: flex;
-    gap: 4rem;
-    position: relative;
-    z-index: 2;
-    background: #043927;
-}
-
+#bc-workex-logo.hidden, #zs-workex-logo.hidden, #bfin-workex-logo.hidden { display: none; }
+.workex-v-body { display: flex; gap: 4rem; }
 .workex-v-nav {
     flex: 0 0 200px;
     position: sticky;
-    top: 120px; /* Adjust based on header height */
+    top: 120px;
     align-self: flex-start;
 }
-
-.workex-v-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
+.workex-v-nav ul { list-style: none; padding: 0; }
 .workex-v-nav-link {
     display: block;
     padding: 0.75rem 0;
     color: rgba(255, 255, 255, 0.6);
-    text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease, padding-left 0.3s ease;
     border-left: 2px solid transparent;
-    padding-left: 0;
 }
-
-.workex-v-nav-link:hover {
-    color: #fff;
-}
-
+.workex-v-nav-link:hover { color: #fff; }
 .workex-v-nav-link.active {
     color: #fff;
     border-left-color: #fff;
     padding-left: 1rem;
 }
-
-.workex-v-content {
-    flex: 1;
-    min-width: 0;
-}
-
+.workex-v-content { flex: 1; }
 .workex-v-section {
-    padding-bottom: 10vh; /* Spacing between sections */
+    padding-bottom: 10vh;
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
-.workex-v-section.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
+.workex-v-section.is-visible { opacity: 1; transform: translateY(0); }
 .workex-v-content-box {
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 0.75rem;
     padding: 2.5rem;
-    background-color: transparent;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-.workex-v-content-box:hover {
-    background-color: #fff;
-}
-
+.workex-v-content-box:hover { background-color: #fff; }
 .workex-v-content-box:hover .workex-v-content-title,
 .workex-v-content-box:hover .workex-v-content-text,
-.workex-v-content-box:hover .workex-v-content-text strong {
-    color: #043927;
-}
-
-
-.workex-v-content-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    transition: color 0.3s ease;
-}
-
-.workex-v-content-text {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.9);
-    transition: color 0.3s ease;
-}
-
-.workex-v-content-text p {
-    margin-bottom: 1rem;
-}
-
-.workex-v-content-text strong {
-    color: #fff;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
+.workex-v-content-box:hover .workex-v-content-text strong { color: #043927; }
+.workex-v-content-title { font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; transition: color 0.3s ease; }
+.workex-v-content-text { font-size: 1.1rem; line-height: 1.8; color: rgba(255, 255, 255, 0.9); transition: color 0.3s ease; }
+.workex-v-content-text p { margin-bottom: 1rem; }
+.workex-v-content-text strong { color: #fff; font-weight: 600; transition: color 0.3s ease; }
 .workex-detail-nav-v2 {
     margin-top: 4rem;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     padding-top: 2rem;
 }
+.workex-detail-nav-v2 a { font-weight: 600; color: #fff; }
 
-.workex-detail-nav-v2 a {
-    font-weight: 600;
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.workex-detail-nav-v2 a:hover {
-    color: var(--color-accent);
-}
-
-/* --- Project Detail Page Specific Styles --- */
-body.projects-page.project-detail-page {
-    background-color: #596617;
-}
-
-body.projects-page.project-detail-page .workex-detail-v2-container {
-    color: #f0f0f0;
-}
-body.projects-page.project-detail-page .workex-v-header {
-    border-bottom-color: rgba(255,255,255,0.2);
-}
-body.projects-page.project-detail-page .workex-v-body {
-    background: transparent;
-}
-body.projects-page.project-detail-page .workex-v-nav-link {
-    color: rgba(255,255,255,0.6);
-}
-body.projects-page.project-detail-page .workex-v-nav-link:hover {
-    color: #fff;
-}
-body.projects-page.project-detail-page .workex-v-nav-link.active {
-    color: #fff;
-    border-left-color: #fff;
-}
-body.projects-page.project-detail-page .workex-v-content-box {
-    border-color: rgba(255,255,255,0.3);
-}
-body.projects-page.project-detail-page .workex-v-content-box:hover {
-    background-color: #fff;
-}
+/* Project Detail Page Specifics */
+body.projects-page.project-detail-page .workex-v-body { background: transparent; }
 body.projects-page.project-detail-page .workex-v-content-box:hover .workex-v-content-title,
 body.projects-page.project-detail-page .workex-v-content-box:hover .workex-v-content-text,
-body.projects-page.project-detail-page .workex-v-content-box:hover .workex-v-content-text strong {
-    color: #596617;
-}
-body.projects-page.project-detail-page .workex-v-content-text {
-    color: rgba(255,255,255,0.9);
-}
-body.projects-page.project-detail-page .workex-v-content-text strong {
-    color: #fff;
-}
-body.projects-page.project-detail-page .workex-detail-nav-v2 {
-    border-top-color: rgba(255,255,255,0.2);
-}
-body.projects-page.project-detail-page .workex-detail-nav-v2 a {
-    color: #fff;
-}
+body.projects-page.project-detail-page .workex-v-content-box:hover .workex-v-content-text strong { color: #596617; }
 body.projects-page.project-detail-page .btn {
     background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 0.8);
     color: rgba(255, 255, 255, 0.8);
     box-shadow: none;
 }
 body.projects-page.project-detail-page .btn:hover {
     background: rgba(255, 255, 255, 0.8);
     color: #596617;
-    box-shadow: none;
 }
 
-
-@media (max-width: 900px) {
-    .workex-v-header {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    .workex-v-body {
-        flex-direction: column;
-    }
-    .workex-v-nav {
-        display: none;
-    }
-    body.projects-page.project-detail-page .workex-v-nav {
-        display: none;
-    }
-    .workex-v-nav ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-    .workex-v-nav-link {
-        border-left: none;
-        padding: 0.5rem;
-    }
-    .workex-v-nav-link.active {
-        padding-left: 0.5rem;
-        background-color: rgba(255,255,255,0.1);
-        border-radius: 0.25rem;
-    }
-    body.projects-page.project-detail-page .workex-v-nav-link.active {
-        background-color: rgba(255,255,255,0.1);
-    }
-    .workex-v-media-container {
-        width: 100%;
-        height: auto;
-        margin-bottom: 2rem;
-    }
+/* ========================================
+    MOBILE OPTIMIZATIONS
+    ======================================== */
+@media (max-width: 768px) {
+    #custom-scrollbar { display: none; }
+    #flipping-image-wrapper { height: 300px; }
+    .home-feature-card-a:hover, .home-feature-card-b:hover, .home-feature-card-c:hover { transform: none; }
+    .card-title { transform: none !important; margin-bottom: 0.75rem; }
+    .card-details { max-height: 200px; opacity: 1; transition: none; }
+    .workex-item { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .project-hover-images-container { display: none; }
+    .project-item a { font-size: 1.5rem; }
+    .project-item.is-hovered a { color: #000; mix-blend-mode: normal; }
+    .workex-detail-v2-container { padding: 2rem 1rem; }
+    .workex-v-header { flex-direction: column; gap: 2rem; }
+    .workex-v-role { font-size: 2.25rem; }
+    .workex-v-media-container { width: 100%; height: auto; }
+    .workex-v-body { flex-direction: column; }
+    .workex-v-nav { display: none; }
 }

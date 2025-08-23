@@ -3,10 +3,9 @@
  * @description Manages all animations for the portfolio website.
  */
 
-let scrollTimeline = null;
 let heroTextParallaxHandler = null;
 
-// Helper function to split titles into words and letters for animation
+// Helper function to split titles for animation
 function splitTitleForAnimation(title) {
     if (!title.querySelector('span.letter')) {
         const words = title.textContent.trim().split(' ');
@@ -17,7 +16,7 @@ function splitTitleForAnimation(title) {
     }
 }
 
-// Function to handle the scroll-to-zoom effect on the homepage image gallery
+// Function to handle scroll-to-zoom on the homepage image gallery
 function initImageScrollZoom() {
     if (typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     
@@ -40,22 +39,20 @@ export function initWorkexPageAnimations() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const video = document.getElementById('workex-video');
-    // MODIFIED: The trigger is now the list wrapper, not the video itself
     const listWrapper = document.querySelector('.workex-content-wrapper');
     
     if (video && listWrapper && typeof gsap !== 'undefined') {
         gsap.to(video, {
             scrollTrigger: {
                 trigger: listWrapper,
-                start: "center center", // Start when the center of the wrapper hits the center of the screen
-                end: "bottom top",      // End when the bottom of the wrapper hits the top of the screen
+                start: "center center",
+                end: "bottom top",
                 scrub: 1.5,
             },
             scale: 1.2,
         });
     }
 }
-
 
 export function animateHeroText() {
     if (typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -106,17 +103,47 @@ export function disableHeroTextParallax() {
     if (textWrapper) textWrapper.style.transform = '';
 }
 
-export function initScrollAnimations() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof gsap === 'undefined') return;
+// OPTIMIZATION: New function using GSAP ScrollTrigger for robust scroll animations
+export function initGsapScrollTriggers() {
+    if (typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     
     gsap.registerPlugin(ScrollTrigger);
-}
 
-export function killScrollAnimations() {
-    if (scrollTimeline) {
-        scrollTimeline.kill();
-        scrollTimeline = null;
-    }
+    // Animate .scroll-fade elements
+    gsap.utils.toArray('.scroll-fade').forEach(el => {
+        gsap.fromTo(el, 
+            { opacity: 0, y: 30 },
+            { 
+                opacity: 1, 
+                y: 0,
+                duration: 0.6,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+    });
+
+    // Animate .scroll-reveal elements
+    gsap.utils.toArray('.scroll-reveal').forEach(el => {
+        gsap.fromTo(el, 
+            { clipPath: 'inset(100% 0% 0% 0%)', y: 50 },
+            { 
+                clipPath: 'inset(0% 0% 0% 0%)', 
+                y: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 90%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+    });
 }
 
 export function initializeHomePageAnimations() {
@@ -127,14 +154,13 @@ export function initializeHomePageAnimations() {
 
 export function cleanupPageAnimations() {
     disableHeroTextParallax();
-    killScrollAnimations();
+    // Kill all ScrollTrigger instances to prevent memory leaks between page loads
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     }
 }
 
 export function initInteractiveCards() {
-    // --- Home Page Feature Card Animations (Anime.js) ---
     const featureCards = document.querySelectorAll('.home-feature-card-a, .home-feature-card-b, .home-feature-card-c');
     if (featureCards.length > 0 && typeof anime !== 'undefined' && window.innerWidth > 768) {
         featureCards.forEach(card => {
@@ -142,7 +168,6 @@ export function initInteractiveCards() {
             if (!title) return;
 
             splitTitleForAnimation(title);
-
             let isAnimating = false;
 
             card.addEventListener('mouseenter', () => {
@@ -163,9 +188,7 @@ export function initInteractiveCards() {
                         { value: 0, duration: 450, easing: 'spring(1, 80, 10, 0)' }
                     ],
                     delay: anime.stagger(30),
-                    complete: () => {
-                        isAnimating = false;
-                    }
+                    complete: () => { isAnimating = false; }
                 });
             });
 
@@ -175,23 +198,12 @@ export function initInteractiveCards() {
                     anime.remove(title.querySelectorAll('.letter'));
                 }
                 isAnimating = false;
-                anime({
-                    targets: title,
-                    translateY: 0,
-                    duration: 400,
-                    easing: 'easeOutExpo'
-                });
-                anime({
-                    targets: title.querySelectorAll('.letter'),
-                    translateY: 0,
-                    duration: 200,
-                    easing: 'easeOutQuad'
-                });
+                anime({ targets: title, translateY: 0, duration: 400, easing: 'easeOutExpo' });
+                anime({ targets: title.querySelectorAll('.letter'), translateY: 0, duration: 200, easing: 'easeOutQuad' });
             });
         });
     }
 
-    // --- Projects Page Card Animations (Anime.js) ---
     const projectCards = document.querySelectorAll('#projects-grid .gradient-border-card');
     if (projectCards.length > 0 && typeof anime !== 'undefined') {
         projectCards.forEach(card => {
@@ -199,12 +211,10 @@ export function initInteractiveCards() {
             if (!title) return;
 
             splitTitleForAnimation(title);
-
             let titleAnimation;
 
             card.addEventListener('mouseenter', () => {
                 if (titleAnimation) titleAnimation.pause();
-
                 titleAnimation = anime({
                     targets: title.querySelectorAll('.letter'),
                     translateY: [
@@ -217,39 +227,17 @@ export function initInteractiveCards() {
                     ],
                     delay: anime.stagger(15)
                 });
-
-                anime.remove(card);
-                anime({
-                    targets: card,
-                    scale: 1.05,
-                    translateY: -8,
-                    easing: 'spring(1, 80, 10, 0)'
-                });
+                anime({ targets: card, scale: 1.05, translateY: -8, easing: 'spring(1, 80, 10, 0)' });
             });
 
             card.addEventListener('mouseleave', () => {
                 if (titleAnimation) titleAnimation.pause();
-                
-                anime({
-                    targets: title.querySelectorAll('.letter'),
-                    translateY: 0,
-                    rotateZ: 0,
-                    duration: 300,
-                    easing: 'easeOutQuad'
-                });
-
-                anime.remove(card);
-                anime({
-                    targets: card,
-                    scale: 1,
-                    translateY: 0,
-                    easing: 'spring(1, 80, 10, 0)'
-                });
+                anime({ targets: title.querySelectorAll('.letter'), translateY: 0, rotateZ: 0, duration: 300, easing: 'easeOutQuad' });
+                anime({ targets: card, scale: 1, translateY: 0, easing: 'spring(1, 80, 10, 0)' });
             });
         });
     }
 
-    // --- About Me Section Title Animation ---
     const aboutSection = document.querySelector('.about-me-section');
     if (aboutSection && typeof anime !== 'undefined') {
         const title = aboutSection.querySelector('h2');
@@ -260,7 +248,6 @@ export function initInteractiveCards() {
 
         aboutSection.addEventListener('mouseenter', () => {
             if (aboutTitleAnimation) aboutTitleAnimation.pause();
-
             aboutTitleAnimation = anime({
                 targets: title.querySelectorAll('.letter'),
                 translateY: [
@@ -277,20 +264,12 @@ export function initInteractiveCards() {
 
         aboutSection.addEventListener('mouseleave', () => {
             if (aboutTitleAnimation) aboutTitleAnimation.pause();
-
-            anime({
-                targets: title.querySelectorAll('.letter'),
-                translateY: 0,
-                rotateZ: 0,
-                duration: 300,
-                easing: 'easeOutQuad'
-            });
+            anime({ targets: title.querySelectorAll('.letter'), translateY: 0, rotateZ: 0, duration: 300, easing: 'easeOutQuad' });
         });
     }
 }
 
 export function initWorkexDetailAnimations() {
-    // Hide the custom scrollbar on this specific page
     const customScrollbar = document.getElementById('custom-scrollbar');
     if (customScrollbar) {
         customScrollbar.style.display = 'none';
@@ -300,7 +279,6 @@ export function initWorkexDetailAnimations() {
     const navLinks = document.querySelectorAll('.workex-v-nav-link');
 
     if (sections.length > 0 && navLinks.length > 0) {
-        // Intersection Observer for section animations and nav highlighting
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 const id = entry.target.getAttribute('id');
@@ -316,11 +294,8 @@ export function initWorkexDetailAnimations() {
             });
         }, { rootMargin: "-30% 0px -70% 0px", threshold: 0 });
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+        sections.forEach(section => { observer.observe(section); });
 
-        // Click-to-scroll functionality for nav links
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -333,7 +308,6 @@ export function initWorkexDetailAnimations() {
         });
     }
 
-    // GSAP ScrollTrigger for zoom
     const mediaContainer = document.querySelector('.workex-v-media-container');
     if (mediaContainer && typeof gsap !== 'undefined') {
         gsap.to(mediaContainer, {
@@ -347,7 +321,6 @@ export function initWorkexDetailAnimations() {
         });
     }
 
-    // Video onended logic
     const bcVideo = document.getElementById('bc-workex-video');
     const bcLogo = document.getElementById('bc-workex-logo');
     const zsVideo = document.getElementById('zs-workex-video');
@@ -355,39 +328,29 @@ export function initWorkexDetailAnimations() {
 
     if (bcVideo && bcLogo) {
         bcVideo.onended = () => {
-            if (typeof gsap !== 'undefined') {
-                gsap.to(bcVideo, {
-                    opacity: 0,
-                    duration: 0.5,
-                    onComplete: () => {
-                        bcVideo.style.display = 'none';
-                        bcLogo.classList.remove('hidden');
-                        gsap.fromTo(bcLogo, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5 });
-                    }
-                });
-            } else {
-                bcVideo.style.display = 'none';
-                bcLogo.classList.remove('hidden');
-            }
+            gsap.to(bcVideo, {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: () => {
+                    bcVideo.style.display = 'none';
+                    bcLogo.classList.remove('hidden');
+                    gsap.fromTo(bcLogo, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5 });
+                }
+            });
         };
     }
 
     if (zsVideo && zsLogo) {
         zsVideo.onended = () => {
-            if (typeof gsap !== 'undefined') {
-                gsap.to(zsVideo, {
-                    opacity: 0,
-                    duration: 0.5,
-                    onComplete: () => {
-                        zsVideo.style.display = 'none';
-                        zsLogo.classList.remove('hidden');
-                        gsap.fromTo(zsLogo, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5 });
-                    }
-                });
-            } else {
-                zsVideo.style.display = 'none';
-                zsLogo.classList.remove('hidden');
-            }
+            gsap.to(zsVideo, {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: () => {
+                    zsVideo.style.display = 'none';
+                    zsLogo.classList.remove('hidden');
+                    gsap.fromTo(zsLogo, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5 });
+                }
+            });
         };
     }
 }

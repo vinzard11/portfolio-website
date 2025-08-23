@@ -9,7 +9,8 @@ import {
     cleanupPageAnimations, 
     initInteractiveCards, 
     initWorkexDetailAnimations,
-    initWorkexPageAnimations 
+    initWorkexPageAnimations,
+    initGsapScrollTriggers // <-- IMPORTED new function
 } from './animations.js';
 import { createWorkexDetailPageHTML } from './workex-detail-template.js';
 import { createZsDetailPageHTML } from './zs-detail-template.js'; 
@@ -23,13 +24,11 @@ async function playPageTransition(targetPageId, direction) {
     return; // Skipping transitions for now
 }
 
-// MODIFIED: Added isTransparent parameter
 const createModernWorkItemHTML = (exp, isTransparent) => {
     if (!exp.subpage) return '';
 
     const tagsHTML = exp.tags.map(tag => `<span class="workex-tag">${tag}</span>`).join('');
     const companySlug = exp.company.toLowerCase().replace(/\s+/g, '-');
-    // Conditionally add the transparent class
     const itemClass = `workex-item router-link scroll-fade ${isTransparent ? 'workex-item' : ''}`;
     
     return `
@@ -68,16 +67,11 @@ function initializePageListeners() {
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!prefersReducedMotion) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('animate-in');
-            });
-        }, { threshold: 0.2 }); 
-
-        document.querySelectorAll('.scroll-fade, .scroll-reveal').forEach(el => observer.observe(el));
-        
+        // OPTIMIZATION: Replaced IntersectionObserver with more robust GSAP ScrollTrigger
+        initGsapScrollTriggers();
         initInteractiveCards();
     } else {
+        // Fallback for reduced motion
         document.querySelectorAll('.scroll-fade, .scroll-reveal').forEach(el => el.classList.add('animate-in'));
     }
     
@@ -99,7 +93,6 @@ function initializePageListeners() {
         });
     });
 
-    // Project page hover effect
     const projectListContainer = document.querySelector('.project-list-container');
     if (projectListContainer) {
         const projectItems = projectListContainer.querySelectorAll('.project-item');
@@ -155,7 +148,7 @@ export async function loadContent(path) {
 
     await playPageTransition(pageId, 'out');
 
-    document.body.className = 'antialiased'; // Reset body classes
+    document.body.className = 'antialiased';
 
     if (hash.startsWith('workex')) {
         document.body.classList.add('workex-page');
@@ -190,7 +183,6 @@ export async function loadContent(path) {
         const projectSlug = hash.split('/')[1];
         const projectItem = projectData.find(item => item.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === projectSlug);
         appRoot.innerHTML = createProjectDetailPageHTML(projectItem);
-        // You might want a specific animation function for project detail pages
         initWorkexDetailAnimations(); 
     } else {
         const template = document.getElementById(pageId);
@@ -201,7 +193,6 @@ export async function loadContent(path) {
             if (pageId === 'page-workex') {
                 const container = document.getElementById('workex-list');
                 if(container) {
-                    // MODIFIED: Logic to pass the isTransparent flag
                     container.innerHTML = workData.map((exp, index, arr) => {
                         const isTransparent = index >= arr.length - 2;
                         return createModernWorkItemHTML(exp, isTransparent);
@@ -234,7 +225,6 @@ export async function loadContent(path) {
     }
     
     updateActiveLink('#' + hash.split('/')[0]);
-    // Use a timeout to ensure scrolling happens after the DOM is fully updated
     setTimeout(() => window.scrollTo(0, 0), 0);
     initializePageListeners();
     
