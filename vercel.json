@@ -8,10 +8,5 @@
         "distDir": "dist"
       }
     }
-  ],
-  "routes": [
-    { "src": "/src/(.*)", "dest": "/src/$1" },
-    { "src": "/public/(.*)", "dest": "/public/$1" },
-    { "src": "/(.*)", "dest": "/$1" }
   ]
 }

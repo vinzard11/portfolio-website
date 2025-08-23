@@ -4,12 +4,16 @@
   "description": "Optimized portfolio website",
   "main": "index.html",
   "scripts": {
-    "build": "tailwindcss -i ./src/style.css -o ./dist/output.css --minify"
+    "build:css": "tailwindcss -i ./src/style.css -o ./dist/output.css --minify",
+    "copy:assets": "copyfiles -u 1 \"index.html\" \"public/**/*\" \"src/**/*\" dist/",
+    "build": "npm-run-all build:css copy:assets"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "npm-run-all": "^4.1.5",
     "tailwindcss": "^3.4.1"
   }
 }
