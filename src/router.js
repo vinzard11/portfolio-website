@@ -13,7 +13,9 @@ import {
 } from './animations.js';
 import { createWorkexDetailPageHTML } from './workex-detail-template.js';
 import { createZsDetailPageHTML } from './zs-detail-template.js'; 
+import { createBfinDetailPageHTML } from './bfin-detail-template.js';
 import { createWorkexSimplePageHTML } from './workex-simple-template.js';
+import { createProjectDetailPageHTML } from './project-detail-template.js';
 
 const appRoot = document.getElementById('app-root');
 
@@ -43,26 +45,11 @@ const createModernWorkItemHTML = (exp, isTransparent) => {
     `;
 };
 
-const createProjectCardHTML = (proj, index) => {
-    const docButtons = proj.documents.map(doc => 
-        `<button class="btn text-sm mt-2 mr-2 view-pdf-btn" data-pdf-src="${doc.url}" data-pdf-title="${doc.name}">${doc.name}</button>`
-    ).join('');
-
+const createProjectListItemHTML = (proj, index) => {
+    const projectSlug = proj.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
     return `
-        <div class="gradient-border-card p-6 flex flex-col scroll-fade delay-${(index % 3) + 1} expandable-item">
-            <div class="cursor-pointer toggle-summary flex-grow">
-                <div class="flex justify-between items-start">
-                    <h3 class="text-2xl font-bold text-text-dark mb-2">${proj.title}</h3>
-                    <div class="toggle-icon text-primary text-2xl font-light ml-2">+</div>
-                </div>
-                <p class="text-text-light">${proj.summary}</p>
-            </div>
-            <div class="details-content">
-                <p class="text-text-light">${proj.details}</p>
-                <div class="mt-4">
-                    ${docButtons}
-                </div>
-            </div>
+        <div class="project-item" data-index="${index}">
+            <a href="#projects/${projectSlug}" class="router-link">${proj.title}</a>
         </div>
     `;
 };
@@ -112,18 +99,36 @@ function initializePageListeners() {
         });
     });
 
-    document.querySelectorAll('.expandable-item').forEach(item => {
-        const toggle = item.querySelector('.toggle-summary');
-        if (toggle) {
-            toggle.addEventListener('click', () => {
-                item.classList.toggle('open');
-                const details = item.querySelector('.details-content');
-                if (details) {
-                    details.classList.toggle('open');
+    // Project page hover effect
+    const projectListContainer = document.querySelector('.project-list-container');
+    if (projectListContainer) {
+        const projectItems = projectListContainer.querySelectorAll('.project-item');
+        const hoverImages = document.querySelectorAll('.project-hover-image');
+
+        projectItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const index = item.dataset.index;
+                const image = document.getElementById(`project-image-${index}`);
+                
+                if (image) {
+                    image.classList.add('visible');
                 }
+                projectListContainer.classList.add('is-hovered');
+                item.classList.add('is-hovered');
             });
-        }
-    });
+
+            item.addEventListener('mouseleave', () => {
+                const index = item.dataset.index;
+                const image = document.getElementById(`project-image-${index}`);
+
+                if (image) {
+                    image.classList.remove('visible');
+                }
+                projectListContainer.classList.remove('is-hovered');
+                item.classList.remove('is-hovered');
+            });
+        });
+    }
 }
 
 const updateActiveLink = (path) => {
@@ -137,10 +142,13 @@ export async function loadContent(path) {
 
     const hash = path.substring(1);
     const isWorkexDetailPage = hash.startsWith('workex/');
+    const isProjectDetailPage = hash.startsWith('projects/');
     
     let pageId = 'page-home'; 
     if (isWorkexDetailPage) {
         pageId = 'page-workex-detail';
+    } else if (isProjectDetailPage) {
+        pageId = 'page-project-detail';
     } else if (hash) {
         pageId = 'page-' + hash;
     }
@@ -154,6 +162,11 @@ export async function loadContent(path) {
         if(isWorkexDetailPage) {
             document.body.classList.add('workex-detail-page');
         }
+    } else if (hash.startsWith('projects')) {
+        document.body.classList.add('projects-page');
+        if(isProjectDetailPage) {
+            document.body.classList.add('project-detail-page');
+        }
     }
     
     appRoot.innerHTML = ''; 
@@ -166,11 +179,19 @@ export async function loadContent(path) {
             appRoot.innerHTML = createWorkexDetailPageHTML(workItem);
         } else if (companySlug === 'zs-associates') {
             appRoot.innerHTML = createZsDetailPageHTML(workItem);
+        } else if (companySlug === 'bfin') {
+            appRoot.innerHTML = createBfinDetailPageHTML(workItem);
         } else {
             appRoot.innerHTML = createWorkexSimplePageHTML(workItem);
         }
         
         initWorkexDetailAnimations();
+    } else if (isProjectDetailPage) {
+        const projectSlug = hash.split('/')[1];
+        const projectItem = projectData.find(item => item.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === projectSlug);
+        appRoot.innerHTML = createProjectDetailPageHTML(projectItem);
+        // You might want a specific animation function for project detail pages
+        initWorkexDetailAnimations(); 
     } else {
         const template = document.getElementById(pageId);
         if (template) {
@@ -189,8 +210,18 @@ export async function loadContent(path) {
                 initWorkexPageAnimations();
             }
             if (pageId === 'page-projects') {
-                const container = document.getElementById('projects-grid');
-                if(container) container.innerHTML = projectData.map(createProjectCardHTML).join('');
+                const container = document.querySelector('.project-list-container');
+                if(container) {
+                    container.innerHTML = projectData.map(createProjectListItemHTML).join('');
+                    
+                    const imageContainer = document.createElement('div');
+                    imageContainer.className = 'project-hover-images-container';
+                    projectData.forEach((proj, index) => {
+                        const posClass = (index + 1) % 2 !== 0 ? 'position-right' : 'position-left';
+                        imageContainer.innerHTML += `<img id="project-image-${index}" src="./public/images/${proj.image}" class="project-hover-image ${posClass}" alt="${proj.title}">`;
+                    });
+                    container.parentNode.insertBefore(imageContainer, container);
+                }
             }
             if (pageId === 'page-home' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 initializeHomePageAnimations();
@@ -203,7 +234,8 @@ export async function loadContent(path) {
     }
     
     updateActiveLink('#' + hash.split('/')[0]);
-    window.scrollTo(0, 0);
+    // Use a timeout to ensure scrolling happens after the DOM is fully updated
+    setTimeout(() => window.scrollTo(0, 0), 0);
     initializePageListeners();
     
     await playPageTransition(pageId, 'in');

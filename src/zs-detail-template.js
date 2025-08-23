@@ -10,70 +10,70 @@
  */
 export function createZsDetailPageHTML(workItem) {
     if (!workItem || !workItem.subpage) {
-        return `<p class="text-center text-lg">Work experience details not found.</p>`;
+        return `<p class="text-center text-lg text-white">Work experience details not found.</p>`;
     }
 
     const { company, role, subpage } = workItem;
-    const { background, projectType, tools, location, years, keyPoints, motto } = subpage;
+    const { projectType, tools, location, years, sections } = subpage;
 
-    // Generate the HTML for the key point containers
-    const keyPointsHTML = keyPoints.map((point, index) => `
-        <div class="key-point-card-zs zs-pattern-${index + 1}">
-            <h4 class="key-point-title-zs">${point.title}</h4>
-            <div class="key-point-content-zs">
-                <p><strong>Challenge:</strong> ${point.challenge}</p>
-                <p><strong>My Solution:</strong> ${point.solution}</p>
-                ${point.impact ? `<p><strong>Impact:</strong> ${point.impact}</p>` : ''}
-            </div>
-            <span class="key-point-skill-zs"><strong>Skills/Tools Used:</strong> ${point.skills}</span>
-        </div>
+    // Generate the left-side navigation links
+    const navLinksHTML = sections.map((section, index) => `
+        <li>
+            <a href="#section-${index}" class="workex-v-nav-link">${section.title}</a>
+        </li>
     `).join('');
 
-    const mottoHTML = motto ? `
-        <div class="workex-motto-container zs-motto-container">
-            <p>${motto}</p>
-        </div>
-    ` : '';
+    // Generate the right-side content sections
+    const sectionsHTML = sections.map((section, index) => {
+        // Process content to handle markdown bolding and newlines
+        const processedContent = section.content
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n/g, '<br>');
+
+        return `
+            <div id="section-${index}" class="workex-v-section">
+                <div class="workex-v-content-box">
+                    <h3 class="workex-v-content-title">${section.title}</h3>
+                    <div class="workex-v-content-text">
+                        <p>${processedContent}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
 
     return `
-        <div class="workex-detail-container container mx-auto px-6 py-16 md:py-24">
-            <div class="grid md:grid-cols-3 gap-12">
-                <div class="md:col-span-2 workex-detail-main">
-                    <p class="workex-detail-company">${company}</p>
-                    <h1 class="workex-detail-title">${role}</h1>
-                    <p class="workex-detail-background">${background}</p>
+        <div class="workex-detail-v2-container">
+            <div class="workex-v-header">
+                <div class="workex-v-header-main">
+                    <p class="workex-v-company">${company}</p>
+                    <h1 class="workex-v-role">${role}</h1>
                 </div>
-                <div class="workex-detail-sidebar">
-                    <div class="sidebar-item">
-                        <h3 class="sidebar-item-title">Project Type</h3>
-                        <p class="sidebar-item-text">${projectType}</p>
-                    </div>
-                    <div class="sidebar-item">
-                        <h3 class="sidebar-item-title">Tools</h3>
-                        <p class="sidebar-item-text">${tools.join(', ')}</p>
-                    </div>
-                    <div class="sidebar-item">
-                        <h3 class="sidebar-item-title">Location</h3>
-                        <p class="sidebar-item-text">${location}</p>
-                    </div>
-                    <div class="sidebar-item">
-                        <h3 class="sidebar-item-title">Year</h3>
-                        <p class="sidebar-item-text">${years}</p>
-                    </div>
+                <div class="workex-v-header-meta">
+                    <div class="meta-item"><span>Project Type</span><p>${projectType}</p></div>
+                    <div class="meta-item"><span>Tools</span><p>${tools.join(', ')}</p></div>
+                    <div class="meta-item"><span>Location</span><p>${location}</p></div>
+                    <div class="meta-item"><span>Year</span><p>${years}</p></div>
                 </div>
             </div>
 
-            <div class="workex-brand-screen zs-brand-screen">
-                <img src="./public/images/zs-logo.png" alt="ZS Associates Logo" class="brand-screen-icon">
-            </div>
-            
-            <div class="workex-key-points-zs">
-                ${keyPointsHTML}
+            <div class="workex-v-media-container">
+                <video id="zs-workex-video" src="./public/videos/ZS_Vid.mp4" autoplay muted playsinline></video>
+                <img id="zs-workex-logo" src="./public/images/zs-logo.png" alt="ZS Associates Logo" class="hidden">
             </div>
 
-            ${mottoHTML}
-
-            <div class="workex-detail-nav">
+            <div class="workex-v-body">
+                <nav class="workex-v-nav">
+                    <ul>
+                        ${navLinksHTML}
+                    </ul>
+                </nav>
+                <div class="workex-v-content">
+                    ${sectionsHTML}
+                </div>
+            </div>
+             <div class="workex-detail-nav-v2">
                 <a href="#workex" class="router-link">← Back to all work</a>
             </div>
         </div>

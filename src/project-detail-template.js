@@ -1,20 +1,20 @@
 /**
- * @file workex-detail-template.js
- * @description Contains the template function for rendering a work experience detail page.
+ * @file project-detail-template.js
+ * @description Contains the template function for rendering a project detail page.
  */
 
 /**
- * Generates the HTML for a single work experience detail page.
- * @param {object} workItem - The work experience data object.
+ * Generates the HTML for a single project detail page.
+ * @param {object} projectItem - The project data object.
  * @returns {string} The complete HTML string for the page.
  */
-export function createWorkexDetailPageHTML(workItem) {
-    if (!workItem || !workItem.subpage) {
-        return `<p class="text-center text-lg text-white">Work experience details not found.</p>`;
+export function createProjectDetailPageHTML(projectItem) {
+    if (!projectItem || !projectItem.subpage) {
+        return `<p class="text-center text-lg text-white">Project details not found.</p>`;
     }
 
-    const { company, role, subpage } = workItem;
-    const { projectType, tools, location, years, sections } = subpage;
+    const { title, subpage } = projectItem;
+    const { sections, documents } = subpage;
 
     // Generate the left-side navigation links
     const navLinksHTML = sections.map((section, index) => `
@@ -42,25 +42,18 @@ export function createWorkexDetailPageHTML(workItem) {
             </div>
         `;
     }).join('');
+    
+    // Generate the document buttons
+    const docButtonsHTML = documents.map(doc => 
+        `<a href="${doc.url}" target="_blank" rel="noopener noreferrer" class="btn text-sm mt-2 mr-2">${doc.name}</a>`
+    ).join('');
 
     return `
         <div class="workex-detail-v2-container">
             <div class="workex-v-header">
                 <div class="workex-v-header-main">
-                    <p class="workex-v-company">${company}</p>
-                    <h1 class="workex-v-role">${role}</h1>
+                    <h1 class="workex-v-role">${title}</h1>
                 </div>
-                <div class="workex-v-header-meta">
-                    <div class="meta-item"><span>Project Type</span><p>${projectType}</p></div>
-                    <div class="meta-item"><span>Tools</span><p>${tools.join(', ')}</p></div>
-                    <div class="meta-item"><span>Location</span><p>${location}</p></div>
-                    <div class="meta-item"><span>Year</span><p>${years}</p></div>
-                </div>
-            </div>
-
-            <div class="workex-v-media-container">
-                <video id="bc-workex-video" src="./public/videos/BC_Vid.mp4" autoplay muted playsinline></video>
-                <img id="bc-workex-logo" src="./public/images/bc-logo.png" alt="Boston College Logo" class="hidden">
             </div>
 
             <div class="workex-v-body">
@@ -71,10 +64,13 @@ export function createWorkexDetailPageHTML(workItem) {
                 </nav>
                 <div class="workex-v-content">
                     ${sectionsHTML}
+                    <div class="project-assets mt-8">
+                        ${docButtonsHTML}
+                    </div>
                 </div>
             </div>
              <div class="workex-detail-nav-v2">
-                <a href="#workex" class="router-link">← Back to all work</a>
+                <a href="#projects" class="router-link">← Back to all projects</a>
             </div>
         </div>
     `;

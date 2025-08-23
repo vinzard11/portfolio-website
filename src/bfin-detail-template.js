@@ -1,14 +1,14 @@
 /**
- * @file workex-detail-template.js
- * @description Contains the template function for rendering a work experience detail page.
+ * @file bfin-detail-template.js
+ * @description Contains the template function for rendering the BFIN detail page.
  */
 
 /**
- * Generates the HTML for a single work experience detail page.
+ * Generates the HTML for the BFIN detail page.
  * @param {object} workItem - The work experience data object.
  * @returns {string} The complete HTML string for the page.
  */
-export function createWorkexDetailPageHTML(workItem) {
+export function createBfinDetailPageHTML(workItem) {
     if (!workItem || !workItem.subpage) {
         return `<p class="text-center text-lg text-white">Work experience details not found.</p>`;
     }
@@ -59,8 +59,7 @@ export function createWorkexDetailPageHTML(workItem) {
             </div>
 
             <div class="workex-v-media-container">
-                <video id="bc-workex-video" src="./public/videos/BC_Vid.mp4" autoplay muted playsinline></video>
-                <img id="bc-workex-logo" src="./public/images/bc-logo.png" alt="Boston College Logo" class="hidden">
+                <img id="bfin-workex-logo" src="./public/images/b-logo.jpg" alt="BFIN Logo">
             </div>
 
             <div class="workex-v-body">

@@ -215,7 +215,7 @@ export function initInteractiveCards() {
                         { value: [0, -5], duration: 200, easing: 'easeOutSine' },
                         { value: 0, duration: 600, easing: 'spring(1, 80, 15, 0)' }
                     ],
-                    delay: anime.stagger(35)
+                    delay: anime.stagger(15)
                 });
 
                 anime.remove(card);
@@ -290,48 +290,104 @@ export function initInteractiveCards() {
 }
 
 export function initWorkexDetailAnimations() {
-    if (typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // Hide the custom scrollbar on this specific page
+    const customScrollbar = document.getElementById('custom-scrollbar');
+    if (customScrollbar) {
+        customScrollbar.style.display = 'none';
+    }
 
-    gsap.registerPlugin(ScrollTrigger);
+    const sections = document.querySelectorAll('.workex-v-section');
+    const navLinks = document.querySelectorAll('.workex-v-nav-link');
 
-    const detailElements = gsap.utils.toArray([
-        '.workex-brand-screen',
-        '.key-point-card',
-        '.key-point-card-zs',
-        '.workex-motto-container'
-    ]);
+    if (sections.length > 0 && navLinks.length > 0) {
+        // Intersection Observer for section animations and nav highlighting
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                const navLink = document.querySelector(`.workex-v-nav-link[href="#${id}"]`);
 
-    if (detailElements.length > 0) {
-        gsap.set(detailElements, { autoAlpha: 0, y: 100, scale: 0.9 });
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    if (navLink) {
+                        navLink.classList.add('active');
+                    }
+                }
+            });
+        }, { rootMargin: "-30% 0px -70% 0px", threshold: 0 });
 
-        ScrollTrigger.batch(detailElements, {
-            start: 'top 85%',
-            onEnter: batch => gsap.to(batch, {
-                autoAlpha: 1,
-                y: 0,
-                scale: 1,
-                duration: 1.2,
-                ease: 'power4.out',
-                stagger: 0.15
-            }),
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Click-to-scroll functionality for nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
         });
     }
 
-    const title = document.querySelector('.workex-detail-title');
-    if (title) {
-        splitTitleForAnimation(title);
-        gsap.from(title.querySelectorAll('.letter'), {
+    // GSAP ScrollTrigger for zoom
+    const mediaContainer = document.querySelector('.workex-v-media-container');
+    if (mediaContainer && typeof gsap !== 'undefined') {
+        gsap.to(mediaContainer, {
             scrollTrigger: {
-                trigger: title,
-                start: 'top 80%',
-                toggleActions: 'play none none none',
+                trigger: '.workex-v-body',
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.5,
             },
-            y: 50,
-            opacity: 0,
-            rotationZ: 15,
-            duration: 0.8,
-            ease: 'back.out(1.7)',
-            stagger: 0.03,
+            scale: 1.15,
         });
+    }
+
+    // Video onended logic
+    const bcVideo = document.getElementById('bc-workex-video');
+    const bcLogo = document.getElementById('bc-workex-logo');
+    const zsVideo = document.getElementById('zs-workex-video');
+    const zsLogo = document.getElementById('zs-workex-logo');
+
+    if (bcVideo && bcLogo) {
+        bcVideo.onended = () => {
+            if (typeof gsap !== 'undefined') {
+                gsap.to(bcVideo, {
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: () => {
+                        bcVideo.style.display = 'none';
+                        bcLogo.classList.remove('hidden');
+                        gsap.fromTo(bcLogo, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5 });
+                    }
+                });
+            } else {
+                bcVideo.style.display = 'none';
+                bcLogo.classList.remove('hidden');
+            }
+        };
+    }
+
+    if (zsVideo && zsLogo) {
+        zsVideo.onended = () => {
+            if (typeof gsap !== 'undefined') {
+                gsap.to(zsVideo, {
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: () => {
+                        zsVideo.style.display = 'none';
+                        zsLogo.classList.remove('hidden');
+                        gsap.fromTo(zsLogo, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5 });
+                    }
+                });
+            } else {
+                zsVideo.style.display = 'none';
+                zsLogo.classList.remove('hidden');
+            }
+        };
     }
 }
