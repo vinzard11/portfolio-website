@@ -6,55 +6,115 @@
 
 export const workData = [
     {
-        company: "BFIN",
-        role: "Business Development Intern",
-        date: "Summer 2025",
-        summary: "Led business development and turnaround strategy for a PE portfolio company.",
-        tags: ['Strategy', 'BizDev', 'M&A'],
+        company: "IEA TIMSS & PIRLS",
+        slug: "iea-ai-evaluation-measurement",
+        role: "Technical Dev/Consultant, AI Evaluation & Measurement",
+        date: "May 2026 - Present",
+        location: "Chestnut Hill, MA",
+        summary: "Own the research program applying LLM comparative judgment and psychometric calibration to item-difficulty estimation.",
+        tags: ['LLM Evaluation', 'Psychometrics', 'Front-End', 'Policy'],
+        highlights: [
+            "Own the research program applying LLM comparative judgment and psychometric calibration to item-difficulty estimation, including explicit treatment of judge reliability, extrapolation limits, and where estimates should not be trusted. Two paper submissions so far.",
+            "Translate cross-national assessment results into structured, actionable insights for education ministries and policymakers across participating countries, many of them low- and middle-income.",
+            "Build interactive data visualizations that let global stakeholders explore and interrogate complex educational datasets directly.",
+            "Migrated internal AI tooling to open-source models hosted on-premise to comply with EU GDPR data-residency requirements."
+        ],
         subpage: {
-            projectType: "Strategic Growth & Corporate Development",
-            tools: ["Crunchbase", "Microsoft Suite", "Asana", "LinkedIn Sales Navigator", "Python", "React", "Salesforce"],
-            location: "Fremont, CA",
-            years: "Summer 2025",
+            projectType: "AI Evaluation & Measurement",
+            tools: [
+                "Python", "SQL", "JavaScript", "React", "DataTables", "HTML/CSS",
+                "LLM-as-judge evaluation", "Comparative judgment", "Bradley-Terry models",
+                "Psychometric calibration", "Item-difficulty estimation (IRT)",
+                "Judge reliability & order invariance", "Evaluation harness design",
+                "Interactive dashboards", "Statistical reporting",
+                "Open-weight LLMs", "On-premise deployment", "GDPR data residency"
+            ],
+            location: "Chestnut Hill, MA",
+            years: "2026-Present",
             sections: [
                 {
-                    title: "Context & Overview",
-                    content: "During the summer of 2025, I was embedded within a Private Equity firm's portfolio, undertaking a unique dual-internship. My primary focus was on Haus.com, a company in a declining stage that required a strategic overhaul to position it for a lucrative exit. The environment was akin to a startup, demanding agility, resourcefulness, and a broad scope of responsibilities.\n\nConcurrently, I collaborated with a confidential, high-growth portfolio company specializing in using Generative AI for targeted marketing. This dual role provided a unique vantage point to identify and leverage synergies between a legacy business in need of revitalization and a cutting-edge tech startup."
+                    title: "The Role",
+                    content: "I moved into this role in May 2026, after about eight months as an AI engineer on the same team. The job title changed, but the underlying question did not: when a model tells you something about an assessment item, how much of that should you believe?"
                 },
                 {
-                    title: "Goals & Challenges",
-                    content: "The overarching goal was to increase the enterprise value of Haus.com to make it an attractive acquisition target for strategic buyers or investors. This was broken down into three core objectives:\n\n**Enhance Financial Viability:** Identify and implement cost-saving measures and generate new, sustainable revenue streams.\n\n**Improve Market Perception:** Revitalize the company's brand and public-facing image to build credibility and attract potential acquirers.\n\n**Identify a Strategic Exit:** Proactively research and identify potential buyers, including targets like blockchain cashcow startups seeking established user bases or technology.\n\nThe primary challenges included working with limited resources, navigating the ambiguity of a \"startup-like\" environment within a declining business, and creating tangible value in a short timeframe."
+                    title: "Research Program",
+                    content: "I own the research program applying LLM comparative judgment and psychometric calibration to item-difficulty estimation.\n\nThe interesting part is not getting a model to rank items, which is easy. It is characterizing when the ranking means something. That means explicit treatment of judge reliability, of extrapolation limits, and of the cases where an estimate looks confident and should not be trusted.\n\n**Two paper submissions** have come out of this so far: one auditing order-invariance and transitivity in an LLM judge against a withheld external criterion, the other on how comparison-network design trades off rank recovery against calibrated measurement."
                 },
                 {
-                    title: "My Role & Contributions",
-                    content: "As a Business Development Intern, I wore multiple hats, contributing across strategy, sales, and marketing functions. My key contributions included:\n\n**Sales & Pipeline Development:** I led the initiative to build a new sales function from the ground up, moving from strategy to direct execution.\n\n**Market & M&A Research:** I was tasked with analyzing market trends to identify both new customer segments and potential corporate acquirers, particularly in the emerging blockchain sector.\n\n**Digital Marketing Strategy:** I took ownership of the social media strategy, transforming it from a passive to an active engagement channel.\n\n**Operational Analysis:** I analyzed internal workflows to pinpoint inefficiencies and opportunities for process automation and cost reduction.\n\n**Cross-Portfolio Synergy:** I acted as a bridge between Haus.com and the GenAI marketing firm, identifying overlapping customer profiles and pitching collaborative growth strategies."
+                    title: "Getting Results Used",
+                    content: "The other half of the job is making findings usable. I translate cross-national assessment results into structured, actionable insights for education ministries and policymakers across participating countries, many of them low- and middle-income, where the budget implications of a finding are immediate and real.\n\nI build interactive visualizations so those stakeholders can interrogate the data themselves rather than taking my summary on trust. That matters more than it sounds: a ministry that can poke at the numbers is a ministry that can argue with them."
                 },
                 {
-                    title: "Processes & Methods",
-                    content: "To achieve our goals, I employed a simple data based approach:\n\n**Market Research & Lead Generation:** I conducted comprehensive market analysis to define Ideal Customer Profiles (ICPs). Using this data, I leveraged tools like LinkedIn Sales Navigator and industry databases to build a targeted list of prospects. My outreach process involved personalized email campaigns and qualification calls to convert leads into a sales pipeline.\n\n**Audience Analysis & Content Strategy:** For the social media revitalization, I performed an in-depth analysis of our existing audience and competitor strategies. This informed the creation of a new content calendar with distinct pillars (e.g., industry insights, user stories, tech highlights) designed to resonate with our target demographic and drive engagement.\n\n**Financial & Operational Modeling:** I mapped key internal processes to identify repetitive tasks suitable for automation. I then researched and presented low-cost SaaS solutions that could reduce manual labor costs and improve efficiency. For M&A, I built a database of potential acquirers and tracked relevant industry transactions.\n\n**Synergistic Pitching:** I facilitated meetings between the leadership of both portfolio companies, presenting a data-backed case for how the GenAI firm's marketing tools could be used to revitalize Haus.com's user acquisition efforts, creating a mutually beneficial partnership."
+                    title: "Data Residency",
+                    content: "I migrated our internal AI tooling to open-source models hosted on-premise, because **EU GDPR data-residency requirements** mean some of this data simply cannot leave its jurisdiction. The cost savings were welcome, but they were not the reason."
+                }
+            ]
+        }
+    },
+    {
+        company: "IEA TIMSS & PIRLS",
+        slug: "iea-ai-engineer",
+        role: "AI Engineer",
+        date: "Sep 2025 - May 2026",
+        location: "Chestnut Hill, MA",
+        summary: "Built the evaluation and serving infrastructure, and led the migration from proprietary APIs to self-hosted open-source models.",
+        tags: ['LLM Infrastructure', 'Evaluation', 'Fine-Tuning', 'On-Prem'],
+        highlights: [
+            "Designed and implemented a scoring framework evaluating 10,000+ open-ended model outputs against ground truth, fine-tuning open-source weights to improve reasoning consistency at scale.",
+            "Built a human-in-the-loop verification layer to catch data-quality and sourcing errors across a multi-model ingestion pipeline (OpenAI, Gemini) before they propagated into fine-tuning data.",
+            "Designed a model cascade routing across quantized open-weight models with API fallback under fixed hardware constraints, trading capability against cost and reliability per request type.",
+            "Led the migration from proprietary OpenAI APIs to self-hosted open-source LLMs, cutting per-question costs from roughly $60 to near-zero operational compute."
+        ],
+        subpage: {
+            projectType: "LLM Infrastructure & Evaluation",
+            tools: [
+                "Python", "Open-weight LLMs", "Quantization", "QLoRA / fine-tuning",
+                "Model cascades & routing", "LLM-as-judge evaluation",
+                "Ground-truth scoring frameworks", "Human-in-the-loop verification",
+                "Multi-model ingestion pipelines", "OpenAI API", "Gemini",
+                "On-premise deployment", "Cost/latency tradeoff analysis"
+            ],
+            location: "Chestnut Hill, MA",
+            years: "2025-2026",
+            sections: [
+                {
+                    title: "The Role",
+                    content: "This was the build-it phase. I joined in September 2025 to get AI systems into the assessment workflow in a way that could actually be defended, which meant most of my time went on evaluation and on infrastructure rather than on prompting."
                 },
                 {
-                    title: "Quantifiable Results & Impact",
-                    content: "My efforts directly translated into measurable outcomes that enhanced the valuation and strategic position of Haus.com.\n\n**Sales Pipeline Generation:** Built a new business pipeline valued at $200K within three months, validating a previously untapped market segment.\n\n**Revenue Secured:** Closed $100K in initial revenue, providing a crucial proof-of-concept for the new sales strategy.\n\n**Increased Audience Engagement:** Drove a 30% increase in average post interaction rates on social media platforms by implementing a data-driven content strategy.\n\n**Strategic M&A Targeting:** Identified and profiled a qualified list of 15+ potential acquirers, including several blockchain firms, providing the PE firm with a clear roadmap for a potential exit."
+                    title: "Measurement First",
+                    content: "The first piece was measurement. I designed and implemented a scoring framework that evaluates **over 10,000 open-ended model outputs** against ground truth, and fine-tuned open-source weights to improve reasoning consistency at scale.\n\nWithout that harness, every claim about whether a change helped would have been a matter of opinion."
                 },
                 {
-                    title: "Lessons Learned & Takeaways",
-                    content: "This internship was a profound learning experience in corporate strategy, resilience, and value creation under pressure.\n\n**Value in Turnaround Situations:** I learned that even in a declining business, significant value can be unlocked by focusing on fundamentals: operational efficiency, targeted market outreach, and a compelling brand narrative.\n\n**The Power of Perception:** Improving a company's \"front-facing coverage\" is not just a marketing effort; it's a critical component of M&A strategy that directly influences how potential buyers perceive its value and future potential.\n\n**Portfolio Synergy is a Force Multiplier:** My experience working across two firms demonstrated the immense, often untapped, potential within a PE portfolio. Creating connections and shared initiatives between portfolio companies can lead to exponential growth and strategic advantages.\n\n**Initiative Drives Impact:** In an unstructured environment, the ability to self-start, define your own projects, and execute without constant oversight is paramount to delivering tangible results."
+                    title: "Data Quality",
+                    content: "Our ingestion pipeline drew on several models, OpenAI and Gemini among them, and errors in sourcing or extraction have a nasty property: if they reach your fine-tuning set, you train on them and they stop looking like errors.\n\nI built a **human-in-the-loop verification layer** to catch data-quality and sourcing problems before they propagated."
+                },
+                {
+                    title: "Cost Under Constraint",
+                    content: "I designed a model cascade that routes across quantized open-weight models with API fallback under fixed hardware, trading capability against cost and reliability per request type, so easy requests do not pay frontier prices and hard ones do not silently get a weaker answer.\n\nThat fed into leading the migration from proprietary OpenAI APIs to self-hosted open-source models, which took per-question costs from **around $60 to near-zero operational compute**. The cost argument is the one that gets attention, but the data-residency argument is the one that made it necessary."
                 }
             ]
         }
     },
     {
         company: "Boston College",
-        role: "Sr. Data Analyst, Graduate Assistant",
-        date: "Nov 2024 – Present",
+        slug: "boston-college",
+        role: "Sr. Data Analyst, Awards/Grants Intake Team",
+        date: "Nov 2024 - Sep 2025",
+        location: "Chestnut Hill, MA",
         summary: "Managed the grant intake lifecycle and pioneered BI dashboards to provide critical KPIs to senior leadership.",
         tags: ['Data Analysis', 'BI Dashboards'],
+        highlights: [
+            "Owned the data lifecycle for university research grants, serving as primary data advisor to the Vice-Provost.",
+            "Built automated reporting workflows and a dashboard suite that cut reporting time by 75%.",
+            "Translated complex sponsor requirements into usable data for processing, directly enabling the timely launch of new research initiatives."
+        ],
         subpage: {
+            media: { video: "/videos/BC_Vid.mp4", logo: "/images/bc-logo.png", alt: "Boston College logo" },
             projectType: "Data Management & Business Intelligence",
             tools: ["Power BI", "Oracle PeopleSoft", "Advanced Excel"],
             location: "Boston, MA",
-            years: "2024-Present",
+            years: "2024-2025",
             sections: [
                 {
                     title: "Context & Overview",
@@ -85,11 +145,19 @@ export const workData = [
     },
     {
         company: "ZS Associates",
-        role: "Business Technology Associate",
-        date: "Jan 2022 – Jun 2024",
+        slug: "zs-associates",
+        role: "Associate, Business Technology",
+        date: "Jan 2022 - Jun 2024",
+        location: "NCR, India",
         summary: "Architected cloud data solutions, led data integrity for major product launches, and automated critical analysis, driving significant revenue and efficiency gains.",
         tags: ['Cloud Architecture', 'Data Integrity', 'Automation'],
+        highlights: [
+            "Architected a real-time geo-analytics tool for territory planning and resource allocation, processing large-scale demographic and market data to find high-potential regions and market capture opportunities. Drove $500K in new annual revenue.",
+            "Diagnosed the root cause of a flawed, unoptimized pipeline producing unreliable client-facing data, then built a proof-of-concept for a re-engineered approach (SQL, Python, Shell) that cut manual QC intervention by 50% and restored data integrity.",
+            "Managed commercial data strategy for 3 major product launches, coordinating Sales, Marketing and IT to ensure go-to-market readiness for assets representing 80% of client revenue."
+        ],
         subpage: {
+            media: { video: "/videos/ZS_Vid.mp4", logo: "/images/zs-logo.png", alt: "ZS Associates logo" },
             projectType: "Cloud Data Solutions & Automation",
             tools: ["AWS", "GCP", "SQL", "Python", "Tableau", "Power BI"],
             location: "India",
@@ -118,36 +186,8 @@ export const workData = [
                 {
                     title: "Takeaway",
                     content: "Across these diverse projects, my core contribution was a relentless drive to move beyond the status quo. I consistently demonstrated an ability to not only identify underlying issues in process and technology but also to proactively design, build, and implement solutions that delivered measurable improvements in efficiency, data quality, and revenue. My work is characterized by a blend of technical expertise, strategic foresight, and a drive to achieve tangible results."
-                }
+                },
             ]
-        }
-    },
-    {
-        company: "Mother Son Sumi Infotech",
-        role: "Machine Learning Intern",
-        date: "Jun 2021 – Aug 2021",
-        summary: "Led a team to build a novel location recommender system from scratch using TensorFlow, achieving 77.8% accuracy.",
-        tags: ['ML', 'TensorFlow'],
-        subpage: {
-            background: "I was asked to lead a team of sophomores and juniors to create a unique project in the automotive industry using Machine Learning and Analytics. We decided on building a location recommender system based off user's preference from scratch. We eventually ended up with a whole lot of unclean data. It took us almost 1.5 months to clean it up and we parallelly modelled some dummy people data based off the location data to help us suggest a person where they would like to be at that time. The model was built on TensorFlow with multiple NN layers and our first iterations had an accuracy of around 77.8%.",
-            projectType: "AI/ML",
-            tools: ["TensorFlow", "Python", "Data Science"],
-            location: "Remote",
-            years: "2021"
-        }
-    },
-    {
-        company: "TikklyAgro Solutions",
-        role: "Data Science Intern",
-        date: "Sep 2020 – Jan 2021",
-        summary: "Built and trained a ResNet-50 model to automate quality grading of produce from images, achieving 97.5% accuracy on real-world data.",
-        tags: ['Data Science', 'ML'],
-        subpage: {
-            background: "I had to build a model for their grading system so they could deliver the best fruits and vegetables at the right time. We used a pre-trained ResNet-50 model. Once we got the actual data from the firm and tuned the weights, the model achieved 97.5% accuracy for unseen data along with its ripeness stage.",
-            projectType: "AI/ML",
-            tools: ["Python", "Computer Vision", "Data Science"],
-            location: "Remote",
-            years: "2020-2021"
         }
     }
 ];
@@ -156,8 +196,10 @@ export const projectData = [
     {
         title: "Brand Management: P&G New Product Launch Strategy",
         image: "png.png",
+        category: "Business Strategy",
+        description: "Full-cycle GTM strategy and STP analysis for a new P&G detergent launch into a competitive CPG market.",
         subpage: {
-            documents: [{ name: "View P&G Deck", url: './public/assets/P&G_Presentation.pdf' }],
+            documents: [{ name: "View P&G Deck", url: '/assets/P&G_Presentation.pdf' }],
             sections: [
                 {
                     title: "Context/Overview",
@@ -180,9 +222,11 @@ export const projectData = [
     },
     {
         title: "Strategic Analysis: McDonald's Competitive Framework",
-        image: "mcd.png",
+        image: "mcd.jpg",
+        category: "Business Strategy",
+        description: "Porter's Five Forces and Value Chain teardown of McDonald's competitive moat, with strategic growth recommendations.",
         subpage: {
-            documents: [{ name: "View Analysis Deck", url: './public/assets/McDonalds_Presentation.pdf' }],
+            documents: [{ name: "View Analysis Deck", url: '/assets/McDonalds_Presentation.pdf' }],
             sections: [
                 {
                     title: "Context/Overview",
@@ -206,12 +250,14 @@ export const projectData = [
     {
         title: "Product Management: Eagle Career Network Platform",
         image: "pmo.png",
+        category: "Business Strategy",
+        description: "Led product lifecycle from charter to pilot for a BC career-networking platform, targeting >70% adoption.",
         subpage: {
             documents: [
-                { name: "Main Presentation", url: './public/assets/PM_Presentation.pdf' },
-                { name: "Project Charter", url: './public/assets/Project_Charter.docx' },
-                { name: "Scope Statement", url: './public/assets/Scope_Statement.docx' },
-                { name: "Work Breakdown Structure", url: './public/assets/Work_Breakdown_Structure_(WBS).docx' }
+                { name: "Main Presentation", url: '/assets/PM_Presentation.pdf' },
+                { name: "Project Charter", url: '/assets/Project_Charter.docx' },
+                { name: "Scope Statement", url: '/assets/Scope_Statement.docx' },
+                { name: "Work Breakdown Structure", url: '/assets/Work_Breakdown_Structure.docx' }
             ],
             sections: [
                 {
@@ -235,9 +281,11 @@ export const projectData = [
     },
     {
         title: "Consulting: CMO Connect Growth & Monetization Strategy",
-        image: "cmo.png",
+        image: "cmo.jpg",
+        category: "Business Strategy",
+        description: "Tiered-membership growth strategy and lead-gen roadmap for a B2B networking consulting engagement.",
         subpage: {
-            documents: [{ name: "View Presentation", url: './public/assets/CMO_Connect.pdf' }],
+            documents: [{ name: "View Presentation", url: '/assets/CMO_Connect.pdf' }],
             sections: [
                 {
                     title: "Context/Overview",
@@ -261,6 +309,8 @@ export const projectData = [
     {
         title: "HCL Gaming Ideathon: ML-Powered Player Retention Platform",
         image: "poker.jpg",
+        category: "Technical",
+        description: "Built an ML-powered matchmaking MVP to cut player churn, ranked Top 3 of 50 teams.",
         subpage: {
             documents: [],
             sections: [
@@ -278,8 +328,10 @@ export const projectData = [
     {
         title: "Advanced Research: Commercialization of Deep Technology",
         image: "helix.png",
+        category: "Technical",
+        description: "Validated a predictive model for miniaturizing RF components, translating deep research into a commercialization case.",
         subpage: {
-            documents: [{ name: "View Research Presentation", url: './public/assets/Dispersion_Characteristics_Presentation.pdf' }],
+            documents: [{ name: "View Research Presentation", url: '/assets/Dispersion_Characteristics_Presentation.pdf' }],
             sections: [
                 {
                     title: "Context & Business Application",

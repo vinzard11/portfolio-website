@@ -7,3 +7,11 @@
 # Environment variables
 .env
 .env*.local
+# macOS
+.DS_Store
+
+# Papers under review: kept local, never published to dist/
+/embargoed
+
+# Private working brief: not for a public repo
+/portfolio-handoff.md

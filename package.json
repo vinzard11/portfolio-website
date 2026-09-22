@@ -2,15 +2,25 @@
   "name": "portfolio-website",
   "version": "1.0.0",
   "description": "Optimized portfolio website",
-  "main": "index.html",
+  "type": "module",
   "scripts": {
-    "build": "tailwindcss -i ./src/style.css -o ./dist/output.css --minify && copyfiles \"index.html\" \"public/**/*\" \"src/**/*\" dist/"
+    "dev": "vite",
+    "build": "vite build && node scripts/prerender.mjs",
+    "preview": "vite preview",
+    "prerender": "node scripts/prerender.mjs",
+    "serve": "node scripts/serve-dist.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "three": "^0.169.0"
+  },
   "devDependencies": {
-    "copyfiles": "^2.4.1",
-    "tailwindcss": "^3.4.1"
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.4.10"
   }
 }

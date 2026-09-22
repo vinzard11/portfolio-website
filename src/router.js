@@ -3,62 +3,53 @@
  * @description Handles routing and content rendering for the portfolio website.
  */
 
+import gsap from 'gsap';
 import { workData, projectData } from './data.js';
-import { 
-    initializeHomePageAnimations, 
-    cleanupPageAnimations, 
-    initInteractiveCards, 
+import { slugify } from './slugify.js';
+import {
+    initializeHomePageAnimations,
+    cleanupPageAnimations,
+    initInteractiveCards,
     initWorkexDetailAnimations,
     initWorkexPageAnimations,
-    initGsapScrollTriggers // <-- IMPORTED new function
+    initGsapScrollTriggers, // <-- IMPORTED new function
+    initProjectFilters,
+    initHomeHeroScene
 } from './animations.js';
-import { createWorkexDetailPageHTML } from './workex-detail-template.js';
-import { createZsDetailPageHTML } from './zs-detail-template.js'; 
-import { createBfinDetailPageHTML } from './bfin-detail-template.js';
-import { createWorkexSimplePageHTML } from './workex-simple-template.js';
-import { createProjectDetailPageHTML } from './project-detail-template.js';
+import { matchRoute, notFoundRoute } from './routes.js';
+import {
+    createModernWorkItemHTML,
+    createProjectCardHTML,
+    createFilterPillsHTML,
+    createDetailHTML,
+    bodyClassesFor,
+    notFoundHTML
+} from './page-fragments.js';
 
 const appRoot = document.getElementById('app-root');
 
-async function playPageTransition(targetPageId, direction) {
-    return; // Skipping transitions for now
+function tweenOverlay(vars) {
+    return new Promise((resolve) => {
+        gsap.to('#page-transition-overlay', { ...vars, onComplete: resolve });
+    });
 }
 
-const createModernWorkItemHTML = (exp, isTransparent) => {
-    if (!exp.subpage) return '';
+async function playPageTransition(targetPageId, direction) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const tagsHTML = exp.tags.map(tag => `<span class="workex-tag">${tag}</span>`).join('');
-    const companySlug = exp.company.toLowerCase().replace(/\s+/g, '-');
-    const itemClass = `workex-item router-link scroll-fade ${isTransparent ? 'workex-item' : ''}`;
-    
-    return `
-        <a href="#workex/${companySlug}" class="${itemClass}">
-            <div class="workex-item-info">
-                <h2 class="workex-item-title">${exp.role}</h2>
-                <p class="workex-item-company">${exp.company}</p>
-            </div>
-            <div class="workex-item-tags">
-                ${tagsHTML}
-            </div>
-        </a>
-    `;
-};
-
-const createProjectListItemHTML = (proj, index) => {
-    const projectSlug = proj.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-    return `
-        <div class="project-item" data-index="${index}">
-            <a href="#projects/${projectSlug}" class="router-link">${proj.title}</a>
-        </div>
-    `;
-};
+    if (direction === 'out') {
+        await tweenOverlay({ opacity: 1, pointerEvents: 'auto', duration: 0.15, ease: 'power1.in' });
+    } else {
+        await tweenOverlay({ opacity: 0, pointerEvents: 'none', duration: 0.25, ease: 'power1.out' });
+    }
+}
 
 function initializePageListeners() {
     document.querySelectorAll('.router-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const path = e.currentTarget.hash;
-            if (window.location.hash !== path) {
+            const path = e.currentTarget.getAttribute('href');
+            if (window.location.pathname !== path) {
                 history.pushState(null, '', path);
                 loadContent(path);
             }
@@ -93,140 +84,82 @@ function initializePageListeners() {
         });
     });
 
-    const projectListContainer = document.querySelector('.project-list-container');
-    if (projectListContainer) {
-        const projectItems = projectListContainer.querySelectorAll('.project-item');
-        const hoverImages = document.querySelectorAll('.project-hover-image');
-
-        projectItems.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                const index = item.dataset.index;
-                const image = document.getElementById(`project-image-${index}`);
-                
-                if (image) {
-                    image.classList.add('visible');
-                }
-                projectListContainer.classList.add('is-hovered');
-                item.classList.add('is-hovered');
-            });
-
-            item.addEventListener('mouseleave', () => {
-                const index = item.dataset.index;
-                const image = document.getElementById(`project-image-${index}`);
-
-                if (image) {
-                    image.classList.remove('visible');
-                }
-                projectListContainer.classList.remove('is-hovered');
-                item.classList.remove('is-hovered');
-            });
-        });
-    }
+    initProjectFilters();
 }
 
 const updateActiveLink = (path) => {
+    // "/" must not light up every link, so the root is matched exactly and every
+    // other section matches its own path plus anything nested beneath it.
+    const section = '/' + (path.split('/')[1] || '');
     document.querySelectorAll('header .nav-link').forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href').startsWith(path));
+        const href = link.getAttribute('href');
+        link.classList.toggle('active', href === section && section !== '/');
     });
 };
 
 export async function loadContent(path) {
     cleanupPageAnimations();
 
-    const hash = path.substring(1);
-    const isWorkexDetailPage = hash.startsWith('workex/');
-    const isProjectDetailPage = hash.startsWith('projects/');
-    
-    let pageId = 'page-home'; 
-    if (isWorkexDetailPage) {
-        pageId = 'page-workex-detail';
-    } else if (isProjectDetailPage) {
-        pageId = 'page-project-detail';
-    } else if (hash) {
-        pageId = 'page-' + hash;
-    }
+    const pathname = (path || '/').split('#')[0].split('?')[0];
+    // An unmatched path must stay unmatched. Falling back to the home route here
+    // would render the homepage under a URL that does not exist.
+    const route = matchRoute(pathname) || notFoundRoute;
+    const normalized = route.path;
 
-    await playPageTransition(pageId, 'out');
+    await playPageTransition(normalized, 'out');
 
-    document.body.className = 'antialiased';
+    document.body.className = bodyClassesFor(normalized);
 
-    if (hash.startsWith('workex')) {
-        document.body.classList.add('workex-page');
-        if(isWorkexDetailPage) {
-            document.body.classList.add('workex-detail-page');
-        }
-    } else if (hash.startsWith('projects')) {
-        document.body.classList.add('projects-page');
-        if(isProjectDetailPage) {
-            document.body.classList.add('project-detail-page');
-        }
-    }
-    
-    appRoot.innerHTML = ''; 
-
-    if (isWorkexDetailPage) {
-        const companySlug = hash.split('/')[1];
-        const workItem = workData.find(item => item.company.toLowerCase().replace(/\s+/g, '-') === companySlug);
-        
-        if (companySlug === 'boston-college') {
-            appRoot.innerHTML = createWorkexDetailPageHTML(workItem);
-        } else if (companySlug === 'zs-associates') {
-            appRoot.innerHTML = createZsDetailPageHTML(workItem);
-        } else if (companySlug === 'bfin') {
-            appRoot.innerHTML = createBfinDetailPageHTML(workItem);
-        } else {
-            appRoot.innerHTML = createWorkexSimplePageHTML(workItem);
-        }
-        
-        initWorkexDetailAnimations();
-    } else if (isProjectDetailPage) {
-        const projectSlug = hash.split('/')[1];
-        const projectItem = projectData.find(item => item.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === projectSlug);
-        appRoot.innerHTML = createProjectDetailPageHTML(projectItem);
-        initWorkexDetailAnimations(); 
+    // The build prerenders every route into #app-root. On the very first load we
+    // adopt that markup instead of rebuilding it, which avoids a wipe-and-repaint
+    // flash of content the visitor can already see.
+    const adopting = appRoot.dataset.prerendered === normalized;
+    if (adopting) {
+        delete appRoot.dataset.prerendered;
     } else {
-        const template = document.getElementById(pageId);
-        if (template) {
-            const content = template.content.cloneNode(true);
-            appRoot.appendChild(content);
+        appRoot.innerHTML = '';
+    }
 
-            if (pageId === 'page-workex') {
-                const container = document.getElementById('workex-list');
-                if(container) {
-                    container.innerHTML = workData.map((exp, index, arr) => {
-                        const isTransparent = index >= arr.length - 2;
-                        return createModernWorkItemHTML(exp, isTransparent);
-                    }).join('');
-                }
-                initWorkexPageAnimations();
+    if (route.notFound) {
+        if (!adopting) appRoot.innerHTML = notFoundHTML;
+    } else if (route.kind) {
+        if (!adopting) appRoot.innerHTML = createDetailHTML(route);
+        initWorkexDetailAnimations();
+    } else {
+        if (!adopting) {
+            const template = document.getElementById(route.templateId);
+            if (template) appRoot.appendChild(template.content.cloneNode(true));
+        }
+
+        if (route.templateId === 'page-workex' && !adopting) {
+            const container = document.getElementById('workex-list');
+            if (container) {
+                container.innerHTML = workData.map(createModernWorkItemHTML).join('');
             }
-            if (pageId === 'page-projects') {
-                const container = document.querySelector('.project-list-container');
-                if(container) {
-                    container.innerHTML = projectData.map(createProjectListItemHTML).join('');
-                    
-                    const imageContainer = document.createElement('div');
-                    imageContainer.className = 'project-hover-images-container';
-                    projectData.forEach((proj, index) => {
-                        const posClass = (index + 1) % 2 !== 0 ? 'position-right' : 'position-left';
-                        imageContainer.innerHTML += `<img id="project-image-${index}" src="./public/images/${proj.image}" class="project-hover-image ${posClass}" alt="${proj.title}">`;
-                    });
-                    container.parentNode.insertBefore(imageContainer, container);
-                }
+        }
+        if (route.templateId === 'page-workex') initWorkexPageAnimations();
+
+        if (route.templateId === 'page-projects' && !adopting) {
+            const grid = document.getElementById('projects-grid');
+            const filters = document.querySelector('.project-filters');
+            if (grid) grid.innerHTML = projectData.map(createProjectCardHTML).join('');
+            if (filters) {
+                const categories = [...new Set(projectData.map(proj => proj.category))];
+                filters.innerHTML = createFilterPillsHTML(categories);
             }
-            if (pageId === 'page-home' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        }
+
+        if (route.templateId === 'page-home') {
+            initHomeHeroScene();
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 initializeHomePageAnimations();
             }
-        } else {
-            console.warn(`Template for ${pageId} not found. Loading home page.`);
-            await loadContent('#home');
-            return;
         }
     }
-    
-    updateActiveLink('#' + hash.split('/')[0]);
-    setTimeout(() => window.scrollTo(0, 0), 0);
+
+    updateActiveLink(normalized);
+    if (!adopting) setTimeout(() => window.scrollTo(0, 0), 0);
     initializePageListeners();
-    
-    await playPageTransition(pageId, 'in');
+
+    await playPageTransition(normalized, 'in');
 }

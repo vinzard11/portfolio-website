@@ -70,7 +70,7 @@ export function createProjectDetailPageHTML(projectItem) {
                 </div>
             </div>
              <div class="workex-detail-nav-v2">
-                <a href="#projects" class="router-link">← Back to all projects</a>
+                <a href="/projects" class="router-link">← Back to all projects</a>
             </div>
         </div>
     `;
