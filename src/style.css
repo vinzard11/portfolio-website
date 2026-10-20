@@ -381,17 +381,16 @@ a.row:focus-visible { outline-offset: -2px; border-radius: 0; }
 
 /* ---------------------------------------------------------------- charts */
 
-.chart { width: 100%; height: auto; overflow: visible; }
-.chart text { font-family: var(--f-mono); fill: var(--fg); }
-.ch-heading { font-size: 13px; letter-spacing: .04em; fill: var(--fg-2) !important; }
-.ch-label { font-size: 15px; font-family: var(--f-ui) !important; }
-.ch-value { font-size: 12px; font-weight: 500; }
-.ch-value.is-inside { fill: var(--paper) !important; }
-.ch-note { font-size: 13px; fill: var(--fg-2) !important; }
-.ch-track { fill: var(--paper-3); }
-.ch-fill { fill: var(--red); }
-.ch-fill.is-muted { fill: var(--ink-2); }
-
+.chart { display: grid; gap: 20px; max-width: 760px; }
+.ch-heading { font: 400 var(--t-sm)/1.4 var(--f-mono); color: var(--fg-2); }
+.ch-row { display: grid; gap: 8px; }
+.ch-label { font-size: var(--t-md); line-height: 1.4; color: var(--fg); }
+.ch-bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; }
+.ch-track { display: block; height: 14px; border-radius: 2px; background: var(--paper-3); overflow: hidden; }
+.ch-fill { display: block; height: 100%; border-radius: 2px; background: var(--red); }
+.ch-fill.is-muted { background: var(--ink-2); }
+.ch-value { font: 500 var(--t-sm)/1 var(--f-mono); color: var(--fg); white-space: nowrap; min-width: 6.5ch; text-align: right; }
+.ch-note { font: 400 var(--t-sm)/1.5 var(--f-mono); color: var(--fg-2); }
 .bubbles { width: 100%; height: auto; }
 .bubble { fill: transparent; stroke: var(--line); stroke-width: 1.4; transition: fill .25s ease, stroke .25s ease; }
 .bubble.is-on { fill: var(--mark); stroke: var(--mark); }
@@ -596,7 +595,7 @@ a.row:focus-visible { outline-offset: -2px; border-radius: 0; }
     .c3 { grid-row: 4; grid-column: 1; } .c4 { grid-row: 4; grid-column: 2; border-left: 1px solid var(--rule); }
     .c2, .c4 { text-align: left; justify-items: start; }
     .corner-label { font-size: 1.9rem; }
-    .role { letter-spacing: .16em; font-size: 0.6875rem; }
+    .role { letter-spacing: .14em; font-size: 0.75rem; }
     .scroll-cue { display: none; }
 
     .home-section { grid-template-columns: 1fr; padding-block: 56px; }
@@ -613,6 +612,7 @@ a.row:focus-visible { outline-offset: -2px; border-radius: 0; }
     .dir-preview { display: none; }
     .corners.is-fixed { position: static; background: none; padding-top: 28px; }
 
+    .panel, .after-panels { box-shadow: none; }
     .panel { position: relative; height: auto; min-height: 0; grid-template-columns: 1fr; padding: 96px var(--gutter) 56px; gap: 28px; }
     .panel-index { position: static; }
     .panel-tags { display: flex; flex-wrap: wrap; gap: 6px 14px; justify-items: start; text-align: left; }

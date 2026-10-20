@@ -24,30 +24,30 @@ export function bubblesSVG({ count, to }) {
     return `<svg class="bubbles" viewBox="0 0 ${w} ${h}" role="img" aria-hidden="true" preserveAspectRatio="xMinYMin meet">${marks}</svg>`;
 }
 
-/** Horizontal percentage bars with a value label at the end of each bar. */
-function barsSVG({ heading, bars, note }) {
-    const W = 640, left = 0, barH = 14, gap = 58, top = 70;
-    const H = top + bars.length * gap + (note ? 30 : 6);
-    const rows = bars.map((b, i) => {
-        const y = top + i * gap;
-        const w = Math.max(3, (b.value / 100) * W);
-        // Put the value inside the bar end when there is room, otherwise just past it.
-        const inside = w > 120;
-        const tx = inside ? w - 8 : w + 8;
-        return `
-            <text class="ch-label" x="${left}" y="${y - 10}">${b.label}</text>
-            <rect class="ch-track" x="${left}" y="${y}" width="${W}" height="${barH}" rx="2"/>
-            <rect class="ch-fill${b.muted ? ' is-muted' : ''}" x="${left}" y="${y}" width="${w}" height="${barH}" rx="2"/>
-            <text class="ch-value${inside ? ' is-inside' : ''}" x="${tx}" y="${y + barH - 2.5}" text-anchor="${inside ? 'end' : 'start'}">${b.display}</text>`;
-    }).join('');
-    const noteEl = note ? `<text class="ch-note" x="${left}" y="${H - 8}">${note}</text>` : '';
+/**
+ * Horizontal percentage bars, built in HTML rather than SVG so the labels
+ * reflow and stay readable at phone width instead of scaling down with the
+ * drawing. Screen readers get one sentence with every value.
+ */
+function barsHTML({ heading, bars, note }) {
     const summary = `${heading}. ${bars.map((b) => `${b.label}: ${b.display}`).join('. ')}.${note ? ` ${note}` : ''}`;
-    return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${summary}">
-        <text class="ch-heading" x="${left}" y="16">${heading}</text>${rows}${noteEl}</svg>`;
+    return `
+        <div class="chart" role="img" aria-label="${summary}">
+            <p class="ch-heading" aria-hidden="true">${heading}</p>
+            ${bars.map((b) => `
+            <div class="ch-row" aria-hidden="true">
+                <p class="ch-label">${b.label}</p>
+                <div class="ch-bar">
+                    <span class="ch-track"><span class="ch-fill${b.muted ? ' is-muted' : ''}" style="width:${Math.max(0.6, b.value)}%"></span></span>
+                    <span class="ch-value">${b.display}</span>
+                </div>
+            </div>`).join('')}
+            ${note ? `<p class="ch-note" aria-hidden="true">${note}</p>` : ''}
+        </div>`;
 }
 
 const CHARTS = {
-    audit: () => barsSVG({
+    audit: () => barsHTML({
         heading: '12,804 item pairs, each judged in both orders',
         bars: [
             { label: 'Judgments that flipped when the order was reversed', value: 11.06, display: '11.06%' },
@@ -55,7 +55,7 @@ const CHARTS = {
         ],
         note: 'Filtering them out gave near-perfect transitivity, and no gain in validity.',
     }),
-    network: () => barsSVG({
+    network: () => barsHTML({
         heading: '1,351 Bradley-Terry fits over 28 network designs',
         bars: [
             { label: 'Comparison budget used by the sparse network', value: 22, display: '22%' },
@@ -63,7 +63,7 @@ const CHARTS = {
         ],
         note: 'The same estimates were badly overdispersed.',
     }),
-    safety: () => barsSVG({
+    safety: () => barsHTML({
         heading: 'Vending-Bench Mini, Gemma-4 26B, share of trials ending out of business',
         bars: [
             { label: 'Abliterated model', value: 100, display: 'every trial' },
