@@ -12,9 +12,11 @@
  */
 
 const G = 200;                 // halftone cells across and down (must match build-portraits)
-const INK = '#1f2523';
 const HOLD_MS = 6500;          // time each portrait stays up
 const MORPH_MS = 1800;         // whole handover: first half out, second half in
+
+// Dot color follows the theme's ink token, so the portrait flips with dark mode.
+const inkColor = () => getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#1f2523';
 
 const smooth = (t) => t * t * (3 - 2 * t);
 const clamp01 = (t) => Math.min(1, Math.max(0, t));
@@ -67,7 +69,14 @@ export function initPortrait(root, onDispose) {
     let disposed = false;
     onDispose(() => { disposed = true; });
 
-    Promise.all(sources.map(async (s) => ({ ink: await loadInk(s.ink), photo: await loadImage(s.photo) })))
+    // Each portrait has two dot maps: dark ink on paper for the light theme, and
+    // pale dots where the photo is bright for the dark theme (inverting the light
+    // map would turn the photo into a negative).
+    Promise.all(sources.map(async (s) => ({
+        light: await loadInk(s.ink),
+        dark: await loadInk(s.inkDark),
+        photo: await loadImage(s.photo),
+    })))
         .then((portraits) => { if (!disposed) start(portraits); })
         .catch(() => { /* keep the static image */ });
 
@@ -89,6 +98,9 @@ export function initPortrait(root, onDispose) {
         for (let i = 0; i < jitter.length; i++) jitter[i] = Math.random();
 
         let W = 0, H = 0, dpr = 1;
+        let ink = inkColor();
+        let mode = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+        const map = (i) => portraits[i][mode];
         let cur = 0, next = 1;
         let morphStart = 0, morphing = false;
         let raf = 0, timer = 0;
@@ -96,7 +108,7 @@ export function initPortrait(root, onDispose) {
 
         function drawDots(target, a, b, t) {
             target.clearRect(0, 0, W, H);
-            target.fillStyle = INK;
+            target.fillStyle = ink;
             target.beginPath();
             const cell = W / G;
             const rmax = cell * 0.6;
@@ -122,7 +134,7 @@ export function initPortrait(root, onDispose) {
             W = Math.round(rect.width * dpr);
             H = Math.round(rect.height * dpr);
             for (const c of [canvas, base, lens]) { c.width = W; c.height = H; }
-            drawDots(bctx, portraits[cur].ink, null, 0);
+            drawDots(bctx, map(cur), null, 0);
             frame();
         }
 
@@ -134,12 +146,12 @@ export function initPortrait(root, onDispose) {
             // 1. Dots: either the settled base, or a morph in progress.
             if (morphing) {
                 const t = clamp01((now - morphStart) / MORPH_MS);
-                drawDots(ctx, portraits[cur].ink, portraits[next].ink, t);
+                drawDots(ctx, map(cur), map(next), t);
                 if (t >= 1) {
                     morphing = false;
                     cur = next;
                     next = (cur + 1) % portraits.length;
-                    drawDots(bctx, portraits[cur].ink, null, 0);
+                    drawDots(bctx, map(cur), null, 0);
                     schedule();
                 } else settled = false;
             } else {
@@ -207,6 +219,14 @@ export function initPortrait(root, onDispose) {
             fig.addEventListener('pointermove', onMove);
             fig.addEventListener('pointerleave', onLeave);
         }
+        const onTheme = () => {
+            ink = inkColor();
+            mode = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+            drawDots(bctx, map(cur), null, 0);
+            frame(); // redraw now, inside the theme cross-fade, not a frame later
+        };
+        window.addEventListener('themechange', onTheme);
+
         const ro = new ResizeObserver(resize);
         ro.observe(fig);
 
@@ -219,6 +239,7 @@ export function initPortrait(root, onDispose) {
             clearTimeout(timer);
             io.disconnect();
             ro.disconnect();
+            window.removeEventListener('themechange', onTheme);
             fig.removeEventListener('pointermove', onMove);
             fig.removeEventListener('pointerleave', onLeave);
         });

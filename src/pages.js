@@ -7,7 +7,7 @@
 
 import { site, thesis, now, experience, research, researchGroups, projects, profile } from './content.js';
 import { figureHTML, previewHTML } from './charts.js';
-import { chrome, footer, menu, rich, esc, pills } from './ui.js';
+import { chrome, footer, menu, rich, esc, pills, themeToggle } from './ui.js';
 
 /* ------------------------------------------------------------------ home */
 
@@ -20,8 +20,8 @@ const CORNERS = [
 
 // Two portraits share one halftone grid; the home page morphs between them.
 const PORTRAITS = [
-    { ink: '/images/portrait-now-ink.png', photo: '/images/portrait-now-photo.webp' },
-    { ink: '/images/portrait-studio-ink.png', photo: '/images/portrait-studio-photo.webp' },
+    { ink: '/images/portrait-now-ink.png', inkDark: '/images/portrait-now-ink-dark.png', photo: '/images/portrait-now-photo.webp' },
+    { ink: '/images/portrait-studio-ink.png', inkDark: '/images/portrait-studio-ink-dark.png', photo: '/images/portrait-studio-photo.webp' },
 ];
 
 const nowList = (items) => `
@@ -46,6 +46,7 @@ export function home() {
                     <a href="${site.resume}" target="_blank" rel="noopener">Résumé</a>
                     <button type="button" class="mb-menu-btn" data-menu-open aria-controls="menu" aria-expanded="false">Menu</button>
                 </nav>
+                ${themeToggle()}
                 <div class="mb-right">
                     <span class="mb-cell"><span class="mb-dot" aria-hidden="true"></span>${site.location}</span>
                     <span class="mb-cell mb-clock" data-clock aria-hidden="true"></span>
@@ -58,7 +59,10 @@ export function home() {
                     <span class="corner-label">${c.label}</span>
                 </a>`).join('')}
             <figure class="portrait" data-portrait='${JSON.stringify(PORTRAITS)}'>
-                <img src="/images/portrait-halftone.png" width="1200" height="1200" alt="Halftone portrait of Vinith Ayapilla, smiling, arms folded on a table" fetchpriority="high">
+                <picture>
+                    <source srcset="/images/portrait-halftone-dark.png" media="(prefers-color-scheme: dark)">
+                    <img src="/images/portrait-halftone.png" width="1200" height="1200" alt="Halftone portrait of Vinith Ayapilla, smiling, arms folded on a table" fetchpriority="high">
+                </picture>
             </figure>
             <div class="nameplate">
                 <p class="role">${site.roleLine}</p>
@@ -206,7 +210,7 @@ export function experienceIndex() {
     const groups = experienceGroups();
     const total = String(groups.length).padStart(2, '0');
     return `
-        ${chrome({ back: '/', label: 'Experience' })}
+        ${chrome({ back: '/' })}
         <h1 class="sr-only">Experience</h1>
         <div class="panels">
             ${groups.map((g, i) => {

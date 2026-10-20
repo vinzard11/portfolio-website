@@ -19,6 +19,12 @@
     --red: #b3261e;          /* marking pen, 5.8:1 on paper */
     --rule: #a9c4b3;
     --rule-soft: #c6d8cb;
+    --glow: color-mix(in srgb, var(--paper-2) 80%, white);
+    --inv-2: #b9c8bf;          /* secondary text on an inverse panel */
+    --inv-line: #4a5a54;       /* rules on an inverse panel */
+    --row-hover-sub: #c4d3ca;  /* meta text on a hovered directory row */
+    --shadow: var(--shadow);
+    --contours: url('/images/contours.svg');
 
     /* Contextual tokens: components read these, dark panels redefine them */
     --bg: var(--paper);
@@ -44,12 +50,45 @@
     --top-clear: 96px;
 }
 
+/* An inverse panel: ink on paper becomes paper on ink, in either theme */
 .is-dark {
     --bg: var(--ink);
     --fg: var(--paper);
-    --fg-2: #b9c8bf;
-    --line: #4a5a54;
+    --fg-2: var(--inv-2);
+    --line: var(--inv-line);
     --mark: var(--paper);
+}
+
+/* Dark theme: the same answer sheet at night. Set by the toggle (data-theme),
+   or by the system setting when no choice has been made and JS is off. */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #121815;
+    --paper-2: #1a221e;
+    --paper-3: #26302b;
+    --ink: #e3ece5;
+    --ink-2: #a9b8b0;
+    --ink-3: #7f8e87;
+    --green: #86c0a3;
+    --red: #ef7468;
+    --rule: #3a4a42;
+    --rule-soft: #28332e;
+    --glow: #1b2420;
+    --inv-2: #48544f;
+    --inv-line: #a9c0b2;
+    --row-hover-sub: #3c4843;
+    --shadow: rgba(0, 0, 0, .6);
+    --contours: url('/images/contours-dark.svg');
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        color-scheme: dark;
+        --paper: #121815; --paper-2: #1a221e; --paper-3: #26302b;
+        --ink: #e3ece5; --ink-2: #a9b8b0; --ink-3: #7f8e87;
+        --green: #86c0a3; --red: #ef7468; --rule: #3a4a42; --rule-soft: #28332e;
+        --glow: #1b2420; --inv-2: #48544f; --inv-line: #a9c0b2; --row-hover-sub: #3c4843;
+        --shadow: rgba(0, 0, 0, .6); --contours: url('/images/contours-dark.svg');
+    }
 }
 
 /* ------------------------------------------------------------------ base */
@@ -59,7 +98,7 @@ html { -webkit-text-size-adjust: 100%; scroll-padding-top: var(--top-clear); }
 html.menu-open { overflow: hidden; }
 body {
     margin: 0;
-    background: var(--paper) url('/images/contours.svg') center top / 1600px auto repeat-y;
+    background: var(--paper) var(--contours) center top / 1600px auto repeat-y;
     color: var(--ink);
     font: 400 var(--t-md)/1.6 var(--f-ui);
     -webkit-font-smoothing: antialiased;
@@ -194,7 +233,7 @@ h1:focus, #app-root:focus { outline: none; }
     border-radius: 16px;
     overflow: hidden;
     background:
-        radial-gradient(ellipse 70% 60% at 50% 55%, color-mix(in srgb, var(--paper-2) 80%, white) 0%, transparent 70%),
+        radial-gradient(ellipse 70% 60% at 50% 55%, var(--glow) 0%, transparent 70%),
         var(--paper);
 }
 /* Answer-sheet timing track down the left edge */
@@ -246,11 +285,33 @@ h1:focus, #app-root:focus { outline: none; }
 .portrait img { width: 100%; height: 100%; object-fit: contain; object-position: bottom; }
 /* The live canvas sits exactly over the static image, which it then replaces */
 .portrait-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.portrait picture { display: contents; }
 /* Once the canvas is drawing, the static image must disappear. The fade-in
    animation also sets opacity and would win, leaving this image showing
    behind the canvas, so the animation is cancelled here too. Opacity rather
    than visibility keeps its alt text available to screen readers. */
 .portrait.is-live img { animation: none; opacity: 0; }
+
+/* ---------------------------------------------------------- theme toggle */
+
+.theme-toggle {
+    display: grid; place-items: center;
+    width: 44px; height: 44px; border-radius: 50%;
+    color: var(--ink);
+    transition: background-color .2s ease;
+}
+.theme-toggle:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.theme-toggle svg { width: 26px; height: 20px; overflow: visible; }
+.theme-toggle .tt-ring { fill: none; stroke: currentColor; stroke-width: 1.6; }
+.theme-toggle .tt-fill { fill: currentColor; transform-origin: 13px 10px; transition: transform .45s cubic-bezier(.2, .8, .2, 1); }
+/* The filled half swings to the other side when the theme changes */
+:root[data-theme="dark"] .theme-toggle .tt-fill { transform: rotate(180deg); }
+.menubar .theme-toggle, .chrome .theme-toggle, .menu-top .theme-toggle {
+    position: absolute; left: 50%; transform: translateX(-50%);
+}
+.menubar .theme-toggle { top: 1px; }
+.chrome .theme-toggle { top: 20px; background: var(--paper); }
+.menu-top { position: relative; align-items: center; }
 
 /* ---------------------------------------------------------------- cursor */
 
@@ -353,7 +414,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
 .r-status { font: 400 var(--t-sm)/1 var(--f-mono); letter-spacing: .06em; color: var(--ink-2); text-align: right; white-space: nowrap; }
 a.row:hover, a.row:focus-visible, .row.is-static:hover { background: var(--ink); color: var(--paper); }
 a.row:hover .r-meta, a.row:hover .r-status, a.row:focus-visible .r-meta, a.row:focus-visible .r-status,
-.row.is-static:hover .r-meta, .row.is-static:hover .r-status { color: #c4d3ca; }
+.row.is-static:hover .r-meta, .row.is-static:hover .r-status { color: var(--row-hover-sub); }
 a.row:focus-visible { outline-offset: -2px; border-radius: 0; }
 
 /* Floating preview beside the hovered row */
@@ -362,7 +423,7 @@ a.row:focus-visible { outline-offset: -2px; border-radius: 0; }
     width: min(400px, 40%); aspect-ratio: 16 / 10;
     border-radius: 12px; overflow: hidden;
     background: var(--paper-2);
-    box-shadow: 0 1px 0 var(--rule), 0 24px 48px -24px rgba(31, 37, 35, .45);
+    box-shadow: 0 1px 0 var(--rule), 0 24px 48px -24px var(--shadow);
     opacity: 0; transform: translateY(8px) scale(.985);
     transition: opacity .18s ease, transform .22s ease, top .22s ease;
     pointer-events: none;
@@ -415,12 +476,12 @@ a.row:focus-visible { outline-offset: -2px; border-radius: 0; }
     align-items: center; gap: 40px 4vw;
     padding: 104px var(--gutter) 80px;
     background: var(--bg); color: var(--fg);
-    box-shadow: 0 -28px 60px -32px rgba(31, 37, 35, .45);
+    box-shadow: 0 -28px 60px -32px var(--shadow);
 }
 .panel-lead { display: grid; gap: 14px; align-content: center; }
 .panel-years {
-    font: italic 400 clamp(3.2rem, 7.5vw, 7rem)/.95 var(--f-display);
-    letter-spacing: -0.02em; font-variant-numeric: lining-nums;
+    font: italic 400 clamp(3rem, 5.6vw, 6rem)/.95 var(--f-display);
+    letter-spacing: -0.02em; font-variant-numeric: lining-nums; white-space: nowrap;
 }
 .panel-years span { font-size: .42em; color: var(--fg-2); margin: 0 .2em; vertical-align: .4em; }
 .pt-company { font: 700 clamp(1.1rem, 1.7vw, 1.45rem)/1.15 var(--f-ui); text-transform: uppercase; letter-spacing: .01em; }
@@ -450,7 +511,7 @@ a.row:focus-visible { outline-offset: -2px; border-radius: 0; }
 .after-panels {
     position: relative; z-index: 1; background: var(--paper);
     display: grid; gap: 24px; padding: 96px var(--gutter) 40px;
-    box-shadow: 0 -28px 60px -32px rgba(31, 37, 35, .45);
+    box-shadow: 0 -28px 60px -32px var(--shadow);
 }
 .edu-list { display: grid; border-top: 1.5px solid var(--ink); }
 .edu-list li {
@@ -590,6 +651,9 @@ a.row:focus-visible { outline-offset: -2px; border-radius: 0; }
     .mb-logo { padding: 0 14px; }
     .mb-menu { gap: 16px; padding: 0 14px; }
     .mb-menu a[href="#now"] { display: none; }
+    /* No room to float it over the links on a phone: let it take its own slot */
+    .mb-menu { flex: none; }
+    .menubar .theme-toggle { position: static; transform: none; margin: 0 auto; align-self: center; }
     .mb-clock { display: none; }
     .mb-cell { padding: 0 12px; }
     .portrait { position: relative; grid-column: 1 / -1; grid-row: 1; left: auto; transform: none; height: auto; width: min(92%, 400px); margin: 20px auto 0; }

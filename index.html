@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#e6efe7">
+    <script>
+        (function () {
+            var t;
+            try { t = localStorage.getItem('theme'); } catch (e) {}
+            if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            document.documentElement.dataset.theme = t;
+            if (t === 'dark') document.querySelector('meta[name="theme-color"]').content = '#121815';
+        })();
+    </script>
 
     <title>Vinith Ayapilla | AI evaluation, measurement and safety</title>
     <meta name="description" content="Vinith Ayapilla is an engineer who works on measurement: whether we can trust what a language model says, how we would know, and how to run models responsibly on our own hardware.">

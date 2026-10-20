@@ -27,12 +27,21 @@ const socialLinks = () => site.social
     .map((s) => `<a href="${s.href}" target="_blank" rel="noopener noreferrer">${s.label}</a>`)
     .join('');
 
-/** Top corners: a "back" pill on the left, the menu button on the right. */
+/** Light/dark switch: a half-filled answer-sheet bubble whose filled half swings over. */
+export const themeToggle = () => `
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Dark mode" aria-pressed="false">
+        <svg viewBox="0 0 26 20" aria-hidden="true" focusable="false">
+            <ellipse class="tt-ring" cx="13" cy="10" rx="11" ry="8"/>
+            <path class="tt-fill" d="M13 2 A11 8 0 0 0 13 18 Z"/>
+        </svg>
+    </button>`;
+
+/** Top corners: a "back" pill on the left, the menu button on the right, the theme toggle centered. */
 export function chrome({ back = '/', backLabel = 'back', label = '' } = {}) {
     return `
         <div class="chrome">
             <a class="pill" href="${back}">${backLabel}</a>
-            ${label ? `<span class="chrome-label">${label}</span>` : ''}
+            ${themeToggle()}
             <button class="menu-btn" type="button" data-menu-open aria-controls="menu" aria-expanded="false">
                 <span class="sr-only">Open menu</span><span class="menu-bars" aria-hidden="true"><i></i><i></i><i></i></span>
             </button>
@@ -46,6 +55,7 @@ export function menu() {
         <div class="menu" id="menu" hidden data-menu role="dialog" aria-modal="true" aria-label="Site menu">
             <div class="menu-top">
                 <a class="pill" href="/">home</a>
+                ${themeToggle()}
                 <button class="pill" type="button" data-menu-close>close</button>
             </div>
             <nav class="menu-nav" aria-label="Site">

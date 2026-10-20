@@ -74,9 +74,46 @@ export function closeMenu() {
     if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
 }
 
+/* --------------------------------------------------------------- theme */
+
+const THEME_COLOR = { light: '#e6efe7', dark: '#121815' };
+const currentTheme = () => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+
+function syncToggles() {
+    const dark = currentTheme() === 'dark';
+    document.querySelectorAll('[data-theme-toggle]').forEach((b) => b.setAttribute('aria-pressed', String(dark)));
+}
+
+function applyTheme(theme, { save }) {
+    const set = () => {
+        document.documentElement.dataset.theme = theme;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLOR[theme]);
+        syncToggles();
+        window.dispatchEvent(new CustomEvent('themechange', { detail: theme }));
+    };
+    if (document.startViewTransition && !reducedMotion()) document.startViewTransition(set);
+    else set();
+    if (save) { try { localStorage.setItem('theme', theme); } catch { /* private mode */ } }
+}
+
+function initTheme() {
+    syncToggles();
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('[data-theme-toggle]')) return;
+        applyTheme(currentTheme() === 'dark' ? 'light' : 'dark', { save: true });
+    });
+    // Until a visitor picks a theme, keep following their system setting.
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        let saved = null;
+        try { saved = localStorage.getItem('theme'); } catch { /* private mode */ }
+        if (!saved) applyTheme(e.matches ? 'dark' : 'light', { save: false });
+    });
+}
+
 /** Global listeners, attached once. Page content is swapped underneath them. */
 export function initGlobal() {
     initCursor();
+    initTheme();
     document.addEventListener('click', (e) => {
         const open = e.target.closest('[data-menu-open]');
         if (open) { e.preventDefault(); openMenu(open); return; }
@@ -157,6 +194,7 @@ function initDirectory(root) {
 export function initPage(root) {
     disposePage();
     closeMenu();
+    syncToggles();
     initClock(root);
     initDirectory(root);
     initPortrait(root, onDispose);
