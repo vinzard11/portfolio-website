@@ -4,6 +4,9 @@
   "trailingSlash": false,
   "cleanUrls": true,
   "redirects": [
-    { "source": "/home", "destination": "/", "permanent": true }
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/workex", "destination": "/experience", "permanent": true },
+    { "source": "/workex/:slug", "destination": "/experience/:slug", "permanent": true },
+    { "source": "/resume", "destination": "/profile", "permanent": true }
   ]
 }

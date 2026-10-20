@@ -15,7 +15,18 @@ import { readFile, stat } from 'node:fs/promises';
 import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const DIST = join(fileURLToPath(new URL('.', import.meta.url)), '..', 'dist');
+const ROOT = join(fileURLToPath(new URL('.', import.meta.url)), '..');
+const DIST = join(ROOT, 'dist');
+// Mirror vercel.json redirects so moved URLs can be checked locally too.
+const REDIRECTS = JSON.parse(await readFile(join(ROOT, 'vercel.json'), 'utf8')).redirects || [];
+const redirectFor = (path) => {
+    for (const r of REDIRECTS) {
+        const re = new RegExp('^' + r.source.replace(/:(\w+)/g, '(?<$1>[^/]+)') + '$');
+        const m = path.match(re);
+        if (m) return r.destination.replace(/:(\w+)/g, (_, k) => m.groups[k]);
+    }
+    return null;
+};
 const PORT = Number(process.argv[2] || 5000);
 
 const TYPES = {
@@ -36,6 +47,12 @@ createServer(async (req, res) => {
     // Match vercel.json "trailingSlash": false
     if (pathname.length > 1 && pathname.endsWith('/')) {
         res.writeHead(308, { Location: pathname.replace(/\/+$/, '') + url.search });
+        return res.end();
+    }
+
+    const moved = redirectFor(pathname);
+    if (moved) {
+        res.writeHead(308, { Location: moved + url.search });
         return res.end();
     }
 

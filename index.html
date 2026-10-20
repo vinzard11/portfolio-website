@@ -1,32 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#e6efe7">
 
-    <title>Vinith Ayapilla | LLM systems, evaluation, and AI strategy</title>
-    <meta name="description" content="Vinith Ayapilla builds and evaluates LLM systems, from on-premise deployment to the measurement problems underneath, and works on AI strategy and operations.">
+    <title>Vinith Ayapilla | AI evaluation, measurement and safety</title>
+    <meta name="description" content="Vinith Ayapilla is an engineer who works on measurement: whether we can trust what a language model says, how we would know, and how to run models responsibly on our own hardware.">
     <link rel="canonical" href="https://vin-ayapilla-portfolio.vercel.app/">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vinith Ayapilla">
     <meta property="og:url" content="https://vin-ayapilla-portfolio.vercel.app/">
-    <meta property="og:title" content="Vinith Ayapilla | LLM systems, evaluation, and AI strategy">
-    <meta property="og:description" content="Vinith Ayapilla builds and evaluates LLM systems, from on-premise deployment to the measurement problems underneath, and works on AI strategy and operations.">
+    <meta property="og:title" content="Vinith Ayapilla | AI evaluation, measurement and safety">
+    <meta property="og:description" content="Vinith Ayapilla is an engineer who works on measurement: whether we can trust what a language model says, how we would know, and how to run models responsibly on our own hardware.">
     <meta property="og:image" content="https://vin-ayapilla-portfolio.vercel.app/images/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Vinith Ayapilla">
+    <meta property="og:image:alt" content="Vinith Ayapilla, AI evaluation, measurement and safety">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Vinith Ayapilla | LLM systems, evaluation, and AI strategy">
-    <meta name="twitter:description" content="Vinith Ayapilla builds and evaluates LLM systems, from on-premise deployment to the measurement problems underneath, and works on AI strategy and operations.">
+    <meta name="twitter:title" content="Vinith Ayapilla | AI evaluation, measurement and safety">
+    <meta name="twitter:description" content="Vinith Ayapilla is an engineer who works on measurement: whether we can trust what a language model says, how we would know, and how to run models responsibly on our own hardware.">
     <meta name="twitter:image" content="https://vin-ayapilla-portfolio.vercel.app/images/og-image.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400;1,6..72,500&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400;1,6..72,500&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" as="image" href="/images/portrait-halftone.png">
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 
     <script type="application/ld+json">
     {
@@ -34,10 +38,11 @@
       "@type": "Person",
       "name": "Vinith Ayapilla",
       "url": "https://vin-ayapilla-portfolio.vercel.app/",
-      "image": "https://vin-ayapilla-portfolio.vercel.app/images/profile.jpg",
+      "image": "https://vin-ayapilla-portfolio.vercel.app/images/headshot.jpg",
       "email": "mailto:vinithhazard@gmail.com",
       "jobTitle": "Technical Dev/Consultant, AI Evaluation & Measurement",
-      "worksFor": { "@type": "Organization", "name": "IEA TIMSS & PIRLS" },
+      "worksFor": { "@type": "Organization", "name": "TIMSS & PIRLS International Study Center, Boston College" },
+      "knowsAbout": ["AI evaluation", "LLM-as-judge", "Psychometrics", "AI safety", "Effective altruism", "On-premise LLM deployment", "React", "TypeScript", "Accessibility"],
       "sameAs": [
         "https://www.linkedin.com/in/vinith-ayapilla-521b331a5/",
         "https://github.com/vinzard11",
@@ -49,372 +54,10 @@
       ]
     }
     </script>
-
-    <script>
-        // Set before first paint so scroll-reveal styles only apply when JS can
-        // undo them. No JS means the prerendered content just stays visible.
-        document.documentElement.classList.add('js');
-    </script>
-    <style>
-        header, main, footer {
-            position: relative;
-            z-index: 10;
-        }
-    </style>
 </head>
-<body class="antialiased">
-
-    <div id="page-transition-overlay"></div>
-
-    <header class="bg-white/50 backdrop-blur-lg sticky top-0 z-50 border-b border-slate-200/80">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold text-primary router-link" style="font-family: 'Playfair Display', serif;">Vinith Ayapilla</a>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="/workex" class="nav-link router-link">Work Experience</a>
-                <a href="/research" class="nav-link router-link">Research</a>
-                <a href="/projects" class="nav-link router-link">Projects</a>
-                <a href="/resume" class="nav-link router-link">Résumé</a>
-            </div>
-            <button id="mobile-menu-button" class="md:hidden text-slate-800">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </nav>
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="/workex" class="block py-2 text-slate-700 router-link">Work Experience</a>
-            <a href="/research" class="block py-2 text-slate-700 router-link">Research</a>
-            <a href="/projects" class="block py-2 text-slate-700 router-link">Projects</a>
-            <a href="/resume" class="block py-2 text-slate-700 router-link">Résumé</a>
-        </div>
-    </header>
-
-    <main id="app-root"></main>
-    
-    <div id="pdf-viewer-modal" class="pdf-modal">
-        <div class="pdf-modal-content">
-            <div class="pdf-modal-header">
-                <h3 id="pdf-title" class="text-lg font-semibold" style="font-family: 'Montserrat', sans-serif;"></h3>
-                <button id="pdf-modal-close" class="pdf-modal-close">&times;</button>
-            </div>
-            <iframe id="pdf-iframe" class="w-full h-full" src=""></iframe>
-        </div>
-    </div>
-
-    <footer class="border-t border-slate-200/50 mt-20">
-        <div class="container mx-auto px-6 py-8 text-center text-slate-500">
-            <p class="mb-3">
-                <a href="mailto:vinithhazard@gmail.com" class="footer-link">Email</a>
-                <a href="https://www.linkedin.com/in/vinith-ayapilla-521b331a5/" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
-                <a href="https://github.com/vinzard11" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
-                <a href="https://openreview.net/profile?id=%7ESai_Vinith_Ayapilla1" target="_blank" rel="noopener noreferrer" class="footer-link">OpenReview</a>
-            </p>
-            <p>&copy; <span id="year">2026</span> Vinith Ayapilla</p>
-        </div>
-    </footer>
-
-    <template id="page-home">
-        <div>
-            <section class="h-screen relative flex flex-col justify-center items-center text-center px-6 overflow-hidden">
-                <div class="abstract-svg-1" aria-hidden="true">
-                    <svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M300 600C465.685 600 600 465.685 600 300C600 134.315 465.685 0 300 0C134.315 0 0 134.315 0 300C0 465.685 134.315 600 300 600Z" fill="url(#paint0_radial_1_2)"/>
-                        <defs>
-                            <radialGradient id="paint0_radial_1_2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(300 300) rotate(90) scale(300)">
-                                <stop stop-color="#F8F5F2" stop-opacity="0"/>
-                                <stop offset="1" stop-color="#0A9396" stop-opacity="0.1"/>
-                            </radialGradient>
-                        </defs>
-                    </svg>
-                </div>
-                <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
-                <div id="hero-text-wrapper" class="relative z-10">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-4 text-text-dark" data-animate="hero-title" style="font-family: 'Playfair Display', serif;">Vinith Ayapilla</h1>
-                    <p class="text-xl md:text-2xl text-primary font-semibold mb-8" data-animate="hero-subtitle" style="font-family: 'Montserrat', sans-serif;">I build and evaluate AI systems, which is why I have concrete views on where the claims outrun the evidence.</p>
-                    <p class="max-w-3xl mx-auto text-lg text-text-light mb-16" data-animate="hero-p">
-                        I turn sparse, messy, multi-source data into decisions people can act on. Right now that means translating international assessment data into policy recommendations for education ministries, and running the research program on LLM comparative judgment underneath it. What I care about most is AI strategy and operations: what this technology actually changes about how an organization works, and what it doesn't.
-                    </p>
-                </div>
-
-                <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10" data-animate="scroll-indicator">
-                    <svg class="w-6 h-6 text-primary animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                </div>
-            </section>
-
-            <div id="main-content-wrapper" class="container mx-auto px-6 py-16 md:py-24">
-                 <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-                    <a href="/workex" class="home-feature-card text-left router-link scroll-fade">
-                        <h3 class="card-title text-2xl font-bold">Work Experience</h3>
-                        <div class="card-details">
-                            <p>AI evaluation and measurement at IEA TIMSS &amp; PIRLS, and what came before it.</p>
-                            <span class="font-semibold">View experience &rarr;</span>
-                        </div>
-                    </a>
-                    <a href="/research" class="home-feature-card text-left router-link scroll-fade delay-1">
-                        <h3 class="card-title text-2xl font-bold">Research</h3>
-                        <div class="card-details">
-                            <p>Papers on LLM comparative judgment, plus independent policy and safety work.</p>
-                            <span class="font-semibold">Read the research &rarr;</span>
-                        </div>
-                    </a>
-                    <a href="/projects" class="home-feature-card text-left router-link scroll-fade delay-2">
-                        <h3 class="card-title text-2xl font-bold">Projects</h3>
-                        <div class="card-details">
-                            <p>A collection of my MBA, undergraduate, and personal projects.</p>
-                            <span class="font-semibold">Explore projects &rarr;</span>
-                        </div>
-                    </a>
-                    <a href="/resume" class="home-feature-card text-left router-link scroll-fade delay-3">
-                        <h3 class="card-title text-2xl font-bold">Résumé</h3>
-                        <div class="card-details">
-                            <p>Experience, education, and skills, on the page or as a PDF.</p>
-                            <span class="font-semibold">View résumé &rarr;</span>
-                        </div>
-                    </a>
-                </section>
-
-                <section class="parallax-image-container max-w-6xl mx-auto mt-24 md:mt-40">
-                    <div id="flipping-image-wrapper">
-                        <div class="flipping-image-slide">
-                            <img src="/images/hero-abstract.jpg" alt="Abstract background with digital glitch and bokeh lights" class="parallax-image" loading="lazy">
-                        </div>
-                        <div class="flipping-image-slide">
-                            <img src="/images/IMG_1.jpg" alt="Abstract colorful geometric shapes" class="parallax-image" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/1200x550/005f73/FFFFFF?text=Image+Not+Found';">
-                        </div>
-                        <div class="flipping-image-slide">
-                            <img src="/images/IMG_2.jpg" alt="Abstract colorful geometric shapes" class="parallax-image" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/1200x550/005f73/FFFFFF?text=Image+Not+Found';">
-                        </div>
-                    </div>
-                </section>
-
-                <section class="about-me-section mt-24 md:mt-32 max-w-6xl mx-auto scroll-fade">
-                    <div class="grid md:grid-cols-5 gap-8 md:gap-12 items-center">
-                        <div class="md:col-span-2">
-                            <img src="/images/profile.jpg" alt="Vinith Ayapilla" width="800" height="1200" class="rounded-lg shadow-2xl shadow-primary/20 w-full" loading="lazy">
-                        </div>
-                        <div class="md:col-span-3 text-white text-lg space-y-4">
-                            <h2 class="text-4xl md:text-5xl font-bold mb-8" style="font-family: 'Playfair Display', serif;">About Me</h2>
-                            <p>I trained as an electrical engineer at Shiv Nadar University with a minor in Big Data Analytics, then did an MBA at Boston College on the STEM track. Now I'm at IEA TIMSS &amp; PIRLS, the group behind the big international math, science, and reading assessments, working on AI evaluation and measurement.</p>
-                            <p>Most of my work sits where engineering meets measurement. Can we trust what a model says, how would we know, and what does it take to run it on our own hardware when the data can't leave Europe? Before this I spent two and a half years at ZS Associates on healthcare and pharmaceutical commercial data. I grew up in India, which shapes how I think about which interventions actually reach people.</p>
-                            <p>Outside that: I spend every weekend volunteering at a cat shelter, and I've put time in at a soup kitchen and at Cradles to Crayons. I'm working on becoming a hybrid athlete, which currently means training five times a week and being honest with myself about how far off that still is. I read a lot of scientific, political, and economic writing, follow F1, cricket, and Chelsea FC more closely than is good for me, solve math puzzles, and take a decent photo.</p>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </template>
-
-    <template id="page-workex">
-        <div class="container mx-auto px-6 py-16 md:py-24">
-            <div class="max-w-3xl mx-auto text-center mb-16">
-                <h1 class="text-4xl md:text-5xl font-bold text-text-dark mb-4 scroll-fade">Work Experience</h1>
-                <p class="text-lg text-text-light scroll-fade delay-1">Building and evaluating AI systems at an international assessment organization, after several years in commercial healthcare data.</p>
-            </div>
-            <ol id="workex-list" class="workex-timeline max-w-4xl mx-auto"></ol>
-        </div>
-    </template>
-
-    <template id="page-workex-detail">
-        <div class="workex-detail-container container mx-auto px-6 py-16 md:py-24">
-            <div class="grid md:grid-cols-3 gap-12">
-                <div class="md:col-span-2 workex-detail-main">
-                    <p class="workex-detail-company">{{company}}</p>
-                    <h1 class="workex-detail-title">{{role}}</h1>
-                    <p class="workex-detail-background">{{background}}</p>
-                </div>
-                <div class="workex-detail-sidebar">
-                    <div class="sidebar-item">
-                        <h3 class="sidebar-item-title">Project Type</h3>
-                        <p class="sidebar-item-text">{{projectType}}</p>
-                    </div>
-                    <div class="sidebar-item">
-                        <h3 class="sidebar-item-title">Tools</h3>
-                        <p class="sidebar-item-text">{{tools}}</p>
-                    </div>
-                    <div class="sidebar-item">
-                        <h3 class="sidebar-item-title">Location</h3>
-                        <p class="sidebar-item-text">{{location}}</p>
-                    </div>
-                    <div class="sidebar-item">
-                        <h3 class="sidebar-item-title">Year</h3>
-                        <p class="sidebar-item-text">{{years}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="workex-detail-nav">
-                <a href="/workex" class="router-link">← Back to all work</a>
-            </div>
-        </div>
-    </template>
-
-    <template id="page-research">
-        <div class="container mx-auto px-6 py-16">
-            <div class="max-w-3xl mx-auto text-center mb-16">
-                <h1 class="text-4xl md:text-5xl font-bold text-text-dark mb-4 scroll-fade">Research</h1>
-                <p class="text-lg text-text-light scroll-fade delay-1">Work on whether we can trust what a language model says, and how we would know. Plus independent policy and safety analysis.</p>
-            </div>
-
-            <ol class="research-list max-w-4xl mx-auto">
-                <li class="research-item scroll-fade">
-                    <div class="research-meta">
-                        <span class="research-venue">NeurIPS 2026</span>
-                        <span class="research-status is-review">Under review</span>
-                    </div>
-                    <h2 class="research-title">Auditing LLM Comparative Judges Against an External Latent Criterion</h2>
-                    <p class="research-authors">With Ummugul Bezirhan and Matthias von Davier</p>
-                    <p class="research-summary">Audited an LLM pairwise judge across 12,804 item pairs, each presented in both orders, against withheld operational IRT difficulty. Reversing presentation order changed 11.06% of judgments, and that instability was concentrated among near-ties, accounting for roughly 95% of observed intransitivity. Filtering the unstable judgments produced near-perfect transitivity without improving criterion validity. A more internally consistent judge is not a more valid one.</p>
-                    <p class="research-note">Paper held back until review completes.</p>
-                </li>
-
-                <li class="research-item scroll-fade">
-                    <div class="research-meta">
-                        <span class="research-venue">NCME 2027</span>
-                        <span class="research-status is-review">Submitted</span>
-                    </div>
-                    <h2 class="research-title">Designing Efficient LLM Comparative Judgment Networks for Item Difficulty Estimation</h2>
-                    <p class="research-authors">With Ummugul Bezirhan and Matthias von Davier</p>
-                    <p class="research-summary">Evaluated how anchor information and comparison-network design affect LLM-based item-difficulty estimation, across 1,351 Bradley-Terry fits over 28 network designs. Explicit calibrated anchor information improved scale recovery without improving rank recovery. Sparse networks, at 22% of the full comparison budget, retained 98% of rank correlation but produced badly overdispersed estimates. An efficient ranking design should not be mistaken for calibrated measurement.</p>
-                    <p class="research-note">Paper held back until review completes.</p>
-                </li>
-
-                <li class="research-item scroll-fade">
-                    <div class="research-meta">
-                        <span class="research-venue">Independent</span>
-                        <span class="research-status">July 2026</span>
-                    </div>
-                    <h2 class="research-title">Kosovo Education Policy Analysis: The Enthusiasm and Achievement Paradox</h2>
-                    <p class="research-summary">Kosovo's Grade 4 students report some of the highest learning motivation in the world, and some of the lowest cognitive-skill conversion. I cross-referenced IEA PIRLS 2021 and TIMSS 2023 achievement data with World Bank and Kosovo labor-market data to work out why, across socioeconomic conditions, multi-shift schooling bottlenecks, curriculum, and brain drain, and proposed a policy roadmap.</p>
-                    <p class="research-links"><a href="/assets/Kosovo_Education_Analysis.pdf" target="_blank" rel="noopener noreferrer">Read the analysis (PDF)</a></p>
-                </li>
-
-                <li class="research-item scroll-fade">
-                    <div class="research-meta">
-                        <span class="research-venue">Independent</span>
-                        <span class="research-status">August 2026</span>
-                    </div>
-                    <h2 class="research-title">AI Safety Evaluation: Uncensored vs. Baseline Model Benchmarking</h2>
-                    <p class="research-summary">Ran a local reimplementation of Vending-Bench Mini alongside AgentHarm, StrongREJECT, and WMDP, comparing an uncensored open-weight model (Gemma-4 26B) against its stock baseline, with Gemini as judge under fixed hardware constraints. The abliterated model did worse at the actual task: it went out of business in every trial, against roughly 50% of trials for the stock model. Manual weight surgery on the refusal vector costs more than refusal behavior.</p>
-                </li>
-            </ol>
-
-            <p class="research-footnote max-w-4xl mx-auto scroll-fade">Preprints and profiles: <a href="https://openreview.net/profile?id=%7ESai_Vinith_Ayapilla1" target="_blank" rel="noopener noreferrer">OpenReview</a></p>
-        </div>
-    </template>
-
-    <template id="page-projects">
-        <div class="container mx-auto px-6 py-16">
-            <div class="max-w-2xl mx-auto text-center mb-12">
-                <h1 class="text-4xl md:text-5xl font-bold text-text-dark mb-4 scroll-fade">Projects</h1>
-                <p class="text-lg text-text-light scroll-fade delay-1">A collection of my MBA, undergraduate, and personal projects.</p>
-            </div>
-            <div class="project-filters max-w-3xl mx-auto scroll-fade delay-1" role="group" aria-label="Filter projects by category"></div>
-            <div id="projects-grid" class="projects-grid max-w-6xl mx-auto"></div>
-        </div>
-    </template>
-
-    <template id="page-resume">
-        <div class="container mx-auto px-6 py-16">
-            <div class="text-center max-w-3xl mx-auto">
-              <h1 class="text-4xl md:text-5xl font-bold text-text-dark mb-4 scroll-fade">Résumé</h1>
-              <p class="text-lg text-text-light mb-8 scroll-fade delay-1">
-                An overview of my experience, education, and skills.
-              </p>
-              <div class="flex justify-center gap-4 scroll-fade delay-2">
-                <a href="/assets/Vinith_Ayapilla_Resume.pdf" download="Vinith_Ayapilla_Resume.pdf" class="btn btn-outline">Download PDF</a>
-              </div>
-            </div>
-            <div class="mt-16 max-w-4xl mx-auto bg-white/80 backdrop-blur-md border border-slate-200 p-8 md:p-12 rounded-lg shadow-xl scroll-fade delay-3">
-                <div class="text-center border-b border-slate-200 pb-6 mb-8">
-                    <h2 class="text-4xl font-bold text-text-dark">Vinith Ayapilla</h2>
-                    <p class="text-text-light mt-2">
-                        <a href="mailto:vinithhazard@gmail.com" class="text-primary hover:underline">vinithhazard@gmail.com</a>
-                        | <a href="https://www.linkedin.com/in/vinith-ayapilla-521b331a5/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">LinkedIn</a>
-                        | <a href="https://github.com/vinzard11" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">GitHub</a>
-                        | <a href="https://openreview.net/profile?id=%7ESai_Vinith_Ayapilla1" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">OpenReview</a>
-                    </p>
-                </div>
-                <div class="space-y-10">
-                    <div>
-                        <h3 class="text-2xl font-bold text-primary border-b-2 border-primary/30 pb-2 mb-4">Summary</h3>
-                        <p class="text-text-light">Analyst with an MBA who turns sparse, messy, multi-source data into decisions people can act on. Currently translating international assessment data into policy recommendations for education ministries across participating countries, and independently authored a policy analysis cross-referencing IEA achievement data with World Bank and labor-market data to explain why a country's education spending wasn't converting into outcomes. Earlier, spent two and a half years on healthcare and pharmaceutical commercial data at ZS Associates, including patient-side analytics and GTM strategy across three specialty drug launches. Building and evaluating AI systems hands-on, so I have concrete views on where the technology helps and where the claims outrun the evidence.</p>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-primary border-b-2 border-primary/30 pb-2 mb-6">Skills</h3>
-                        <div class="grid md:grid-cols-2 gap-x-8 gap-y-6">
-                            <div>
-                                <h4 class="font-bold text-lg text-text-dark mb-2">Analysis &amp; Research</h4>
-                                <ul class="list-disc list-inside text-text-light space-y-1">
-                                    <li>Cost-effectiveness and back-of-envelope modeling</li>
-                                    <li>Multi-source evidence synthesis</li>
-                                    <li>Policy analysis and recommendations</li>
-                                    <li>Quantitative research design</li>
-                                    <li>Reasoning under uncertainty</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg text-text-dark mb-2">Domain</h4>
-                                <ul class="list-disc list-inside text-text-light space-y-1">
-                                    <li>Healthcare and pharmaceutical data analysis</li>
-                                    <li>LMIC and cross-national data</li>
-                                    <li>Stakeholder and expert interviewing</li>
-                                    <li>Written synthesis for senior decision-makers</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg text-text-dark mb-2">AI &amp; Evaluation</h4>
-                                <ul class="list-disc list-inside text-text-light space-y-1">
-                                    <li>AI/LLM systems and evaluation</li>
-                                    <li>LLM-as-judge and comparative judgment</li>
-                                    <li>Bradley-Terry models and psychometric calibration</li>
-                                    <li>Evaluation harness and ground-truth scoring design</li>
-                                    <li>Judge reliability and order invariance</li>
-                                    <li>Human-in-the-loop verification</li>
-                                    <li>Quantization, QLoRA and fine-tuning</li>
-                                    <li>Model cascades and routing</li>
-                                    <li>On-premise open-model deployment</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg text-text-dark mb-2">Engineering &amp; Front-End</h4>
-                                <ul class="list-disc list-inside text-text-light space-y-1">
-                                    <li>Python, SQL</li>
-                                    <li>JavaScript, React</li>
-                                    <li>HTML/CSS</li>
-                                    <li>DataTables</li>
-                                    <li>Interactive dashboards</li>
-                                    <li>Statistical reporting</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-primary border-b-2 border-primary/30 pb-2 mb-4">Experience</h3>
-                        <div class="space-y-6">
-                            <div>
-                                <h4 class="text-xl font-semibold text-text-dark">IEA TIMSS &amp; PIRLS</h4>
-                                <p class="text-text-light">Technical Dev/Consultant, AI Evaluation &amp; Measurement | Chestnut Hill, MA | May 2026 to present</p>
-                                <p class="text-text-light">AI Engineer | Sep 2025 to May 2026</p>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-semibold text-text-dark">Boston College</h4>
-                                <p class="text-text-light">Sr. Data Analyst, Awards/Grants Intake Team, Graduate Assistant | Chestnut Hill, MA | Nov 2024 to Sep 2025</p>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-semibold text-text-dark">ZS Associates</h4>
-                                <p class="text-text-light">Associate, Business Technology | NCR, India | Jan 2022 to Jun 2024</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-primary border-b-2 border-primary/30 pb-2 mb-4">Education</h3>
-                         <div class="space-y-4">
-                            <div><h4 class="text-xl font-semibold text-text-dark">Boston College | Carroll Graduate School of Management</h4><p class="text-text-light">MBA, STEM Track, Strategy and Data | GMAT 740 | Recipient of Dean's Scholarship | CGPA 3.64/4.00 | May 2026</p></div>
-                            <div><h4 class="text-xl font-semibold text-text-dark">Shiv Nadar University</h4><p class="text-text-light">Bachelor of Technology in Electrical &amp; Electronics Engineering, Minor in Big Data Analytics | May 2022</p></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
-    
+<body>
+    <a class="skip-link" href="#app-root">Skip to content</a>
+    <main id="app-root" tabindex="-1"></main>
     <script type="module" src="./src/app.js"></script>
 </body>
 </html>

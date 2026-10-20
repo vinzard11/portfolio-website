@@ -15,3 +15,6 @@
 
 # Private working brief: not for a public repo
 /portfolio-handoff.md
+
+# Local preview written by scripts/weekly-report.mjs --dry-run
+/weekly-report-preview.html

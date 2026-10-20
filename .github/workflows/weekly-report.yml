@@ -1,0 +1,33 @@
+# Emails a weekly Vercel Web Analytics summary to the site owner.
+# Secrets (Settings > Secrets and variables > Actions):
+#   VERCEL_TOKEN        read access to the Vercel project
+#   GMAIL_APP_PASSWORD  app password for vinithhazard@gmail.com
+# This repository is public, so its Actions logs are public too. The script
+# never prints traffic data; it logs only success or the kind of failure.
+name: Weekly analytics report
+
+on:
+  schedule:
+    - cron: '0 13 * * 1'   # Mondays 13:00 UTC: 9am in Boston during daylight time, 8am in winter
+  workflow_dispatch:        # "Run workflow" button, for a report on demand
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install the mail library
+        run: npm install --no-save --no-audit --no-fund nodemailer@10.0.15
+      - name: Send the report
+        run: node scripts/weekly-report.mjs
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          REPORT_EMAIL: vinithhazard@gmail.com
