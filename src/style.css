@@ -246,7 +246,11 @@ h1:focus, #app-root:focus { outline: none; }
 .portrait img { width: 100%; height: 100%; object-fit: contain; object-position: bottom; }
 /* The live canvas sits exactly over the static image, which it then replaces */
 .portrait-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.portrait.is-live img { opacity: 0; }
+/* Once the canvas is drawing, the static image must disappear. The fade-in
+   animation also sets opacity and would win, leaving this image showing
+   behind the canvas, so the animation is cancelled here too. Opacity rather
+   than visibility keeps its alt text available to screen readers. */
+.portrait.is-live img { animation: none; opacity: 0; }
 
 /* ---------------------------------------------------------------- cursor */
 

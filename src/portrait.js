@@ -3,7 +3,8 @@
  * @description The home-page halftone portrait, drawn on a canvas.
  *
  * - Two portraits share one square grid of halftone cells. Every few seconds the
- *   dots morph from one to the other, sweeping down the frame like a scanner.
+ *   current portrait sweeps out top to bottom, and only once it is fully gone
+ *   does the next one sweep in. The two are never on screen at the same time.
  * - Under the cursor, a soft-edged lens shows the real photo through the dots.
  *
  * The static halftone <img> in the markup is the fallback: it stays visible until
@@ -13,10 +14,25 @@
 const G = 200;                 // halftone cells across and down (must match build-portraits)
 const INK = '#1f2523';
 const HOLD_MS = 6500;          // time each portrait stays up
-const MORPH_MS = 1600;         // length of the dot sweep
+const MORPH_MS = 1800;         // whole handover: first half out, second half in
 
 const smooth = (t) => t * t * (3 - 2 * t);
 const clamp01 = (t) => Math.min(1, Math.max(0, t));
+
+/**
+ * Dot amount for one cell at handover time t (0 to 1).
+ * First half: the outgoing portrait erases, row by row from the top.
+ * Second half: the incoming portrait draws in, row by row from the top.
+ * Every outgoing cell reaches zero by t = 0.5, so the portraits never overlap.
+ */
+export function cellAt(a, b, t, row, jitter) {
+    if (t < 0.5) {
+        const k = smooth(clamp01((t / 0.5) * 1.5 - row * 0.4 - jitter * 0.1));
+        return a * (1 - k);
+    }
+    const k = smooth(clamp01(((t - 0.5) / 0.5) * 1.5 - row * 0.4 - jitter * 0.1));
+    return b * k;
+}
 
 function loadImage(src) {
     return new Promise((resolve, reject) => {
@@ -88,12 +104,8 @@ export function initPortrait(root, onDispose) {
                 const row = y / G;
                 for (let x = 0; x < G; x++) {
                     const i = y * G + x;
-                    let v = a[i];
-                    if (b) {
-                        // Rows further down start later; jitter roughens the edge.
-                        const local = smooth(clamp01(t * 1.7 - row * 0.55 - jitter[i] * 0.15));
-                        v = a[i] + (b[i] - a[i]) * local;
-                    }
+                    // Rows further down move later; jitter roughens the sweep edge.
+                    const v = b ? cellAt(a[i], b[i], t, row, jitter[i]) : a[i];
                     if (v < 0.03) continue;
                     const r = rmax * Math.sqrt(v);
                     const cx = (x + 0.5) * cell, cy = (y + 0.5) * cell;
