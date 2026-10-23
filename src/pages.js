@@ -282,7 +282,7 @@ export function researchDetail(item) {
         figureClass: item.figure?.image ? 'is-image' : '',
         body: `
             ${item.body.map((p) => rich(p)).join('')}
-            ${item.held ? '<p class="held">The paper is held back until review completes.</p>' : ''}
+            ${item.held ? `<p class="held">${item.status === 'Revising' ? 'The paper is held back while it is revised for resubmission.' : 'The paper is held back until review completes.'}</p>` : ''}
             ${item.links ? `<p class="doc-links">${item.links.map((l) => `<a href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join('')}</p>` : ''}`,
         next: nextOf(linked, i, '/research'),
     });

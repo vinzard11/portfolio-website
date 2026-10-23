@@ -45,7 +45,7 @@ export const now = [
     {
         title: 'Post-training',
         status: 'In progress',
-        text: 'Currently in the process of post-training. More once there are results to share.',
+        text: 'Building a three-decade TIMSS item dataset (hundreds of thousands of rows) to post-train an open-source model to predict item IRT parameters. In progress.',
     },
     {
         title: 'TIMSS & PIRLS results site',
@@ -75,7 +75,8 @@ export const experience = [
             'Brought the main pages in line with WCAG 2.2 AA accessibility. Automated checks went from about 110 errors to zero on the pages audited, and the interactive charts now work fully by keyboard and screen reader.',
             "Made the headline exhibits usable on phones. At phone width the charts had been squeezed to a few pixels wide; they're now full width, with no sideways scrolling.",
             'Replaced 17 hand-copied tab interfaces with one accessible shared component used across 24 exhibit pages.',
-            'Own the research program applying LLM comparative judgment and psychometric calibration to item-difficulty estimation. Two papers are under review.',
+            'Building a three-decade TIMSS item dataset (hundreds of thousands of rows) to post-train an open-source model to predict item IRT parameters. In progress.',
+            'Own the research program applying LLM comparative judgment and psychometric calibration to item-difficulty estimation. Two papers so far: one under review, one being revised for resubmission.',
             'Migrated internal AI tooling to open-source models hosted on-premise to meet EU GDPR data-residency requirements.',
         ],
         sections: [
@@ -93,7 +94,7 @@ export const experience = [
             },
             {
                 title: 'The research program',
-                body: "I own the research applying LLM comparative judgment and psychometric calibration to item-difficulty estimation. Getting a model to rank test questions is easy. The interesting part is working out when the ranking means something: judge reliability, extrapolation limits, and the cases where an estimate looks confident and should not be trusted. Two papers have come out of it so far, and both are under review.",
+                body: "I own the research applying LLM comparative judgment and psychometric calibration to item-difficulty estimation. Getting a model to rank test questions is easy. The interesting part is working out when the ranking means something: judge reliability, extrapolation limits, and the cases where an estimate looks confident and should not be trusted. Two papers have come out of it so far: one is under review, and the other is being revised for resubmission.",
             },
             {
                 title: 'Data residency',
@@ -113,9 +114,8 @@ export const experience = [
         summary: 'Digitized decades of assessment data with LLMs, built the evaluation harness, and moved the stack onto self-hosted open models.',
         tags: ['LLM pipelines', 'Evaluation', 'On-prem'],
         highlights: [
-            'Led a project to digitize and structure over two decades of international assessment data, with a pipeline that turns unstructured PDFs and scanned images into usable text using the OpenAI API and open-source models.',
-            'Designed and implemented a scoring framework evaluating 10,000+ open-ended model outputs against ground truth, fine-tuning open-source weights to improve reasoning consistency at scale.',
-            'Built model-to-model validation and a human-in-the-loop review layer to catch data-quality and sourcing errors across a multi-model ingestion pipeline (OpenAI, Gemini) before they propagated into fine-tuning data.',
+            'Digitized decades of print-only assessment items with LLM-assisted transcription, using the OpenAI API and open-source models, and standardized them into one schema across assessment cycles.',
+            'Built an evaluation harness scoring 10,000+ open-ended student responses against ground truth, with a human-in-the-loop layer catching data-quality and sourcing errors across a multi-model pipeline (OpenAI, Gemini).',
             'Designed a model cascade routing across quantized open-weight models with API fallback under fixed hardware constraints, trading capability against cost and reliability per request type.',
             'Led the migration from proprietary OpenAI APIs to self-hosted open-source LLMs, bringing the cost of each additional request to near-zero.',
         ],
@@ -125,12 +125,12 @@ export const experience = [
                 body: "This was the build-it phase. I joined in September 2025 to get AI systems into the assessment workflow in a way that could actually be defended, which meant most of my time went on evaluation and infrastructure rather than on prompting.",
             },
             {
-                title: 'Digitizing two decades of assessments',
-                body: "I led a project to digitize and structure **over two decades** of international assessment data. Much of it existed only as PDFs and scanned images, so I built a pipeline that turns them into usable, structured text with the OpenAI API and open-source models.",
+                title: 'Digitizing decades of assessments',
+                body: "I digitized **decades of print-only assessment items**. Most existed only as PDFs and scanned pages, so I built LLM-assisted transcription with the OpenAI API and open-source models, and standardized every assessment cycle into one schema.",
             },
             {
                 title: 'Measurement first',
-                body: "I designed and implemented a scoring framework that evaluates **over 10,000 open-ended model outputs** against ground truth, and fine-tuned open-source weights to improve reasoning consistency at scale. Without that harness, every claim about whether a change helped would have been a matter of opinion.",
+                body: "I built an evaluation harness that scores **over 10,000 open-ended student responses** against ground truth. Without it, every claim about whether a change helped would have been a matter of opinion.",
             },
             {
                 title: 'Data quality',
@@ -185,9 +185,10 @@ export const experience = [
         tags: ['Data engineering', 'Analytics', 'Pharma'],
         highlights: [
             'Built the back-end processing pipeline on AWS for Geo-Alerts, a first-of-its-kind tool that turned geo-located search data into sales leads for a specialty drug. The tool brought in $500K in new annual client revenue.',
-            'Diagnosed the root cause of a flawed pipeline producing unreliable client-facing data, then built a proof-of-concept for a re-engineered approach (SQL, Python, Shell) that cut manual QC intervention by 50%.',
+            'Migrated the data science team\'s experimental data from a legacy system to a cloud platform (CDR-SCE) using SAS and Shell.',
+            'Diagnosed the root cause of a flawed pipeline producing unreliable client-facing data, then built a proof-of-concept for a re-engineered approach (SQL, Python, Shell) that cut manual QC intervention by 50%. Orchestrated the pipelines in Airflow and Azkaban with severity-based alerting.',
             'As data quality lead, oversaw three product launches in three months, integrating dispensary, inventory and patient trial data for assets representing 80% of client revenue.',
-            'Automated the Key Account Manager analysis in two weeks, turning a manual review of top strategic accounts into a pipeline.',
+            'Redesigned the Key Account Manager workflow, turning a manual review of top strategic accounts into an automated pipeline in two weeks and cutting administrative overhead by 90%.',
         ],
         sections: [
             {
@@ -199,15 +200,19 @@ export const experience = [
                 body: "Geo-Alerts was a first-of-its-kind tool that turned raw, geo-located internet search data into qualified sales leads for a specialty drug. The hard part was integrating masked third-party data securely and turning it into something a sales team could act on.\n\n**My part:** I was on the development team and built the back-end processing pipeline on AWS, the architecture that ingested, cleaned and analyzed the third-party data at scale and turned raw signals into leads.\n\n**What the tool did:** it brought in **$500K in new annual client revenue**, and its success contributed to a **30% increase in RFP win rates** on similar projects. Those are the tool's results, and the team's, not mine alone.",
             },
             {
+                title: 'Moving to the cloud',
+                body: "I migrated the data science team's experimental data off a legacy system and onto a cloud platform, CDR-SCE, using SAS and Shell, so the team could work from one current source instead of a system nobody wanted to touch.",
+            },
+            {
                 title: 'Fixing a broken pipeline',
-                body: "A pipeline tracking patient-level specialty drug data was producing unreliable client-facing numbers. I traced the flawed logic to its root, then built a proof-of-concept for a re-engineered approach in SQL, Python and Shell. It **cut manual QC intervention by 50%** and restored the data's integrity.",
+                body: "A pipeline tracking patient-level specialty drug data was producing unreliable client-facing numbers. I traced the flawed logic to its root, then built a proof-of-concept for a re-engineered approach in SQL, Python and Shell. It **cut manual QC intervention by 50%** and restored the data's integrity. I orchestrated the pipelines in **Airflow and Azkaban**, with alerting tiered by severity so real failures stood out from noise.",
             },
             {
                 title: 'Launches and automation',
-                body: "As data quality lead I oversaw **three product launches in three months**, integrating dispensary, inventory and patient trial data for assets representing **80% of client revenue**.\n\nSeparately, I automated the Key Account Manager analysis in two weeks, turning a manual review of the client's top strategic accounts into a pipeline.",
+                body: "As data quality lead I oversaw **three product launches in three months**, integrating dispensary, inventory and patient trial data for assets representing **80% of client revenue**.\n\nSeparately, I redesigned the Key Account Manager workflow. A manual review of the client's top strategic accounts became an automated pipeline in two weeks, **cutting administrative overhead by 90%**.",
             },
         ],
-        tools: ['Python', 'SQL', 'Shell', 'AWS', 'GCP', 'Hadoop / Hive', 'Tableau', 'Power BI'],
+        tools: ['Python', 'SQL', 'SAS', 'Shell', 'Airflow', 'Azkaban', 'AWS', 'GCP', 'Hadoop / Hive', 'Tableau', 'Power BI'],
     },
 ];
 
@@ -224,8 +229,8 @@ export const research = [
         group: 'Papers',
         title: 'Auditing LLM Comparative Judges Against an External Latent Criterion',
         meta: 'LLM-as-judge / IRT',
-        venue: 'NeurIPS 2026',
-        status: 'Under review',
+        venue: 'Working paper',
+        status: 'Revising',
         year: '2026',
         authors: 'With Ummugul Bezirhan and Matthias von Davier',
         summary: 'A more internally consistent judge is not a more valid one.',
@@ -292,12 +297,13 @@ export const research = [
     {
         slug: 'post-training',
         group: 'In progress',
-        title: 'Post-training',
-        meta: 'In progress',
+        title: 'Post-training an open model on TIMSS items',
+        short: 'Post-training on TIMSS items',
+        meta: 'Dataset / IRT prediction',
         venue: '',
         status: 'Ongoing',
         year: '',
-        summary: 'Currently in the process of post-training. More once there are results to share.',
+        summary: 'Building a three-decade TIMSS item dataset (hundreds of thousands of rows) to post-train an open-source model to predict item IRT parameters.',
         figure: { chart: 'pending' },
     },
 ];
