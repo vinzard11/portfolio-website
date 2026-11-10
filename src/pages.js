@@ -5,7 +5,7 @@
  * HTML a crawler sees is the HTML a visitor gets.
  */
 
-import { site, thesis, now, experience, research, researchGroups, projects, profile } from './content.js';
+import { site, thesis, now, capabilities, experience, research, researchGroups, projects, profile } from './content.js';
 import { figureHTML, previewHTML } from './charts.js';
 import { chrome, footer, menu, rich, esc, pills, themeToggle } from './ui.js';
 
@@ -14,7 +14,7 @@ import { chrome, footer, menu, rich, esc, pills, themeToggle } from './ui.js';
 const CORNERS = [
     { href: '/research', n: '01', file: 'papers & evaluations', label: 'Research' },
     { href: '/experience', n: '02', file: 'four roles', label: 'Experience' },
-    { href: '/profile', n: '03', file: 'about & effective altruism', label: 'Profile' },
+    { href: '/profile', n: '03', file: 'about & skills', label: 'Profile' },
     { href: '/projects', n: '04', file: 'mba & earlier', label: 'Projects' },
 ];
 
@@ -76,11 +76,23 @@ export function home() {
             <div class="home-copy">
                 ${thesis.map((p, i) => `<p${i === 0 ? ' class="lede"' : ''}>${p}</p>`).join('')}
                 <p class="home-links">
-                    <a href="/research">Read the research</a>
                     <a href="/experience">See the work</a>
+                    <a href="/research">Read the research</a>
                     <a href="/profile">More about me</a>
                 </p>
             </div>
+        </section>
+
+        <section class="home-section" id="what-i-do">
+            <h2 class="section-label">What I do</h2>
+            <ul class="caps">
+                ${capabilities.map((c) => `
+                    <li>
+                        <h3 class="cap-title">${c.title}</h3>
+                        <p class="cap-text">${c.text}</p>
+                        <a class="cap-link" href="${c.href}">${c.link} <span aria-hidden="true">→</span></a>
+                    </li>`).join('')}
+            </ul>
         </section>
 
         <section class="home-section" id="now">

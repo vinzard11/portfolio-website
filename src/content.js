@@ -19,7 +19,7 @@ export const site = {
     url: 'https://vin-ayapilla-portfolio.vercel.app',
     email: 'vinithhazard@gmail.com',
     location: 'Boston, MA',
-    roleLine: 'AI evaluation · measurement · safety',
+    roleLine: 'AI enablement · evaluation · engineering',
     collaboration: 'Open to roles and research collaborations',
     resume: '/assets/Vinith_Ayapilla_Resume.pdf',
     social: [
@@ -30,17 +30,18 @@ export const site = {
 };
 
 export const thesis = [
-    "I'm an engineer who works on measurement. Can we trust what a model says, how would we know, and what does it take to run models responsibly on our own hardware?",
-    "Right now that means two jobs at the TIMSS & PIRLS International Study Center, the group behind the big international math, science and reading assessments. I research whether LLM judges can be trusted to estimate how hard a test question is, and I build the systems and the results site that put that data in front of education ministries.",
-    "The reason I care is personal. I grew up in India, where who gets good public services and good tools still tracks wealth more than need. I want powerful technology to reach everyone, and to be safe when it does. It's also why I'm part of the <a href=\"/profile#effective-altruism\">effective altruism</a> community.",
+    "I help organizations put AI to work, and make sure it holds up. That means building the pipelines, running models on hardware you control, measuring whether the output can be trusted, and shipping it to the people who need it.",
+    "Right now that's at the TIMSS & PIRLS International Study Center, the group behind the big international math, science and reading assessments. I moved our AI tooling onto self-hosted open models, digitized decades of assessment items with LLMs, built the evaluation that checks the results, and rebuilt the results site that puts the data in front of education ministries. Before that, I spent two and a half years at ZS Associates on healthcare and pharmaceutical data.",
+    "The reason I care is personal. I grew up in India, where who gets good public services and good tools still tracks wealth more than need. I want powerful technology to reach everyone, safely, and in a way that actually works for them.",
 ];
 
 /** "Currently working on". The first two entries use only the owner's approved wording. */
 export const now = [
     {
-        title: 'Multilingual LLM safety',
-        status: 'In progress',
-        text: "I’m working on a project about how AI safety holds up (or doesn’t) once you leave English. Most safety work assumes everyone’s talking to the model in English, and a lot of the world isn’t. More on this soon.",
+        title: 'TIMSS & PIRLS results site',
+        status: 'Shipped October 2026',
+        text: 'Rebuilt the report landing page, the accessibility and the phone layouts of the interactive results site.',
+        href: '/experience/iea-ai-evaluation-measurement',
     },
     {
         title: 'Post-training',
@@ -48,10 +49,37 @@ export const now = [
         text: 'Building a three-decade TIMSS item dataset (hundreds of thousands of rows) to post-train an open-source model to predict item IRT parameters. In progress.',
     },
     {
-        title: 'TIMSS & PIRLS results site',
-        status: 'Shipped October 2026',
-        text: 'Rebuilt the report landing page, the accessibility and the phone layouts of the interactive results site.',
+        title: 'Multilingual LLM safety',
+        status: 'In progress',
+        text: "I’m working on a project about how AI safety holds up (or doesn’t) once you leave English. Most safety work assumes everyone’s talking to the model in English, and a lot of the world isn’t. More on this soon.",
+    },
+];
+
+/** "What I do" on the home page: each claim points at the work that backs it. */
+export const capabilities = [
+    {
+        title: 'Put models to work',
+        text: 'Moved internal AI tooling from proprietary APIs to self-hosted open models, routing across quantized models with API fallback, to meet EU data-residency rules.',
+        href: '/experience/iea-ai-engineer',
+        link: 'AI Engineer role',
+    },
+    {
+        title: 'Turn messy data into something usable',
+        text: 'Digitized decades of print-only assessment items with LLM-assisted transcription and standardized every assessment cycle into one schema.',
+        href: '/experience/iea-ai-engineer',
+        link: 'How it was built',
+    },
+    {
+        title: 'Measure whether it works',
+        text: 'Built an evaluation harness scoring 10,000+ open-ended student responses against ground truth, and research how far LLM judges can be trusted.',
+        href: '/research',
+        link: 'Research',
+    },
+    {
+        title: 'Ship it to people',
+        text: 'Rebuilt the TIMSS & PIRLS international results site in React and TypeScript, to WCAG 2.2 AA, for the ministries and researchers who read it.',
         href: '/experience/iea-ai-evaluation-measurement',
+        link: 'Current role',
     },
 ];
 

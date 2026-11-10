@@ -371,6 +371,19 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
 .home-links a:hover, .doc-links a:hover, .contact-line a:hover, .now-title a:hover { color: var(--red); text-decoration-color: currentColor; }
 .home-links a::after { content: ' →'; }
 
+/* What I do: four capabilities, each with a link to the work behind it */
+/* Four items: an even 2 x 2 so none is left alone on a row; one column on phones */
+.caps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 44px; max-width: 880px; }
+@media (max-width: 640px) { .caps { grid-template-columns: 1fr; } }
+.caps li { display: grid; gap: 10px; align-content: start; padding-top: 16px; border-top: 1.5px solid var(--ink); }
+.cap-title { font: italic 400 var(--t-xl)/1.15 var(--f-display); }
+.cap-text { color: var(--ink-2); font-size: var(--t-sm); line-height: 1.65; }
+.cap-link {
+    justify-self: start; display: inline-flex; align-items: center; gap: 6px; min-height: 32px;
+    font: 500 var(--t-xs)/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--green);
+}
+.cap-link:hover { color: var(--red); }
+
 .now-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 28px 32px; }
 .now-list li { display: grid; gap: 8px; align-content: start; padding-top: 14px; border-top: 1.5px solid var(--ink); }
 .now-status { font: 500 var(--t-xs)/1.2 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--red); }

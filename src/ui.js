@@ -19,7 +19,7 @@ export const rich = (text) => text
 const NAV = [
     { href: '/research', label: 'Research', note: 'Papers & evaluations' },
     { href: '/experience', label: 'Experience', note: 'Four roles' },
-    { href: '/profile', label: 'Profile', note: 'About, effective altruism, skills' },
+    { href: '/profile', label: 'Profile', note: 'About, skills, community' },
     { href: '/projects', label: 'Projects', note: 'MBA & earlier' },
 ];
 

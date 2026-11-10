@@ -14,8 +14,8 @@ export const staticRoutes = [
     {
         path: '/',
         page: 'home',
-        title: `${NAME} | AI evaluation, measurement and safety`,
-        description: 'Vinith Ayapilla is an engineer who works on measurement: whether we can trust what a language model says, how we would know, and how to run models responsibly on our own hardware.',
+        title: `${NAME} | AI enablement, evaluation and engineering`,
+        description: 'Vinith Ayapilla helps organizations put AI to work and make sure it holds up: LLM pipelines, self-hosted models, evaluation, and the products that put results in front of people.',
         render: pages.home,
     },
     {
