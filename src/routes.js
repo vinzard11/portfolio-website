@@ -15,7 +15,7 @@ export const staticRoutes = [
         path: '/',
         page: 'home',
         title: `${NAME} | AI enablement, evaluation and engineering`,
-        description: 'Vinith Ayapilla helps organizations put AI to work and make sure it holds up: LLM pipelines, self-hosted models, evaluation, and the products that put results in front of people.',
+        description: 'Vinith Ayapilla builds AI tools and gets people to actually use them: LLM pipelines, self-hosted models, evaluation, adoption, and the products that put results in front of people.',
         render: pages.home,
     },
     {

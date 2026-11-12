@@ -30,8 +30,8 @@ export const site = {
 };
 
 export const thesis = [
-    "I help organizations put AI to work, and make sure it holds up. That means building the pipelines, running models on hardware you control, measuring whether the output can be trusted, and shipping it to the people who need it.",
-    "Right now that's at the TIMSS & PIRLS International Study Center, the group behind the big international math, science and reading assessments. I moved our AI tooling onto self-hosted open models, digitized decades of assessment items with LLMs, built the evaluation that checks the results, and rebuilt the results site that puts the data in front of education ministries. Before that, I spent two and a half years at ZS Associates on healthcare and pharmaceutical data.",
+    "I build AI tools and get people to actually use them, and I make sure they hold up. That means finding where teams lose time, building the pipelines, running models on hardware you control, measuring whether the output can be trusted, and shipping it to the people who need it.",
+    "Right now that's at the TIMSS & PIRLS International Study Center, the group behind the big international math, science and reading assessments. I moved our LLM workloads onto self-hosted open models, put AI tools into teams' daily workflows, built the evaluation that checks the results, and am rebuilding the results site that puts the data in front of education ministries. Before that, I spent two and a half years at ZS Associates on healthcare and pharmaceutical data.",
     "The reason I care is personal. I grew up in India, where who gets good public services and good tools still tracks wealth more than need. I want powerful technology to reach everyone, safely, and in a way that actually works for them.",
 ];
 
@@ -59,15 +59,21 @@ export const now = [
 export const capabilities = [
     {
         title: 'Put models to work',
-        text: 'Moved internal AI tooling from proprietary APIs to self-hosted open models, routing across quantized models with API fallback, to meet EU data-residency rules.',
+        text: 'Moved production LLM workloads from proprietary APIs to self-hosted open models, routing across models with an API fallback, to meet EU data-residency rules.',
         href: '/experience/iea-ai-engineer',
         link: 'AI Engineer role',
     },
     {
         title: 'Turn messy data into something usable',
-        text: 'Digitized decades of print-only assessment items with LLM-assisted transcription and standardized every assessment cycle into one schema.',
+        text: 'Built an ingestion pipeline (LangChain, OpenAI and Gemini) with human-in-the-loop verification to digitize decades of print-only research data into one schema.',
         href: '/experience/iea-ai-engineer',
         link: 'How it was built',
+    },
+    {
+        title: 'Get teams to use it',
+        text: 'Found where teams lose time and deployed AI into their workflows, including a locally hosted speech-to-text and paraphrasing engine and a meeting-minutes tool now used across teams. Owned adoption through the initial skepticism.',
+        href: '/experience/iea-ai-evaluation-measurement',
+        link: 'Current role',
     },
     {
         title: 'Measure whether it works',
@@ -77,9 +83,15 @@ export const capabilities = [
     },
     {
         title: 'Ship it to people',
-        text: 'Rebuilt the TIMSS & PIRLS international results site in React and TypeScript, to WCAG 2.2 AA, for the ministries and researchers who read it.',
+        text: 'Rebuilding the TIMSS & PIRLS international results site in React and TypeScript, to WCAG 2.2 AA: more dynamic, mobile-ready and accessible for the ministries and researchers who read it.',
         href: '/experience/iea-ai-evaluation-measurement',
-        link: 'Current role',
+        link: 'The rebuild',
+    },
+    {
+        title: 'Translate it for decision-makers',
+        text: 'Turn findings into recommendations for audiences from technical teams to education ministries, and scope what leadership actually needs before building the dashboard.',
+        href: '/profile#skills',
+        link: 'Skills',
     },
 ];
 
@@ -95,10 +107,13 @@ export const experience = [
         role: 'Technical Dev/Consultant, AI Evaluation & Measurement',
         date: 'Jun 2026 - Present',
         location: 'Boston, MA · Hybrid',
-        summary: 'Rebuilding the interactive results site and running the research on LLM comparative judgment.',
-        tags: ['Front-end', 'Accessibility', 'LLM evaluation', 'Psychometrics'],
+        summary: 'Deploying AI into team workflows, running the LLM-judge research, and rebuilding the international results site.',
+        tags: ['AI adoption', 'LLM evaluation', 'Front-end', 'Accessibility'],
         highlights: [
-            'Rebuilt key parts of the interactive results site for the TIMSS & PIRLS International Study Center (Boston College), shipped through three pull requests in October 2026.',
+            'Find where teams lose time and deploy AI into their workflows, including a locally hosted speech-to-text and paraphrasing engine and a meeting-minutes tool now used across teams. Owned adoption through initial skepticism.',
+            'Iterated LLM judge prompts across versions (metadata, few-shot calibration), using performance data to find where accuracy improved and where it did not. The research found that a more consistent model is not necessarily a more accurate one.',
+            'Run parallel workstreams with our PI and directors: two paper submissions, a post-training dataset and the reporting-site rebuild.',
+            'Rebuilding the international results site in React and TypeScript; the first parts shipped through three pull requests in October 2026.',
             'Designed a new report landing page with clean, shareable addresses for all 7 report sections and their 27 sub-pages, plus animated headline graphics that present results without ranking countries.',
             'Brought the main pages in line with WCAG 2.2 AA accessibility. Automated checks went from about 110 errors to zero on the pages audited, and the interactive charts now work fully by keyboard and screen reader.',
             "Made the headline exhibits usable on phones. At phone width the charts had been squeezed to a few pixels wide; they're now full width, with no sideways scrolling.",
@@ -113,8 +128,12 @@ export const experience = [
                 body: "I moved into this role in June 2026, after nine months as an AI engineer on the same team. It has two halves. One is the front end of the international results site, the place ministries, researchers and journalists actually read TIMSS and PIRLS results. The other is research on whether a language model can be trusted as a measuring instrument.",
             },
             {
+                title: 'Getting AI into daily work',
+                body: "Most of the value of AI inside an organization is decided by whether people use it. I look for where teams lose time, then build for that: a **locally hosted speech-to-text and paraphrasing engine**, and a **meeting-minutes tool now used across teams**. Running them locally keeps the data in-house. Neither was welcomed on day one, so I owned adoption through the initial skepticism, which mostly meant fixing what people actually complained about.",
+            },
+            {
                 title: 'Rebuilding the results site',
-                body: "I rebuilt key parts of the interactive results site in React and TypeScript, shipped through three pull requests in October 2026.\n\nThe report now has a proper landing page, with clean, shareable addresses for all **7 report sections** and their **27 sub-pages**. The headline graphics are animated, and they present results without ranking countries, which matters when the readers are the countries.\n\nUnder the hood, **17 hand-copied tab interfaces** became one accessible shared component, now used across **24 exhibit pages**.",
+                body: "I'm rebuilding the interactive results site in React and TypeScript to make it more dynamic, mobile-ready and accessible. The first parts shipped through three pull requests in October 2026.\n\nThe report now has a proper landing page, with clean, shareable addresses for all **7 report sections** and their **27 sub-pages**. The headline graphics are animated, and they present results without ranking countries, which matters when the readers are the countries.\n\nUnder the hood, **17 hand-copied tab interfaces** became one accessible shared component, now used across **24 exhibit pages**.",
             },
             {
                 title: 'Accessibility and phones',
@@ -129,7 +148,7 @@ export const experience = [
                 body: "I migrated our internal AI tooling to open-source models hosted on-premise, because **EU GDPR data-residency requirements** mean some of this data cannot leave its jurisdiction.",
             },
         ],
-        tools: ['TypeScript', 'React', 'JavaScript', 'HTML/CSS', 'DataTables', 'WCAG 2.2 AA', 'Accessible components', 'Python', 'SQL', 'LLM-as-judge', 'Comparative judgment', 'Bradley-Terry models', 'Psychometric calibration', 'IRT', 'Open-weight LLMs', 'On-premise deployment'],
+        tools: ['Speech-to-text', 'Workflow mapping', 'Adoption & change management', 'TypeScript', 'React', 'JavaScript', 'HTML/CSS', 'DataTables', 'WCAG 2.2 AA', 'Accessible components', 'Python', 'SQL', 'LLM-as-judge', 'Comparative judgment', 'Bradley-Terry models', 'Psychometric calibration', 'IRT', 'Open-weight LLMs', 'On-premise deployment'],
     },
     {
         slug: 'iea-ai-engineer',
@@ -169,7 +188,7 @@ export const experience = [
                 body: "I designed a model cascade that routes across quantized open-weight models with API fallback under fixed hardware, so easy requests do not pay frontier prices and hard ones do not silently get a weaker answer.\n\nThat fed into leading the migration from proprietary OpenAI APIs to self-hosted open-source models, which brought the **marginal cost of each request to near-zero**. The hardware and power are not free, but each additional request costs almost nothing. The cost argument is the one that gets attention, but the data-residency argument is the one that made it necessary.",
             },
         ],
-        tools: ['Python', 'OpenAI API', 'Gemini', 'Open-weight LLMs', 'Quantization', 'QLoRA / fine-tuning', 'Model cascades & routing', 'LLM-as-judge', 'Ground-truth scoring', 'Human-in-the-loop review', 'Document digitization', 'On-premise deployment'],
+        tools: ['Python', 'LangChain', 'OpenAI API', 'Gemini', 'Open-weight LLMs', 'Quantization', 'QLoRA / fine-tuning', 'Model cascades & routing', 'LLM-as-judge', 'Ground-truth scoring', 'Human-in-the-loop review', 'Document digitization', 'On-premise deployment'],
     },
     {
         slug: 'boston-college',
@@ -182,7 +201,8 @@ export const experience = [
         tags: ['Data analysis', 'BI dashboards', 'Automation'],
         highlights: [
             'Owned the data lifecycle for university research grants and served as the primary data advisor to the Vice-Provost.',
-            'Built automated reporting workflows and a Power BI dashboard suite that cut reporting time by 75%.',
+            'Scoped leadership\'s reporting needs and built Power BI dashboards that delivered bi-weekly research-funding KPIs to the Vice-Provost; automated data extraction from Oracle PeopleSoft, cutting reporting time by 75%.',
+            'Managed new-award intake end to end: interpreted sponsor requirements, tracked grant budgets and ensured compliance before projects launched.',
             'Translated complex sponsor requirements into structured data for processing, so new research projects could launch on time.',
             'Built an automated Excel tracker for the KPIs reviewed at bi-weekly executive meetings.',
         ],
@@ -206,16 +226,16 @@ export const experience = [
         slug: 'zs-associates',
         company: 'ZS Associates',
         org: 'Business Technology',
-        role: 'Associate, Business Technology',
+        role: 'Associate, Business Technology (Data Quality Lead)',
         date: 'Jan 2022 - Jun 2024',
         location: 'Gurugram, India · Hybrid',
         summary: 'Two and a half years on healthcare and pharmaceutical commercial data, from pipelines to go-to-market.',
         tags: ['Data engineering', 'Analytics', 'Pharma'],
         highlights: [
-            'Built the back-end processing pipeline on AWS for Geo-Alerts, a first-of-its-kind tool that turned geo-located search data into sales leads for a specialty drug. The tool brought in $500K in new annual client revenue.',
+            'Proposed and co-built Geo-Alerts with a pharma client: a geo-analytics tool that turned de-identified search-demand data into sales leads. It brought in $500K in new annual revenue, and the client adopted it across its other specialty drugs.',
             'Migrated the data science team\'s experimental data from a legacy system to a cloud platform (CDR-SCE) using SAS and Shell.',
             'Diagnosed the root cause of a flawed pipeline producing unreliable client-facing data, then built a proof-of-concept for a re-engineered approach (SQL, Python, Shell) that cut manual QC intervention by 50%. Orchestrated the pipelines in Airflow and Azkaban with severity-based alerting.',
-            'As data quality lead, oversaw three product launches in three months, integrating dispensary, inventory and patient trial data for assets representing 80% of client revenue.',
+            'As data quality lead, coordinated client Sales, Marketing and IT teams across three specialty drug launches in under three months, integrating dispensary, inventory and patient trial data for assets representing 80% of client revenue.',
             'Redesigned the Key Account Manager workflow, turning a manual review of top strategic accounts into an automated pipeline in two weeks and cutting administrative overhead by 90%.',
         ],
         sections: [
@@ -225,7 +245,7 @@ export const experience = [
             },
             {
                 title: 'Geo-Alerts',
-                body: "Geo-Alerts was a first-of-its-kind tool that turned raw, geo-located internet search data into qualified sales leads for a specialty drug. The hard part was integrating masked third-party data securely and turning it into something a sales team could act on.\n\n**My part:** I was on the development team and built the back-end processing pipeline on AWS, the architecture that ingested, cleaned and analyzed the third-party data at scale and turned raw signals into leads.\n\n**What the tool did:** it brought in **$500K in new annual client revenue**, and its success contributed to a **30% increase in RFP win rates** on similar projects. Those are the tool's results, and the team's, not mine alone.",
+                body: "Geo-Alerts was a first-of-its-kind tool that turned raw, geo-located internet search data into qualified sales leads for a specialty drug. The hard part was integrating masked third-party data securely and turning it into something a sales team could act on.\n\n**My part:** I proposed the tool and co-built it with the client. On the build, I owned the back-end processing pipeline on AWS, the architecture that ingested, cleaned and analyzed the de-identified data at scale and turned raw signals into leads.\n\n**What the tool did:** it brought in **$500K in new annual client revenue**, the client adopted it across its other specialty drugs, and its success contributed to a **30% increase in RFP win rates** on similar projects. Those are the tool's results, and the team's, not mine alone.",
             },
             {
                 title: 'Moving to the cloud',
@@ -237,7 +257,7 @@ export const experience = [
             },
             {
                 title: 'Launches and automation',
-                body: "As data quality lead I oversaw **three product launches in three months**, integrating dispensary, inventory and patient trial data for assets representing **80% of client revenue**.\n\nSeparately, I redesigned the Key Account Manager workflow. A manual review of the client's top strategic accounts became an automated pipeline in two weeks, **cutting administrative overhead by 90%**.",
+                body: "As data quality lead I coordinated client Sales, Marketing and IT teams across **three specialty drug launches in under three months**, integrating dispensary, inventory and patient trial data for assets representing **80% of client revenue**.\n\nSeparately, I redesigned the Key Account Manager workflow. A manual review of the client's top strategic accounts became an automated pipeline in two weeks, **cutting administrative overhead by 90%**.",
             },
         ],
         tools: ['Python', 'SQL', 'SAS', 'Shell', 'Airflow', 'Azkaban', 'AWS', 'GCP', 'Hadoop / Hive', 'Tableau', 'Power BI'],
@@ -364,9 +384,11 @@ export const profile = {
     ],
     skills: [
         { group: 'Evaluation & measurement', items: ['LLM-as-judge', 'Comparative judgment', 'Bradley-Terry models', 'Psychometric calibration & IRT', 'Judge reliability & order invariance', 'Safety benchmarks (AgentHarm, StrongREJECT, WMDP, Vending-Bench)', 'Evaluation harness design', 'Human-in-the-loop review'] },
-        { group: 'LLM systems', items: ['RAG', 'Agents & tool use', 'Coding agents', 'On-premise open-model deployment', 'Quantization', 'QLoRA & fine-tuning', 'Model cascades & routing', 'OpenAI API', 'Gemini'] },
+        { group: 'AI delivery & adoption', items: ['Use-case discovery', 'Workflow mapping', 'Requirement gathering', 'Adoption & change management', 'Business cases', 'Executive presentations', 'Prompt & behavior design'] },
+        { group: 'LLM systems', items: ['LangChain', 'REST APIs', 'RAG', 'Agents & tool use', 'Coding agents', 'On-premise open-model deployment', 'Quantization', 'QLoRA & fine-tuning', 'Model cascades & routing', 'OpenAI API', 'Gemini'] },
         { group: 'Front-end', items: ['TypeScript', 'React', 'JavaScript', 'HTML/CSS', 'DataTables', 'WCAG 2.2 AA accessibility', 'Interactive data visualization'] },
         { group: 'Data & policy', items: ['Python', 'SQL', 'R', 'Statistical reporting', 'Multi-source evidence synthesis', 'Cost-effectiveness modeling', 'Policy analysis', 'LMIC & cross-national data'] },
-        { group: 'Business', items: ['Strategy', 'Go-to-market', 'Commercial pharma data', 'Stakeholder management', 'Power BI', 'Tableau'] },
+        { group: 'Business', items: ['Strategy', 'Go-to-market', 'Commercial pharma data', 'Stakeholder management', 'KPI design', 'Power BI', 'Tableau'] },
+        { group: 'Languages', items: ['English', 'Hindi', 'Telugu', 'Kannada'] },
     ],
 };
