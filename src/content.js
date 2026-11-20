@@ -31,12 +31,18 @@ export const site = {
 
 export const thesis = [
     "I build AI tools and get people to actually use them, and I make sure they hold up. That means finding where teams lose time, building the pipelines, running models on hardware you control, measuring whether the output can be trusted, and shipping it to the people who need it.",
-    "Right now that's at the TIMSS & PIRLS International Study Center, the group behind the big international math, science and reading assessments. I moved our LLM workloads onto self-hosted open models, put AI tools into teams' daily workflows, built the evaluation that checks the results, and am rebuilding the results site that puts the data in front of education ministries. Before that, I spent two and a half years at ZS Associates on healthcare and pharmaceutical data.",
+    "Right now that's at the TIMSS & PIRLS International Study Center, the group behind the big international math, science and reading assessments. I moved our LLM workloads onto self-hosted open models and built the evaluation that checks the results. Now I build full-stack AI apps for the teams there, including a translation verification tool for TIMSS 2027, and I'm rebuilding the results site that puts the data in front of education ministries. Before that, I spent two and a half years at ZS Associates on healthcare and pharmaceutical data.",
     "The reason I care is personal. I grew up in India, where who gets good public services and good tools still tracks wealth more than need. I want powerful technology to reach everyone, safely, and in a way that actually works for them.",
 ];
 
-/** "Currently working on". The first two entries use only the owner's approved wording. */
+/** "Currently working on". Post-training and multilingual safety use only the owner's approved wording. */
 export const now = [
+    {
+        title: 'Translation verification app',
+        status: 'In progress',
+        text: 'A full-stack app for the Operations team’s TIMSS 2027 translation verification, replacing manually pasting translations into chatbots and Google Translate. V1 runs on the OpenAI API with React and PostgreSQL; V2 adds local open models on our in-house GPU server.',
+        href: '/experience/iea-ai-evaluation-measurement',
+    },
     {
         title: 'TIMSS & PIRLS results site',
         status: 'Shipped October 2026',
@@ -45,8 +51,8 @@ export const now = [
     },
     {
         title: 'Post-training',
-        status: 'In progress',
-        text: 'Building a three-decade TIMSS item dataset (hundreds of thousands of rows) to post-train an open-source model to predict item IRT parameters. In progress.',
+        status: 'Dataset built',
+        text: 'Standardized three decades of assessment items into one versioned dataset for post-training a model to predict item parameters, and caught an integrity issue before it reached training data.',
     },
     {
         title: 'Multilingual LLM safety',
@@ -71,7 +77,7 @@ export const capabilities = [
     },
     {
         title: 'Get teams to use it',
-        text: 'Found where teams lose time and deployed AI into their workflows, including a locally hosted speech-to-text and paraphrasing engine and a meeting-minutes tool now used across teams. Owned adoption through the initial skepticism.',
+        text: 'Building a full-stack translation app that replaces pasting text into chatbots for TIMSS 2027 translation verification, and deployed a meeting-minutes tool now used across teams. Owned adoption through the initial skepticism.',
         href: '/experience/iea-ai-evaluation-measurement',
         link: 'Current role',
     },
@@ -104,32 +110,37 @@ export const experience = [
         group: 'timss-pirls',
         company: 'TIMSS & PIRLS International Study Center',
         org: 'IEA · Boston College',
-        role: 'Technical Dev/Consultant, AI Evaluation & Measurement',
+        role: 'Technical Dev/Consultant (AI)',
         date: 'Jun 2026 - Present',
         location: 'Boston, MA · Hybrid',
-        summary: 'Deploying AI into team workflows, running the LLM-judge research, and rebuilding the international results site.',
-        tags: ['AI adoption', 'LLM evaluation', 'Front-end', 'Accessibility'],
+        summary: 'Building full-stack AI apps for internal teams, running LLM-as-judge evaluations, and rebuilding the international results site.',
+        tags: ['Full-stack AI apps', 'AI adoption', 'LLM evaluation', 'Front-end', 'Accessibility'],
         highlights: [
-            'Find where teams lose time and deploy AI into their workflows, including a locally hosted speech-to-text and paraphrasing engine and a meeting-minutes tool now used across teams. Owned adoption through initial skepticism.',
-            'Iterated LLM judge prompts across versions (metadata, few-shot calibration), using performance data to find where accuracy improved and where it did not. The research found that a more consistent model is not necessarily a more accurate one.',
+            'Building a full-stack translation and comparison web app for the Operations team’s TIMSS 2027 translation verification, replacing manually pasting translations into chatbots and Google Translate. V1 runs on the OpenAI API with React, and PostgreSQL logs outputs and token and spend metrics; V2 adds local open models on our in-house GPU server.',
+            'Design and run LLM-as-judge evaluations of test items. Iterated judge prompts across versions (metadata, few-shot calibration) and ran error analysis showing the gains concentrated on easy comparisons, not near-ties: a more consistent judge is not necessarily a more accurate one.',
+            'Deployed internal AI tools, including a meeting-minutes tool now used across teams, and owned adoption through the initial skepticism.',
+            'Standardized three decades of assessment items into one versioned dataset for post-training a model to predict item parameters, and caught an integrity issue before it reached training data.',
             'Run parallel workstreams with our PI and directors: two paper submissions, a post-training dataset and the reporting-site rebuild.',
-            'Rebuilding the international results site in React and TypeScript; the first parts shipped through three pull requests in October 2026.',
+            'Rebuilding the international results site in React and TypeScript for education ministries and researchers; the first parts shipped through three pull requests in October 2026.',
             'Designed a new report landing page with clean, shareable addresses for all 7 report sections and their 27 sub-pages, plus animated headline graphics that present results without ranking countries.',
             'Brought the main pages in line with WCAG 2.2 AA accessibility. Automated checks went from about 110 errors to zero on the pages audited, and the interactive charts now work fully by keyboard and screen reader.',
             "Made the headline exhibits usable on phones. At phone width the charts had been squeezed to a few pixels wide; they're now full width, with no sideways scrolling.",
             'Replaced 17 hand-copied tab interfaces with one accessible shared component used across 24 exhibit pages.',
-            'Building a three-decade TIMSS item dataset (hundreds of thousands of rows) to post-train an open-source model to predict item IRT parameters. In progress.',
             'Own the research program applying LLM comparative judgment and psychometric calibration to item-difficulty estimation. Two papers so far: one under review, one being revised for resubmission.',
             'Migrated internal AI tooling to open-source models hosted on-premise to meet EU GDPR data-residency requirements.',
         ],
         sections: [
             {
                 title: 'The role',
-                body: "I moved into this role in June 2026, after nine months as an AI engineer on the same team. It has two halves. One is the front end of the international results site, the place ministries, researchers and journalists actually read TIMSS and PIRLS results. The other is research on whether a language model can be trusted as a measuring instrument.",
+                body: "I moved into this role in June 2026, after nine months as an AI engineer on the same team. The work has three parts. One is building AI tools that the center's own teams use. Another is the front end of the international results site, the place ministries, researchers and journalists actually read TIMSS and PIRLS results. The third is research on whether a language model can be trusted as a measuring instrument.",
+            },
+            {
+                title: 'A translation verification app',
+                body: "The Operations team verifies translations for TIMSS 2027, and that used to mean manually pasting text into chatbots and Google Translate. I'm building a **full-stack translation and comparison web app** to replace it.\n\n**V1** runs on the OpenAI API with a React front end, and PostgreSQL logs every output along with **token and spend metrics**. **V2** adds local open models on our in-house GPU server.",
             },
             {
                 title: 'Getting AI into daily work',
-                body: "Most of the value of AI inside an organization is decided by whether people use it. I look for where teams lose time, then build for that: a **locally hosted speech-to-text and paraphrasing engine**, and a **meeting-minutes tool now used across teams**. Running them locally keeps the data in-house. Neither was welcomed on day one, so I owned adoption through the initial skepticism, which mostly meant fixing what people actually complained about.",
+                body: "Most of the value of AI inside an organization is decided by whether people use it. Alongside the translation app, I deployed internal AI tools, including a **meeting-minutes tool now used across teams**. It was not welcomed on day one, so I owned adoption through the initial skepticism, which mostly meant fixing what people actually complained about.",
             },
             {
                 title: 'Rebuilding the results site',
@@ -141,14 +152,18 @@ export const experience = [
             },
             {
                 title: 'The research program',
-                body: "I own the research applying LLM comparative judgment and psychometric calibration to item-difficulty estimation. Getting a model to rank test questions is easy. The interesting part is working out when the ranking means something: judge reliability, extrapolation limits, and the cases where an estimate looks confident and should not be trusted. Two papers have come out of it so far: one is under review, and the other is being revised for resubmission.",
+                body: "I own the research applying LLM comparative judgment and psychometric calibration to item-difficulty estimation. Getting a model to rank test questions is easy. The interesting part is working out when the ranking means something: judge reliability, extrapolation limits, and the cases where an estimate looks confident and should not be trusted.\n\nI design and run the LLM-as-judge evaluations: iterating judge prompts across versions (metadata, few-shot calibration), then running error analysis on where the gains land. They concentrated on easy comparisons, not near-ties, which is how we found that **a more consistent judge is not necessarily a more accurate one**. Two papers have come out of it so far: one is under review, and the other is being revised for resubmission.",
+            },
+            {
+                title: 'A dataset for post-training',
+                body: "I standardized **three decades of assessment items** into one versioned dataset for post-training a model to predict item parameters, and caught an integrity issue before it reached training data.",
             },
             {
                 title: 'Data residency',
                 body: "I migrated our internal AI tooling to open-source models hosted on-premise, because **EU GDPR data-residency requirements** mean some of this data cannot leave its jurisdiction.",
             },
         ],
-        tools: ['Speech-to-text', 'Workflow mapping', 'Adoption & change management', 'TypeScript', 'React', 'JavaScript', 'HTML/CSS', 'DataTables', 'WCAG 2.2 AA', 'Accessible components', 'Python', 'SQL', 'LLM-as-judge', 'Comparative judgment', 'Bradley-Terry models', 'Psychometric calibration', 'IRT', 'Open-weight LLMs', 'On-premise deployment'],
+        tools: ['Full-stack web apps', 'PostgreSQL', 'OpenAI API', 'Local open models', 'Workflow mapping', 'Adoption & change management', 'TypeScript', 'React', 'JavaScript', 'HTML/CSS', 'DataTables', 'WCAG 2.2 AA', 'Accessible components', 'Python', 'SQL', 'LLM-as-judge', 'Comparative judgment', 'Bradley-Terry models', 'Psychometric calibration', 'IRT', 'Open-weight LLMs', 'On-premise deployment'],
     },
     {
         slug: 'iea-ai-engineer',
@@ -234,8 +249,8 @@ export const experience = [
         highlights: [
             'Proposed and co-built Geo-Alerts with a pharma client: a geo-analytics tool that turned de-identified search-demand data into sales leads. It brought in $500K in new annual revenue, and the client adopted it across its other specialty drugs.',
             'Migrated the data science team\'s experimental data from a legacy system to a cloud platform (CDR-SCE) using SAS and Shell.',
-            'Diagnosed the root cause of a flawed pipeline producing unreliable client-facing data, then built a proof-of-concept for a re-engineered approach (SQL, Python, Shell) that cut manual QC intervention by 50%. Orchestrated the pipelines in Airflow and Azkaban with severity-based alerting.',
-            'As data quality lead, coordinated client Sales, Marketing and IT teams across three specialty drug launches in under three months, integrating dispensary, inventory and patient trial data for assets representing 80% of client revenue.',
+            'Diagnosed the root cause of a flawed pipeline producing unreliable client-facing data, then built a proof-of-concept for a re-engineered approach (SQL, Python, Shell) that cut manual QC intervention by 50%. Orchestrated the pipelines in Airflow and Azkaban, with monitoring that paused workflows and alerted the team on severe failures.',
+            'As data quality lead, worked directly with client Sales, Marketing and IT teams across three specialty drug launches in under three months, resolving data issues ahead of go-to-market and integrating dispensary, inventory and patient trial data for assets representing 80% of client revenue.',
             'Redesigned the Key Account Manager workflow, turning a manual review of top strategic accounts into an automated pipeline in two weeks and cutting administrative overhead by 90%.',
         ],
         sections: [
@@ -253,11 +268,11 @@ export const experience = [
             },
             {
                 title: 'Fixing a broken pipeline',
-                body: "A pipeline tracking patient-level specialty drug data was producing unreliable client-facing numbers. I traced the flawed logic to its root, then built a proof-of-concept for a re-engineered approach in SQL, Python and Shell. It **cut manual QC intervention by 50%** and restored the data's integrity. I orchestrated the pipelines in **Airflow and Azkaban**, with alerting tiered by severity so real failures stood out from noise.",
+                body: "A pipeline tracking patient-level specialty drug data was producing unreliable client-facing numbers. I traced the flawed logic to its root, then built a proof-of-concept for a re-engineered approach in SQL, Python and Shell. It **cut manual QC intervention by 50%** and restored the data's integrity. I orchestrated the pipelines in **Airflow and Azkaban**, with monitoring tiered by severity: severe failures paused the workflow and alerted the team, so real problems stood out from noise.",
             },
             {
                 title: 'Launches and automation',
-                body: "As data quality lead I coordinated client Sales, Marketing and IT teams across **three specialty drug launches in under three months**, integrating dispensary, inventory and patient trial data for assets representing **80% of client revenue**.\n\nSeparately, I redesigned the Key Account Manager workflow. A manual review of the client's top strategic accounts became an automated pipeline in two weeks, **cutting administrative overhead by 90%**.",
+                body: "As data quality lead I worked directly with client Sales, Marketing and IT teams across **three specialty drug launches in under three months**, resolving data issues ahead of go-to-market and integrating dispensary, inventory and patient trial data for assets representing **80% of client revenue**.\n\nSeparately, I redesigned the Key Account Manager workflow. A manual review of the client's top strategic accounts became an automated pipeline in two weeks, **cutting administrative overhead by 90%**.",
             },
         ],
         tools: ['Python', 'SQL', 'SAS', 'Shell', 'Airflow', 'Azkaban', 'AWS', 'GCP', 'Hadoop / Hive', 'Tableau', 'Power BI'],
@@ -345,20 +360,20 @@ export const research = [
     {
         slug: 'post-training',
         group: 'In progress',
-        title: 'Post-training an open model on TIMSS items',
+        title: 'Post-training a model on TIMSS items',
         short: 'Post-training on TIMSS items',
         meta: 'Dataset / IRT prediction',
         venue: '',
-        status: 'Ongoing',
+        status: 'Dataset built',
         year: '',
-        summary: 'Building a three-decade TIMSS item dataset (hundreds of thousands of rows) to post-train an open-source model to predict item IRT parameters.',
+        summary: 'Standardized three decades of assessment items into one versioned dataset for post-training a model to predict item parameters, and caught an integrity issue before it reached training data.',
         figure: { chart: 'pending' },
     },
 ];
 
 export const profile = {
     about: [
-        "I trained as an electrical engineer at Shiv Nadar University, spent two and a half years at ZS Associates on healthcare and pharmaceutical data, then did an MBA at Boston College on the STEM track. Since September 2025 I've been at the TIMSS & PIRLS International Study Center, first as an AI engineer and now as a technical consultant on AI evaluation and measurement.",
+        "I trained as an electrical engineer at Shiv Nadar University, spent two and a half years at ZS Associates on healthcare and pharmaceutical data, then did an MBA at Boston College on the STEM track. Since September 2025 I've been at the TIMSS & PIRLS International Study Center, first as an AI engineer and now as a technical developer and consultant, building AI tools, evaluations and the international results site.",
         "Outside work I read about economics, regulation, policy, ethics and behavioral psychology. I cook a lot, run, boulder, hike and game, and I'm working on becoming a hybrid athlete (still a fair way off). I also follow F1, cricket and Chelsea more closely than is good for me.",
     ],
     ea: {
@@ -384,10 +399,10 @@ export const profile = {
     ],
     skills: [
         { group: 'Evaluation & measurement', items: ['LLM-as-judge', 'Comparative judgment', 'Bradley-Terry models', 'Psychometric calibration & IRT', 'Judge reliability & order invariance', 'Safety benchmarks (AgentHarm, StrongREJECT, WMDP, Vending-Bench)', 'Evaluation harness design', 'Human-in-the-loop review'] },
-        { group: 'AI delivery & adoption', items: ['Use-case discovery', 'Workflow mapping', 'Requirement gathering', 'Adoption & change management', 'Business cases', 'Executive presentations', 'Prompt & behavior design'] },
-        { group: 'LLM systems', items: ['LangChain', 'REST APIs', 'RAG', 'Agents & tool use', 'Coding agents', 'On-premise open-model deployment', 'Quantization', 'QLoRA & fine-tuning', 'Model cascades & routing', 'OpenAI API', 'Gemini'] },
+        { group: 'AI delivery & adoption', items: ['Use-case discovery', 'Workflow mapping', 'Requirement gathering', 'Adoption & change management', 'Business cases', 'Executive presentations', 'Prompt & behavior design', 'AI governance (GDPR)'] },
+        { group: 'LLM systems', items: ['Full-stack AI apps', 'LangChain', 'REST APIs', 'RAG', 'Agents & tool use', 'Coding agents', 'On-premise open-model deployment', 'Quantization', 'QLoRA & fine-tuning', 'Model cascades & routing', 'OpenAI API', 'Gemini'] },
         { group: 'Front-end', items: ['TypeScript', 'React', 'JavaScript', 'HTML/CSS', 'DataTables', 'WCAG 2.2 AA accessibility', 'Interactive data visualization'] },
-        { group: 'Data & policy', items: ['Python', 'SQL', 'R', 'Statistical reporting', 'Multi-source evidence synthesis', 'Cost-effectiveness modeling', 'Policy analysis', 'LMIC & cross-national data'] },
+        { group: 'Data & policy', items: ['Python', 'SQL', 'PostgreSQL', 'R', 'Statistical reporting', 'Multi-source evidence synthesis', 'Cost-effectiveness modeling', 'Policy analysis', 'LMIC & cross-national data'] },
         { group: 'Business', items: ['Strategy', 'Go-to-market', 'Commercial pharma data', 'Stakeholder management', 'KPI design', 'Power BI', 'Tableau'] },
         { group: 'Languages', items: ['English', 'Hindi', 'Telugu', 'Kannada'] },
     ],

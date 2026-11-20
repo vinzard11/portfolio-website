@@ -29,7 +29,7 @@ export const staticRoutes = [
         path: '/experience',
         page: 'experience',
         title: `Experience | ${NAME}`,
-        description: 'AI evaluation and front-end engineering at the TIMSS & PIRLS International Study Center, data analysis at Boston College, and commercial pharma data at ZS Associates.',
+        description: 'AI tools, evaluation and front-end engineering at the TIMSS & PIRLS International Study Center, data analysis at Boston College, and commercial pharma data at ZS Associates.',
         render: pages.experienceIndex,
     },
     {
