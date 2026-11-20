@@ -253,7 +253,7 @@ export function experienceIndex() {
         <section class="after-panels">
             <h2 class="section-label">Education</h2>
             <ul class="edu-list">${profile.education.map(eduItem).join('')}</ul>
-            <p class="after-links"><a href="${site.resume}" target="_blank" rel="noopener">Résumé (PDF)</a><a href="/profile">Skills and effective altruism</a></p>
+            <p class="after-links"><a href="${site.resume}" target="_blank" rel="noopener">Résumé (PDF)</a><a href="/profile">About, MBA and skills</a></p>
         </section>
         ${footer()}`;
 }
@@ -344,7 +344,7 @@ export function projectDetail(item) {
 
 export function profilePage() {
     const sections = [
-        ['about', 'About'], ['effective-altruism', 'Effective altruism'], ['now', 'Now'],
+        ['about', 'About'], ['why-mba', 'Why an MBA'], ['now', 'Now'],
         ['volunteering', 'Volunteering'], ['education', 'Education'], ['skills', 'Skills'], ['contact', 'Contact'],
     ];
     return `
@@ -362,13 +362,11 @@ export function profilePage() {
                     ${thesis.map((p, i) => `<p${i === 0 ? ' class="lede"' : ''}>${p}</p>`).join('')}
                     ${profile.about.map((p) => `<p>${p}</p>`).join('')}
                 </section>
-                <section id="effective-altruism" class="ea" aria-labelledby="ea-h">
-                    <h2 class="ea-title" id="ea-h">Effective altruism</h2>
-                    <p class="ea-lede lede">${profile.ea.lede}</p>
-                    ${profile.ea.body.map((p) => `<p>${p}</p>`).join('')}
-                    <ul class="ledger ea-ledger">
-                        ${profile.ea.involvement.map((c) => `<li><span class="lg-main">${c.href ? `<a href="${c.href}">${c.name}</a>` : c.name}</span><span class="lg-what">${c.what}</span><span class="lg-where">${c.where}</span></li>`).join('')}
-                    </ul>
+                <section id="why-mba">
+                    <h2 class="section-label">Why an MBA</h2>
+                    <p class="lede">${profile.mba.lede}</p>
+                    ${profile.mba.body.map((p) => `<p>${p}</p>`).join('')}
+                    <p class="doc-links"><a href="${profile.mba.link.href}">${profile.mba.link.label}</a></p>
                 </section>
                 <section id="now">
                     <h2 class="section-label">Now</h2>

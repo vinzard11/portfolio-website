@@ -611,17 +611,6 @@ a.row:focus-visible { outline-offset: -2px; border-radius: 0; }
 .contact-line { font: italic 400 var(--t-2xl)/1.2 var(--f-display); }
 .contact-line a { display: inline-block; padding-block: 8px; }
 
-/* Effective altruism: set apart from the rest of the profile on purpose */
-.ea {
-    padding: clamp(24px, 4vw, 44px);
-    border: 1.5px solid var(--ink); border-radius: 16px;
-    background: color-mix(in srgb, var(--paper-2) 70%, transparent);
-}
-.ea-title { font: italic 400 var(--t-3xl)/1 var(--f-display); letter-spacing: -0.015em; }
-.ea-lede { max-width: 34ch; }
-.ea-ledger { margin-top: 8px; }
-.ea-ledger a { display: inline-block; padding-block: 6px; margin-block: -6px; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
-.ea-ledger a:hover { color: var(--red); }
 .home-copy a, .prose p a { text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 4px; }
 .home-copy a:hover, .prose p a:hover { color: var(--red); }
 

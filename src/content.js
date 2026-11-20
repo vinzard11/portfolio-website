@@ -40,7 +40,7 @@ export const now = [
     {
         title: 'Translation verification app',
         status: 'In progress',
-        text: 'A full-stack app for the Operations team’s TIMSS 2027 translation verification, replacing manually pasting translations into chatbots and Google Translate. V1 runs on the OpenAI API with React and PostgreSQL; V2 adds local open models on our in-house GPU server.',
+        text: 'A full-stack app for the Operations team’s TIMSS 2027 translation verification, replacing manually pasting translations into chatbots and Google Translate. I ran the product interviews and built it end to end, and I’ll demonstrate how to use it in the coming weeks.',
         href: '/experience/iea-ai-evaluation-measurement',
     },
     {
@@ -77,7 +77,7 @@ export const capabilities = [
     },
     {
         title: 'Get teams to use it',
-        text: 'Building a full-stack translation app that replaces pasting text into chatbots for TIMSS 2027 translation verification, and deployed a meeting-minutes tool now used across teams. Owned adoption through the initial skepticism.',
+        text: 'Ran product interviews and am building a full-stack translation app that replaces pasting text into chatbots for TIMSS 2027 translation verification. Deployed a meeting-minutes tool now used across teams, and owned adoption through the initial skepticism.',
         href: '/experience/iea-ai-evaluation-measurement',
         link: 'Current role',
     },
@@ -116,7 +116,7 @@ export const experience = [
         summary: 'Building full-stack AI apps for internal teams, running LLM-as-judge evaluations, and rebuilding the international results site.',
         tags: ['Full-stack AI apps', 'AI adoption', 'LLM evaluation', 'Front-end', 'Accessibility'],
         highlights: [
-            'Building a full-stack translation and comparison web app for the Operations team’s TIMSS 2027 translation verification, replacing manually pasting translations into chatbots and Google Translate. V1 runs on the OpenAI API with React, and PostgreSQL logs outputs and token and spend metrics; V2 adds local open models on our in-house GPU server.',
+            'Building a full-stack translation and comparison web app for the Operations team’s TIMSS 2027 translation verification, replacing manually pasting translations into chatbots and Google Translate. I ran the product interviews and built it end to end. V1 runs on the OpenAI API with React, and PostgreSQL logs outputs and token and spend metrics; V2 adds local open models on our in-house GPU server. A demonstration for the team is planned for the coming weeks.',
             'Design and run LLM-as-judge evaluations of test items. Iterated judge prompts across versions (metadata, few-shot calibration) and ran error analysis showing the gains concentrated on easy comparisons, not near-ties: a more consistent judge is not necessarily a more accurate one.',
             'Deployed internal AI tools, including a meeting-minutes tool now used across teams, and owned adoption through the initial skepticism.',
             'Standardized three decades of assessment items into one versioned dataset for post-training a model to predict item parameters, and caught an integrity issue before it reached training data.',
@@ -136,7 +136,7 @@ export const experience = [
             },
             {
                 title: 'A translation verification app',
-                body: "The Operations team verifies translations for TIMSS 2027, and that used to mean manually pasting text into chatbots and Google Translate. I'm building a **full-stack translation and comparison web app** to replace it.\n\n**V1** runs on the OpenAI API with a React front end, and PostgreSQL logs every output along with **token and spend metrics**. **V2** adds local open models on our in-house GPU server.",
+                body: "The Operations team verifies translations for TIMSS 2027, and that used to mean manually pasting text into chatbots and Google Translate. I'm building a **full-stack translation and comparison web app** to replace it, end to end.\n\nIt started with **product interviews** I ran with the people who will use it, to learn how verification actually works day to day and where the time goes. That shaped what the app does, before any code was written.\n\n**V1** runs on the OpenAI API with a React front end, and PostgreSQL logs every output along with **token and spend metrics**. **V2** adds local open models on our in-house GPU server.\n\nIn the coming weeks I'll run a **demonstration** for the team on how to use it, the start of getting it into their daily work.",
             },
             {
                 title: 'Getting AI into daily work',
@@ -163,7 +163,7 @@ export const experience = [
                 body: "I migrated our internal AI tooling to open-source models hosted on-premise, because **EU GDPR data-residency requirements** mean some of this data cannot leave its jurisdiction.",
             },
         ],
-        tools: ['Full-stack web apps', 'PostgreSQL', 'OpenAI API', 'Local open models', 'Workflow mapping', 'Adoption & change management', 'TypeScript', 'React', 'JavaScript', 'HTML/CSS', 'DataTables', 'WCAG 2.2 AA', 'Accessible components', 'Python', 'SQL', 'LLM-as-judge', 'Comparative judgment', 'Bradley-Terry models', 'Psychometric calibration', 'IRT', 'Open-weight LLMs', 'On-premise deployment'],
+        tools: ['Full-stack web apps', 'Product interviews', 'PostgreSQL', 'OpenAI API', 'Local open models', 'Workflow mapping', 'Adoption & change management', 'TypeScript', 'React', 'JavaScript', 'HTML/CSS', 'DataTables', 'WCAG 2.2 AA', 'Accessible components', 'Python', 'SQL', 'LLM-as-judge', 'Comparative judgment', 'Bradley-Terry models', 'Psychometric calibration', 'IRT', 'Open-weight LLMs', 'On-premise deployment'],
     },
     {
         slug: 'iea-ai-engineer',
@@ -376,19 +376,17 @@ export const profile = {
         "I trained as an electrical engineer at Shiv Nadar University, spent two and a half years at ZS Associates on healthcare and pharmaceutical data, then did an MBA at Boston College on the STEM track. Since September 2025 I've been at the TIMSS & PIRLS International Study Center, first as an AI engineer and now as a technical developer and consultant, building AI tools, evaluations and the international results site.",
         "Outside work I read about economics, regulation, policy, ethics and behavioral psychology. I cook a lot, run, boulder, hike and game, and I'm working on becoming a hybrid athlete (still a fair way off). I also follow F1, cricket and Chelsea more closely than is good for me.",
     ],
-    ea: {
-        lede: "I'm part of the effective altruism community, and it shapes what I work on.",
+    mba: {
+        lede: 'The MBA taught me to start with people, not the technology.',
         body: [
-            "EA asks the questions I already cared about: which interventions actually reach people, what they cost per person helped, and how to make powerful technology safe before it is everywhere.",
-            "My measurement work comes from the same place. If we cannot tell whether a model is right, we cannot tell whether it is helping anyone.",
+            "I came to business school as an engineer who thought mostly in systems and data. Case discussions, team projects and work with real clients made me far more social, and they changed the first question I ask. Before what to build, I want to know what is actually slowing someone down, what they have already tried, and what they would need to trust something new.",
+            "That is where it adds value in my work now. AI tools succeed or fail on whether they fit how people really work. So I start with interviews and workflows before code, as I did with the product interviews for the translation app, and I stay on through adoption instead of handing a tool over and walking away.",
+            "It also makes me more versatile. Roles that sit between people and technology, like product management and solutions architecture, depend on understanding a user's pain and a client's constraints as much as the stack. I can work both sides: run the interviews and scope the problem, then design and build the thing that solves it.",
         ],
-        involvement: [
-            { name: 'EA Global: NYC 2026', where: 'New York, NY', what: 'Attendee and volunteer' },
-            { name: 'Lens Academy', where: 'Online', what: 'AI Risk Fundamentals and Compute Verification' },
-            { name: 'Independent AI safety research', where: 'Boston, MA', what: 'Safety evaluations and research', href: '/research' },
-        ],
+        link: { label: 'MBA projects', href: '/projects' },
     },
     volunteering: [
+        { name: 'EA Global: NYC 2026', where: 'New York, NY', what: 'Attendee and volunteer' },
         { name: 'Gifford Cat Shelter', where: 'Brighton, MA', what: 'Volunteer, every weekend' },
         { name: 'Haley House', where: 'Boston, MA', what: 'Soup kitchen volunteer, previously' },
         { name: 'Cradles to Crayons', where: 'Boston, MA', what: 'Volunteer, previously' },
@@ -399,7 +397,7 @@ export const profile = {
     ],
     skills: [
         { group: 'Evaluation & measurement', items: ['LLM-as-judge', 'Comparative judgment', 'Bradley-Terry models', 'Psychometric calibration & IRT', 'Judge reliability & order invariance', 'Safety benchmarks (AgentHarm, StrongREJECT, WMDP, Vending-Bench)', 'Evaluation harness design', 'Human-in-the-loop review'] },
-        { group: 'AI delivery & adoption', items: ['Use-case discovery', 'Workflow mapping', 'Requirement gathering', 'Adoption & change management', 'Business cases', 'Executive presentations', 'Prompt & behavior design', 'AI governance (GDPR)'] },
+        { group: 'AI delivery & adoption', items: ['Use-case discovery', 'Product interviews', 'Workflow mapping', 'Requirement gathering', 'Adoption & change management', 'Business cases', 'Executive presentations', 'Prompt & behavior design', 'AI governance (GDPR)'] },
         { group: 'LLM systems', items: ['Full-stack AI apps', 'LangChain', 'REST APIs', 'RAG', 'Agents & tool use', 'Coding agents', 'On-premise open-model deployment', 'Quantization', 'QLoRA & fine-tuning', 'Model cascades & routing', 'OpenAI API', 'Gemini'] },
         { group: 'Front-end', items: ['TypeScript', 'React', 'JavaScript', 'HTML/CSS', 'DataTables', 'WCAG 2.2 AA accessibility', 'Interactive data visualization'] },
         { group: 'Data & policy', items: ['Python', 'SQL', 'PostgreSQL', 'R', 'Statistical reporting', 'Multi-source evidence synthesis', 'Cost-effectiveness modeling', 'Policy analysis', 'LMIC & cross-national data'] },

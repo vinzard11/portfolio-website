@@ -43,7 +43,7 @@ export const staticRoutes = [
         path: '/profile',
         page: 'profile',
         title: `Profile | ${NAME}`,
-        description: 'About Vinith Ayapilla: background, the effective altruism community, current work, volunteering, education and skills.',
+        description: 'About Vinith Ayapilla: background, why an MBA and where it adds value, current work, volunteering, education and skills.',
         render: pages.profilePage,
     },
 ];
